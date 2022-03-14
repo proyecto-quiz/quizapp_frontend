@@ -16,13 +16,6 @@ const routes = [
     name: 'Temas',
     component: () => import('@/views/TemasView.vue'),
   },
-
-  {
-    path: '/temas',
-    name: 'Temas',
-    component: () => import('@/views/TemasView.vue'),
-  },
-
   {
     path: '/profile',
     name: 'Profile',
