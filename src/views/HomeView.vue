@@ -1,5 +1,8 @@
 <script setup>
+import { useAppStore } from '@/stores';
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
+
+const store = useAppStore();
 </script>
 
 <template>
@@ -12,5 +15,26 @@ import LayoutDefault from '@/layouts/LayoutDefault.vue';
     >
       Temas
     </router-link>
+
+    <h1 v-if="store.isLoggedIn">
+      <pre>
+        {{ store.user }}
+      </pre>
+    </h1>
+
+    <button
+      v-if="store.isLoggedIn"
+      class="inline-block rounded-sm bg-rose-600/80 px-3 py-2"
+      @click="store.$reset"
+    >
+      Sign Out
+    </button>
+    <button
+      v-else
+      class="inline-block rounded-sm bg-green-600/80 px-3 py-2"
+      @click="store.setUserAction"
+    >
+      Sign In
+    </button>
   </LayoutDefault>
 </template>

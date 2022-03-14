@@ -1,9 +1,12 @@
 import { createApp } from 'vue';
 import router from '@/routers';
+import { createPinia } from 'pinia';
 
 import QuizApp from '@/QuizApp.vue';
 
 // css
 import '@/styles/main.css';
 
-createApp(QuizApp).use(router).mount('#quiz-app', true);
+const piniaStore = createPinia();
+
+createApp(QuizApp).use(piniaStore).use(router).mount('#quiz-app', true);
