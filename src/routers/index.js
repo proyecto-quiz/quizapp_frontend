@@ -5,6 +5,15 @@ const routes = [
   {
     path: '/',
     component: () => import('@/views/HomeView.vue'),
+    name: 'Home',
+    meta: {
+      isGuest: true,
+    },
+  },
+  {
+    path: '/temas',
+    component: () => import('@/views/TemasView.vue'),
+    name: 'Temas',
   },
 ];
 

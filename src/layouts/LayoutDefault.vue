@@ -1,5 +1,26 @@
+<script setup>
+import { onMounted } from 'vue';
+import NavBar from '@/components/NavBar.vue';
+
+const props = defineProps({
+  title: {
+    type: String,
+    default: 'Inicio',
+  },
+  class: {
+    type: String,
+    default: '',
+  },
+});
+
+onMounted(() => {
+  window.document.title = `Quiz - ${props.title}`;
+});
+</script>
+
 <template>
-  <div class="container">
-    <slot name="layout-default" />
-  </div>
+  <NavBar />
+  <main :class="['container', props.class]">
+    <slot />
+  </main>
 </template>

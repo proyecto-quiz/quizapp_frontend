@@ -1,16 +1,19 @@
 <script setup>
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
+import { defineComponent } from 'vue';
+defineComponent({
+  name: 'TemasView',
+});
 </script>
 
 <template>
-  <LayoutDefault>
-    <h1 class="text-5xl">Home View</h1>
+  <LayoutDefault title="Temas">
+    <h1>Temas View</h1>
     <router-link
-      :to="{ name: 'Temas' }"
+      :to="{ name: 'Home' }"
       class="m-3 rounded bg-amber-400 px-3 py-2 text-center shadow outline-none"
-      type="button"
     >
-      Temas
+      Inicio
     </router-link>
   </LayoutDefault>
 </template>

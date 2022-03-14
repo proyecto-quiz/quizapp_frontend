@@ -11,6 +11,7 @@
     "moduleResolution": "Node",
     "strict": true,
     "target": "ESNext",
+    "jsx": "preserve",
     "paths": {
       "@/*": ["./src/*"],
       "~/*": ["./src/*"],
