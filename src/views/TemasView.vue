@@ -1,9 +1,5 @@
 <script setup>
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
-import { defineComponent } from 'vue';
-defineComponent({
-  name: 'TemasView',
-});
 </script>
 
 <template>

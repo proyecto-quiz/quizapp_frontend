@@ -1,8 +1,5 @@
 /** @type{import("postcss").Postcss} */
 const postCssConfig = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
+  plugins: { 'postcss-import': {}, tailwindcss: {}, autoprefixer: {} },
 };
 module.exports = postCssConfig;
