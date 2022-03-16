@@ -2,16 +2,12 @@
 import { onMounted } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 
-const props = defineProps({
-  title: {
-    type: String,
-    default: 'Inicio',
-  },
-  class: {
-    type: String,
-    default: '',
-  },
-});
+type Props = {
+  title?: string;
+  class?: string;
+};
+
+const props = defineProps<Props>();
 
 onMounted(() => {
   window.document.title = `Quiz - ${props.title}`;

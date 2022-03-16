@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "allowJs": true,
+    "moduleResolution": "Node",
+    "types": ["vite/client"],
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "importHelpers": true,
@@ -10,10 +11,8 @@
     "isolatedModules": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
     "module": "ESNext",
-    "moduleResolution": "Node",
     "strict": true,
     "jsx": "preserve",
-    "types": ["vite/client"],
     "paths": {
       "@/*": ["./src/*"],
       "~/*": ["./src/*"],
