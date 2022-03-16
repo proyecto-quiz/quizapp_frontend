@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia';
 
-export const useAppStore = defineStore('app-store', {
+type AppStateType = {
+  user: null;
+  token?: string;
+  isLoggedIn: boolean | false;
+};
+
+export const useAppStore = defineStore<'app-store', AppStateType>('app-store', {
   state: () => ({
     user: null,
     token: '',

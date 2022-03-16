@@ -11,7 +11,7 @@
     "defineExpose": "readonly",
     "withDefaults": "readonly"
   },
-  "extends": ["eslint:recommended", "plugin:vue/vue3-recommended"],
+  "extends": ["plugin:vue/vue3-recommended", "eslint:recommended", "@vue/typescript/recommended"],
   "parser": "vue-eslint-parser",
   "parserOptions": {
     "ecmaVersion": "latest",

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useDarkTheme } from '@/composables';
 import { useAppStore } from '@/stores';
 

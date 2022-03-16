@@ -8,6 +8,7 @@ export default defineConfig({
   server: {
     port: 7880,
   },
+
   resolve: {
     alias: {
       '~~': './',

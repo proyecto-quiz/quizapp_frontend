@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useAppStore } from '@/stores';
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
 

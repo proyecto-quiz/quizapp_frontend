@@ -13,7 +13,6 @@ export function changeThemeStorage() {
 
 export function useDarkTheme() {
   const isDark = ref(false);
-
   const handleThemeChange = () => {
     changeThemeStorage();
     isDark.value = !isDark.value;

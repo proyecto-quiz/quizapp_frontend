@@ -1,8 +1,7 @@
 import { useAppStore } from '@/stores';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-/** @type{import("vue-router").RouteRecordRaw[]} */
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Home',
