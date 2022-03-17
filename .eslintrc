@@ -1,5 +1,6 @@
 {
   "env": {
+    "node": true,
     "browser": true,
     "es2021": true,
     "vue/setup-compiler-macros": true
@@ -10,7 +11,11 @@
     "defineExpose": "readonly",
     "withDefaults": "readonly"
   },
-  "extends": ["plugin:vue/vue3-recommended", "eslint:recommended", "@vue/typescript/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended",
+    "@vue/eslint-config-typescript/recommended"
+  ],
   "parser": "vue-eslint-parser",
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -25,7 +30,6 @@
         "argsIgnorePattern": "^_"
       }
     ],
-
     "vue/no-multiple-template-root": "off",
     "vue/html-self-closing": [
       "off",

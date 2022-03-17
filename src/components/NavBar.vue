@@ -16,7 +16,7 @@ const store = useAppStore();
       <router-link v-if="store.isLoggedIn" :to="{ name: 'Profile' }" active-class="text-amber-500">
         My profile
       </router-link>
-      <button @click="theme.handleThemeChange()">Change Theme</button>
+      <button @click="theme.handleThemeChange">Change Theme</button>
     </nav>
   </header>
 </template>
