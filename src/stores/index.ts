@@ -11,7 +11,7 @@ type ActionsType = {
 };
 
 type GettersType = {
-  getUser(state: StoreState<StateType>): StateType['user'];
+  getUser(_state: StoreState<StateType>): StateType['user'];
 };
 
 export const useAppStore = defineStore<'app-store', StateType, GettersType, ActionsType>(

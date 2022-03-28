@@ -1,7 +1,7 @@
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 export function changeThemeStorage() {
-  let inDark = document.documentElement.classList.contains('dark');
+  const inDark = document.documentElement.classList.contains('dark');
   if (inDark) {
     localStorage.setItem('theme', '');
     document.documentElement.classList.remove('dark');
@@ -32,5 +32,5 @@ export function useDarkTheme() {
     }
   });
 
-  return { isDark, handleThemeChange };
+  return { isDark: computed(() => isDark.value), handleThemeChange };
 }
