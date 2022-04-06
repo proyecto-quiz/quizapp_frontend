@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import NavBar from '@/components/NavBar.vue';
+import Navigation from '@/components/Navigation.vue';
 
 type Props = {
   title?: string;
@@ -15,7 +15,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <NavBar />
+  <Navigation />
   <main :class="['container', props.class]">
     <slot />
   </main>

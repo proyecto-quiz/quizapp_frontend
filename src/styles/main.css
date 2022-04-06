@@ -1,9 +1,16 @@
 @import 'tailwindcss/base';
+/* Font */
+@import '@/assets/fonts/open-sans.css';
+
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
 @layer base {
   body {
-    @apply dark:bg-zinc-700 dark:text-zinc-100;
+    @apply bg-secondary-light font-open-sans text-primary-dark dark:bg-primary-dark dark:text-primary-light;
   }
+}
+
+#quiz-app {
+  @apply relative;
 }
