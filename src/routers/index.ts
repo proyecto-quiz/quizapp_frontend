@@ -11,6 +11,11 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: '/sign-in',
+    name: 'SignIn',
+    component: () => import('@/views/SignInView.vue'),
+  },
+  {
     path: '/temas',
     name: 'Temas',
     component: () => import('@/views/TemasView.vue'),
@@ -22,6 +27,22 @@ const routes: RouteRecordRaw[] = [
       requiresAuth: true,
     },
     component: () => import('@/views/UserProfileView.vue'),
+  },
+  {
+    path: '/faq',
+    name: 'FAQ',
+    meta: {
+      requiresAuth: false,
+    },
+    component: () => import('@/views/FAQView.vue'),
+  },
+  {
+    path: '/about-me',
+    name: 'About',
+    meta: {
+      requiresAuth: false,
+    },
+    component: () => import('@/views/AboutView.vue'),
   },
 ];
 
