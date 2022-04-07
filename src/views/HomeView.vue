@@ -1,27 +1,21 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import Main01Draw from '@/components/draws/Main01Draw.vue';
 import Main02Draw from '@/components/draws/Main02Draw.vue';
 import Main03Draw from '@/components/draws/Main03Draw.vue';
+import { useInterObserver } from '@/composables';
 
-const observerSections = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      entry.target.classList.toggle('show', entry.isIntersecting);
-    });
+useInterObserver(
+  (entry) => {
+    entry.target.classList.toggle('show', entry.isIntersecting);
   },
   {
-    rootMargin: '-200px',
+    queryAllSelector: 'section.section',
+    init: {
+      rootMargin: '-150px',
+    },
   }
 );
-onMounted(() => {
-  const sectionsDOM = document.querySelectorAll('section.section');
-
-  sectionsDOM.forEach((section) => {
-    observerSections.observe(section);
-  });
-});
 </script>
 
 <template>
@@ -95,19 +89,21 @@ onMounted(() => {
 
 <style scoped>
 .section {
-  @apply flex min-h-screen flex-col items-start justify-between gap-2 py-3 md:gap-10;
+  @apply flex flex-col items-start justify-between gap-2 py-3 md:h-screen md:gap-10;
   opacity: 0;
   transform: translateX(-100px);
 }
 
 .section.show {
-  transform: translateX(0);
   opacity: 1;
-  transition-property: transform opacity;
+  transform: translateX(0);
+}
+
+.section {
+  transition-delay: 0.25s;
   transition-duration: 1.5s;
-  transition-delay: 0.1s;
+  transition-property: transform opacity;
   transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-  transform-style: flat;
 }
 
 .section-1 {

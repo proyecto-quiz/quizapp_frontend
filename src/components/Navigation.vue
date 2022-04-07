@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { useDarkTheme } from '@/composables';
 import { useAppStore } from '@/stores';
+import ButtonTheme from './ui/ButtonTheme.vue';
 
-const theme = useDarkTheme();
 const store = useAppStore();
-
-let isDark = theme.isDark;
 </script>
 
 <template>
@@ -29,9 +26,7 @@ let isDark = theme.isDark;
           >
         </li>
         <li>
-          <button class="rounded-full p-1 shadow" @click="theme.handleThemeChange">
-            {{ isDark ? '☀️' : '🌛' }}
-          </button>
+          <ButtonTheme />
         </li>
         <li v-if="store.isLoggedIn">
           <router-link :to="{ name: 'Profile' }" active-class="dark:text-contrast-01">
@@ -66,7 +61,7 @@ let isDark = theme.isDark;
 
 <style scoped>
 nav {
-  @apply rounded-sm bg-gradient-to-bl from-secondary-normal/80 px-2 py-1 shadow-md backdrop-blur dark:from-primary-dark/70 md:px-5 md:py-3;
+  @apply rounded-sm  px-2 py-1 shadow-md backdrop-blur dark:from-primary-dark/70 md:px-5 md:py-3;
 }
 
 li {
