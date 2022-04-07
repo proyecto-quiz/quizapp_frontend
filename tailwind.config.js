@@ -13,7 +13,6 @@ const tailwindConfig = {
       center: true,
       padding: {
         DEFAULT: '2rem',
-        lg: '2.25rem',
       },
     },
     extend: {
@@ -40,9 +39,12 @@ const tailwindConfig = {
         13: '3.25rem',
         14: '3.5rem',
       },
+      backgroundImage: {
+        books: 'url("@/assets/images/sign-in.png")',
+      },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };
 
 module.exports = tailwindConfig;
