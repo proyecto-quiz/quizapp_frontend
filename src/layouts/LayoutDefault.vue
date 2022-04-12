@@ -10,7 +10,7 @@ type Props = {
 const props = defineProps<Props>();
 
 onMounted(() => {
-  window.document.title = `Quiz - ${props.title}`;
+  window.document.title = `NoteBlue - ${props.title}`;
 });
 </script>
 

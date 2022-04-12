@@ -1,17 +1,3 @@
-.separetor {
-  display: flex;
-}
-.separetor::before,
-.separetor::after {
-  align-self: center;
-  content: '';
-  width: 100%;
-  height: 1px;
-  @apply border border-secondary-normal;
-}
-.separetor::before {
-  margin-right: 10px;
-}
-.separetor::after {
-  margin-left: 10px;
-}
+@import 'components/buttons';
+@import 'forms';
+@import 'animations/main';

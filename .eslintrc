@@ -24,12 +24,13 @@
   "plugins": ["vue"],
   "rules": {
     "no-unused-vars": [
-      1,
+      "warn",
       {
         "args": "all",
-        "argsIgnorePattern": "^_"
+        "argsIgnorePattern": "^"
       }
     ],
+    "@typescript-eslint/no-explicit-any": "off",
     "vue/no-multiple-template-root": "off",
     "vue/html-self-closing": [
       "off",

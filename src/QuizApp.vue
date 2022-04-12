@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import AppRoot from './components/AppRoot.vue';
+</script>
 <template>
-  <router-view />
+  <AppRoot>
+    <router-view />
+  </AppRoot>
 </template>
