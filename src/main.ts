@@ -9,4 +9,7 @@ import '@/styles/main.css';
 
 const piniaStore = createPinia();
 
-createApp(QuizApp).use(piniaStore).use(router).mount('#quiz-app', true);
+const app = createApp(QuizApp);
+app.use(piniaStore);
+app.use(router);
+app.mount('#quiz-app', true);

@@ -1,0 +1,16 @@
+.show {
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-name: hidden;
+  animation-direction: normal;
+}
+
+@keyframes hidden {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

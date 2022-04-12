@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useAppStore } from '@/stores';
+import { useAuthStore } from '@/stores';
 import ButtonTheme from './ui/ButtonTheme.vue';
 
-const store = useAppStore();
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -28,9 +28,9 @@ const store = useAppStore();
         <li>
           <ButtonTheme />
         </li>
-        <li v-if="store.isLoggedIn">
+        <li v-if="authStore.isLoggedIn">
           <router-link :to="{ name: 'Profile' }" active-class="dark:text-contrast-01">
-            Username
+            {{ authStore.user?.username }}
           </router-link>
         </li>
         <li v-else>
@@ -61,7 +61,7 @@ const store = useAppStore();
 
 <style scoped>
 nav {
-  @apply rounded-sm  px-2 py-1 shadow-md backdrop-blur dark:from-primary-dark/70 md:px-5 md:py-3;
+  @apply rounded-sm px-2 py-1 shadow-md backdrop-blur dark:from-primary-dark/70 md:px-5 md:py-3;
 }
 
 li {

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "moduleResolution": "Node",
-    "types": ["vite/client"],
+    "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "importHelpers": true,
@@ -12,7 +12,9 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
     "module": "ESNext",
     "strict": true,
+    "alwaysStrict": true,
     "jsx": "preserve",
+    "types": ["vite/client"],
     "paths": {
       "@/*": ["./src/*"],
       "~/*": ["./src/*"],
@@ -20,6 +22,6 @@
       "@@/*": ["./*"]
     }
   },
-  "include": ["src", "./**/*.vue", "./**/*.js", "@types", "vite.config.ts"],
+  "include": ["vite.config.ts", "@types", "@types/**/*.d.ts", "src/**/*.vue", "src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

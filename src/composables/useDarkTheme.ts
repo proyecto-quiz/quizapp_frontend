@@ -1,35 +1,21 @@
-import { computed, onMounted, ref } from 'vue';
-
-export function changeThemeStorage() {
-  const inDark = document.documentElement.classList.contains('dark');
-  if (inDark) {
-    localStorage.setItem('theme', '');
-    document.documentElement.classList.remove('dark');
-  } else {
-    localStorage.setItem('theme', 'dark');
-    document.documentElement.classList.add('dark');
-  }
-}
+import { computed, onBeforeMount, ref } from 'vue';
+import { useMediaQuery } from './useMediaQuery';
+import { useLocalStorage } from './useStorage';
 
 export function useDarkTheme() {
-  const isDark = ref(false);
+  const matches = useMediaQuery('(prefers-color-scheme: dark)');
+  const [value, setValue] = useLocalStorage<boolean>('dark-mode');
+  const enabled = value ?? matches.value;
+
+  const isDark = ref(enabled);
   const handleThemeChange = () => {
-    changeThemeStorage();
     isDark.value = !isDark.value;
+    setValue(isDark.value);
+    document.documentElement.classList.toggle('dark', isDark.value);
   };
 
-  onMounted(() => {
-    const classes = document.documentElement.classList;
-    if (
-      localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-      isDark.value = true;
-      classes.add('dark');
-    } else {
-      isDark.value = false;
-      classes.remove('dark');
-    }
+  onBeforeMount(() => {
+    document.documentElement.classList.toggle('dark', enabled);
   });
 
   return { isDark: computed(() => isDark.value), handleThemeChange };

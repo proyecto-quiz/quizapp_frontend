@@ -1,4 +1,5 @@
-import { useAppStore } from '@/stores';
+import { useAuthStore } from '@/stores';
+import { computed } from 'vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
@@ -6,6 +7,7 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'Home',
     component: () => import('@/views/HomeView.vue'),
+    alias: ['/home', '/index', '/inicio'],
     meta: {
       isGuest: true,
     },
@@ -14,6 +16,9 @@ const routes: RouteRecordRaw[] = [
     path: '/sign-in',
     name: 'SignIn',
     component: () => import('@/views/SignInView.vue'),
+    meta: {
+      signIn: true,
+    },
   },
   {
     path: '/temas',
@@ -23,39 +28,33 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/profile',
     name: 'Profile',
+    component: () => import('@/views/users/UserProfileView.vue'),
     meta: {
-      requiresAuth: true,
+      requiredAuth: true,
     },
-    component: () => import('@/views/UserProfileView.vue'),
   },
   {
     path: '/faq',
     name: 'FAQ',
-    meta: {
-      requiresAuth: false,
-    },
     component: () => import('@/views/FAQView.vue'),
   },
   {
     path: '/about-me',
     name: 'About',
-    meta: {
-      requiresAuth: false,
-    },
     component: () => import('@/views/AboutView.vue'),
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHistory(),
   routes,
 });
 
-router.beforeEach((to, _from, next) => {
-  const store = useAppStore();
+router.beforeEach(async (to, _from, next) => {
+  const auth = computed(() => useAuthStore()).value;
 
-  if (to.meta.requiresAuth && !store.isLoggedIn) {
-    next({ name: 'Home' });
+  if (to.meta.requiredAuth && !auth.isAuth) {
+    next({ name: 'SignIn' });
   } else {
     next();
   }
