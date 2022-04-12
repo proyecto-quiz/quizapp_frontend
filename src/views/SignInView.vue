@@ -13,7 +13,6 @@ import Alert from '@/components/ui/Alert.vue';
 import Google from '@/components/draws/icons/Google.vue';
 import SignInImage from '@/assets/images/sign-in.png';
 import { TokenResponse } from '@@/types-response-users';
-import { storeToRefs } from 'pinia';
 
 const router = useRouter();
 
@@ -56,12 +55,7 @@ async function handleFormSubmit() {
 // Ref
 const sectionSignRef = ref<HTMLElement>();
 
-const { isLoggedIn } = storeToRefs(authStore);
-
 onBeforeMount(() => {
-  if (isLoggedIn) {
-    router.push({ name: 'Profile' });
-  }
   window.document.title = 'NoteBlue - Iniciar Sesión';
   sectionSignRef.value?.classList.add('show');
 });
@@ -105,7 +99,7 @@ onBeforeMount(() => {
         v-if="authStore.status == 'error'"
         outline
         type="danger"
-        @on-close="authStore.$reset()"
+        @on-close="authStore.resetAction()"
       >
         {{ authStore.message }}
       </Alert>

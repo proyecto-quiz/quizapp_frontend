@@ -18,6 +18,7 @@ type ActionsType = {
   signInAction(data: SignInForm): Promise<{ tokens: string[]; ok: boolean }>;
   signOutAction(_fn?: () => Promise<void> | void): Promise<void> | void;
   meAction(): Promise<void> | void;
+  resetAction(): void;
 };
 
 type GettersType = {
@@ -52,7 +53,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
           this.token = res.data.accessToken;
         } else {
           this.status = 'error';
-          this.message = res.data.detail;
+          this.message = res.data.detail || res.data.nonFieldErrors;
         }
         return {
           tokens: [res.data.accessToken, res.data.refreshToken],
@@ -69,6 +70,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
           this.user = res.data.user;
         } else {
           this.isReady = true;
+          this.status = 'idle';
         }
         // TODO: Evaluation an else conditional
       },
@@ -81,6 +83,11 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
         } else {
           this.$reset();
         }
+      },
+
+      resetAction() {
+        this.$state.status = 'idle';
+        this.$state.token = '';
       },
     },
   }

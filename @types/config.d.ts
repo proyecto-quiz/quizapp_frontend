@@ -12,6 +12,12 @@ declare module '@@/type-config-api' {
     detail: string | string[] | object;
 
     /**
+     * nonFieldErrors message error
+     * @type string, string[], object
+     */
+    nonFieldErrors: string | string[] | object;
+
+    /**
      * error code response
      */
     statusCode: number;
