@@ -1,6 +1,7 @@
 /* Button */
 .button {
   @apply rounded-md py-2 px-3 font-medium tracking-wide shadow-md;
+  @apply focus:ring-2;
 }
 
 .button--transition {
@@ -11,18 +12,21 @@
   @apply button button--transition bg-primary-dark text-primary-light;
   @apply hover:bg-primary-dark/70;
   @apply dark:hover:bg-primary-light/10;
+  @apply focus:ring-secondary;
 }
 
 .button--secondary {
   @apply button button--transition bg-secondary text-primary-light;
   @apply hover:bg-secondary/70;
   @apply dark:bg-primary-light dark:text-primary-dark dark:hover:bg-primary-light/80;
+  @apply focus:ring-primary-dark/80 dark:focus:ring-secondary-normal;
 }
 
 .button--light {
-  @apply button button--transition bg-primary-light;
+  @apply button button--transition bg-sky-300/20;
   @apply hover:bg-sky-300/50;
   @apply dark:bg-secondary-normal/20 dark:via-primary-dark dark:hover:bg-secondary-normal/40;
+  @apply focus:ring-sky-300/90 dark:focus:ring-sky-300/60;
 }
 
 .button--contrast-01 {

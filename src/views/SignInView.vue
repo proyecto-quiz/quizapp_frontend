@@ -80,7 +80,10 @@ onBeforeMount(() => {
     </section>
     <section ref="sectionSignRef" class="flex flex-col px-5 py-2 md:gap-5">
       <div class="flex flex-initial justify-between">
-        <button class="button--light w-fit text-sm" @click.prevent="router.push({ name: 'Home' })">
+        <button
+          class="button--light w-fit text-sm font-semibold"
+          @click.prevent="router.push({ name: 'Home' })"
+        >
           &#60; Regresar
         </button>
         <ButtonTheme />

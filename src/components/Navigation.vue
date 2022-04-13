@@ -1,29 +1,30 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useAuthStore } from '@/stores';
 import ButtonTheme from './ui/ButtonTheme.vue';
 
-const authStore = useAuthStore();
+const authStore = computed(() => useAuthStore()).value;
 </script>
 
 <template>
   <header class="sticky top-0 z-10 min-h-full p-2 py-3 md:container">
     <nav class="flex items-center justify-between">
       <h1 class="text-lg font-medium uppercase md:text-3xl">
-        <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'Home' }"
-          >Inicio</router-link
-        >
+        <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'Home' }">
+          Inicio
+        </router-link>
       </h1>
       <span class="flex-grow" />
       <ul class="text-md flex items-center justify-between gap-x-3 font-medium">
         <li>
-          <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'About' }"
-            >Sobre Nosotros</router-link
-          >
+          <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'About' }">
+            Sobre Nosotros
+          </router-link>
         </li>
         <li>
-          <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'FAQ' }"
-            >FAQ's</router-link
-          >
+          <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'FAQ' }">
+            FAQ's
+          </router-link>
         </li>
         <li>
           <ButtonTheme />
@@ -34,10 +35,7 @@ const authStore = useAuthStore();
           </router-link>
         </li>
         <li v-else>
-          <router-link
-            :to="{ name: 'SignIn' }"
-            class="flex items-center gap-2 rounded-md bg-secondary-light px-3 py-2 text-sm text-primary-dark shadow"
-          >
+          <router-link :to="{ name: 'SignIn' }" class="button-sign-in">
             <svg
               width="14"
               height="14"
@@ -66,5 +64,12 @@ nav {
 
 li {
   @apply mx-1 text-sm md:text-base;
+}
+
+.button-sign-in {
+  @apply flex items-center gap-2 rounded-md  px-3 py-2 text-sm  shadow;
+  @apply bg-secondary-light text-primary-dark transition-colors duration-100;
+  @apply focus:ring-2 focus:ring-primary-dark/60 dark:focus:ring-secondary-normal;
+  @apply hover:bg-primary-dark/10 dark:hover:bg-secondary-light/70;
 }
 </style>
