@@ -43,6 +43,11 @@ const routes: RouteRecordRaw[] = [
     name: 'About',
     component: () => import('@/views/AboutView.vue'),
   },
+  {
+    path: '/pregunta-tipo',
+    name: 'PreguntaTipo',
+    component: () => import('@/views/preguntas/PreguntaTipoView.vue'),
+  },
 ];
 
 const router = createRouter({
