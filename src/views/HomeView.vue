@@ -4,6 +4,7 @@ import Main01Draw from '@/components/draws/Main01Draw.vue';
 import Main02Draw from '@/components/draws/Main02Draw.vue';
 import Main03Draw from '@/components/draws/Main03Draw.vue';
 import { useInterObserver } from '@/composables';
+import Footer from '@/components/Footer.vue';
 
 useInterObserver(
   (entry) => {
@@ -85,6 +86,7 @@ useInterObserver(
       </aside>
     </section>
   </LayoutDefault>
+  <Footer />
 </template>
 
 <style scoped>

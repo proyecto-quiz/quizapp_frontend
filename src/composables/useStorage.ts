@@ -58,6 +58,6 @@ function getVal<T>(key: string, s: Storage) {
 }
 
 // Getters
-export function useGetStorage<T = any>(key: string) {
-  return ref(getVal<T>(key, localStorage)).value;
+export function useGetStorage<T = any>(key: string, obj: 'local' | 'session' = 'local') {
+  return ref(getVal<T>(key, obj === 'local' ? localStorage : sessionStorage)).value;
 }

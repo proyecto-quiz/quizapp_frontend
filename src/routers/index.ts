@@ -1,48 +1,17 @@
-import { useAuthStore } from '@/stores';
 import { computed } from 'vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { useAuthStore } from '@/stores';
+
+// Routes
+import { guestRoutes } from './guest';
+import { userRoutes } from './users';
 
 const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    name: 'Home',
-    component: () => import('@/views/HomeView.vue'),
-    alias: ['/home', '/index', '/inicio'],
-    meta: {
-      isGuest: true,
-    },
-  },
-  {
-    path: '/sign-in',
-    name: 'SignIn',
-    component: () => import('@/views/SignInView.vue'),
-    meta: {
-      signIn: true,
-    },
-  },
-  {
-    path: '/temas',
-    name: 'Temas',
-    component: () => import('@/views/TemasView.vue'),
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: () => import('@/views/users/UserProfileView.vue'),
-    meta: {
-      requiredAuth: true,
-    },
-  },
-  {
-    path: '/faq',
-    name: 'FAQ',
-    component: () => import('@/views/FAQView.vue'),
-  },
-  {
-    path: '/about-me',
-    name: 'About',
-    component: () => import('@/views/AboutView.vue'),
-  },
+  // Public routes
+  ...guestRoutes,
+
+  // User routes
+  ...userRoutes,
 ];
 
 const router = createRouter({
