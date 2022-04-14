@@ -23,7 +23,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/temas',
     name: 'Temas',
-    component: () => import('@/views/TemasView.vue'),
+    component: () => import('@/views/cursos/TemasView.vue'),
   },
   {
     path: '/profile',
@@ -47,6 +47,22 @@ const routes: RouteRecordRaw[] = [
     path: '/pregunta-tipo',
     name: 'PreguntaTipo',
     component: () => import('@/views/preguntas/PreguntaTipoView.vue'),
+  },
+  {
+    path: '/cursos',
+    name: 'Cursos',
+    meta: {
+      requiresAuth: false,
+    },
+    component: () => import('@/views/cursos/CursosView.vue'),
+  },
+  {
+    path: '/pregunta',
+    name: 'Pregunta',
+    meta: {
+      requiresAuth: false,
+    },
+    component: () => import('@/views/preguntas/PreguntaView.vue'),
   },
 ];
 

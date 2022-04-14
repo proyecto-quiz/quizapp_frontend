@@ -1,18 +1,17 @@
 <script setup lang="ts">
-//import { ref } from 'vue';
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import CursoImage from '@/assets/images/Geometria.jpg';
 </script>
 
 <template>
-  <div class="container">
-    <LayoutDefault title="Pregunta Tipo">
+  <LayoutDefault title="Pregunta Tipo">
+    <div class="container">
       <h1 class="py-5 text-lg font-medium uppercase md:text-3xl">Selecciona un tipo de pregunta</h1>
       <div class="listCard">
         <div class="card">
-          <router-link to="pregunta-tipo">
+          <router-link :to="{ name: 'Pregunta', params: { tipo: 'general' } }">
             <img class="image" :src="CursoImage" alt="imagen pregunta general" />
-            <h2 class="text-lg font-medium">Pregunta de manera General</h2>
+            <strong class="text-lg font-bold text-contrast-01">Pregunta de manera General</strong>
             <section class="m-2 px-2 py-2">
               <strong>Descripción</strong>
               <p class="text-base">
@@ -23,9 +22,9 @@ import CursoImage from '@/assets/images/Geometria.jpg';
           </router-link>
         </div>
         <div class="card">
-          <router-link to="#">
+          <router-link :to="{ name: 'Cursos', params: { tipo: 'curso' } }">
             <img class="image" :src="CursoImage" alt="imagen pregunta por curso" />
-            <h2 class="text-lg font-medium">Pregunta por curso</h2>
+            <strong class="text-lg font-bold text-contrast-01">Pregunta por curso</strong>
             <section class="m-2 px-2 py-2">
               <strong>Descripción</strong>
               <p class="text-base">
@@ -35,9 +34,9 @@ import CursoImage from '@/assets/images/Geometria.jpg';
           </router-link>
         </div>
         <div class="card">
-          <router-link to="pregunta-tipo">
+          <router-link :to="{ name: 'Cursos', params: { tipo: 'tema' } }">
             <img class="image" :src="CursoImage" alt="imagen pregunta por tema" />
-            <h2 class="text-lg font-medium">Pregunta por tema</h2>
+            <strong class="text-lg font-bold text-contrast-01">Pregunta por tema</strong>
             <section class="m-2 px-2 py-2">
               <strong>Descripción</strong>
               <p class="text-base">
@@ -47,8 +46,8 @@ import CursoImage from '@/assets/images/Geometria.jpg';
           </router-link>
         </div>
       </div>
-    </LayoutDefault>
-  </div>
+    </div>
+  </LayoutDefault>
 </template>
 <style>
 .image {
@@ -56,8 +55,8 @@ import CursoImage from '@/assets/images/Geometria.jpg';
 }
 .card {
   @apply w-full transform overflow-hidden
-  rounded bg-blue-500 text-center shadow-lg shadow-blue-500/50 transition duration-500 ease-in-out hover:-translate-y-1
-  hover:bg-blue-400;
+  rounded bg-blue-400 text-center shadow-lg shadow-blue-500/50 transition duration-500 ease-in-out hover:-translate-y-1
+  hover:bg-blue-500;
 }
 
 .listCard {
