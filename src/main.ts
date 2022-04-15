@@ -7,6 +7,9 @@ import QuizApp from '@/QuizApp.vue';
 // css
 import '@/styles/main.css';
 
+// icons
+import 'boxicons';
+
 const piniaStore = createPinia();
 
 const app = createApp(QuizApp);

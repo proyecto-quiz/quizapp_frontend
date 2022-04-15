@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, reactive, ref } from 'vue';
+import { computed, onBeforeMount, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { required, email as emailValid, maxLength, minLength } from '@vuelidate/validators';
@@ -13,18 +13,20 @@ import Alert from '@/components/ui/Alert.vue';
 import Google from '@/components/draws/icons/Google.vue';
 import SignInImage from '@/assets/images/sign-in.png';
 import { TokenResponse } from '@@/types-response-users';
+import Spinner from '@/components/ui/Spinner.vue';
 
 const router = useRouter();
 
-const authStore = useAuthStore();
+const authStore = computed(() => useAuthStore()).value;
 
 const stateForm = reactive<SignInForm>({
   email: '',
   password: '',
   rememberPassword: false,
 });
+const emailRef = ref<HTMLInputElement>();
 
-const rules = computed(() => ({
+const rules = computed<Record<string, any>>(() => ({
   email: { required, emailValid },
   password: { required, maxLength: maxLength(20), minLength: minLength(5) },
   rememberPassword: {},
@@ -57,34 +59,40 @@ const sectionSignRef = ref<HTMLElement>();
 
 onBeforeMount(() => {
   window.document.title = 'NoteBlue - Iniciar Sesión';
+});
+
+onMounted(() => {
   sectionSignRef.value?.classList.add('show');
+  emailRef.value?.focus({ preventScroll: true });
 });
 </script>
 
 <template>
-  <main class="container mt-10 grid grid-rows-1 items-stretch gap-4 md:grid-cols-2">
-    <section class="relative flex flex-col items-center py-3">
-      <span class="absolute top-[1px] left-2 text-[7rem] md:left-14">“</span>
-      <p class="self-center p-5 text-sm leading-11 text-slate-200 dark:text-primary-light sm:w-2/4">
-        Those people who develop the ability to continuously acquire new and better forms of
-        knowledge that thfromey can apply to their work and to their lives will be the movers and
-        shakers in our society for the indefinite future
+  <main class="grid grid-rows-1 items-stretch md:h-screen md:grid-cols-2">
+    <section class="relative hidden h-screen flex-col md:flex">
+      <p
+        class="text--shadow fixed top-1/3 px-5 text-base leading-8 text-slate-100 sm:w-2/4 md:leading-11"
+      >
+        <i className="bx-pull-left bx bxs-quote-alt-left bx-lg" />
+        El Estudio te llevara lejos
         <br />
-        <span class="text-base font-medium">Brian Tracy</span>
+        <span class="text-base font-medium">Christian R.E.</span>
       </p>
       <img
         :src="SignInImage"
-        class="absolute top-0 -z-10 rounded bg-opacity-80 blur-[2px]"
+        class="absolute top-0 -z-10 h-full w-full rounded-none object-cover blur-sm"
         alt="Book Image"
       />
     </section>
-    <section ref="sectionSignRef" class="flex flex-col px-5 py-2 md:gap-5">
+    <section ref="sectionSignRef" class="flex flex-col px-7 py-3 md:gap-5 md:px-10">
       <div class="flex flex-initial justify-between">
         <button
-          class="button--light w-fit text-sm font-semibold"
+          type="button"
+          title="Regresar"
+          class="button--light flex items-center gap-1 text-sm"
           @click.prevent="router.push({ name: 'Home' })"
         >
-          &#60; Regresar
+          <i class="bx bx-arrow-back bx-xs self-center" /> Regresar
         </button>
         <ButtonTheme />
       </div>
@@ -114,6 +122,7 @@ onBeforeMount(() => {
           <span class="text-secondary dark:text-primary-light">Correo Electronico</span>
           <input
             id="email"
+            ref="emailRef"
             v-model="stateForm.email"
             class="input w-full border border-secondary/20 bg-inherit"
             aria-required="true"
@@ -121,6 +130,7 @@ onBeforeMount(() => {
             name="email"
             type="email"
             placeholder="my-mail@mail.com"
+            :disabled="authStore.status == 'loading'"
           />
           <small v-if="v$.email.$error" class="text-red-500">{{
             v$.email.$errors[0].$message
@@ -136,6 +146,7 @@ onBeforeMount(() => {
             name="password"
             type="password"
             placeholder="Contraseña"
+            :disabled="authStore.status == 'loading'"
           />
           <small v-if="v$.password.$error" class="text-red-500">{{
             v$.password.$errors[0].$message
@@ -147,17 +158,19 @@ onBeforeMount(() => {
             id="remember-password"
             v-model="stateForm.rememberPassword"
             type="checkbox"
-            class="rounded"
+            class="rounded disabled:bg-slate-400"
+            :disabled="authStore.status == 'loading'"
           />
           <span class="text-sm">Recordar mi Contraseña</span>
         </label>
 
         <button
-          :disabled="v$.email.$error || v$.password.$error"
-          class="button--secondary w-full font-medium disabled:bg-slate-300 dark:disabled:bg-slate-500"
+          :disabled="v$.email.$error || v$.password.$error || authStore.status === 'loading'"
+          class="button--secondary flex w-full flex-col items-center font-medium disabled:bg-secondary/50 dark:disabled:bg-slate-500"
           type="submit"
         >
-          Iniciar Sesión
+          <Spinner v-if="authStore.status == 'loading'" type="contrast" class="h-7 w-7" />
+          <span v-else>Iniciar Sesión</span>
         </button>
       </form>
       <div class="separator my-2 text-center">O</div>
@@ -176,5 +189,8 @@ onBeforeMount(() => {
 
 .title-nb-01 {
   @apply md:text-left;
+}
+.text--shadow {
+  text-shadow: 2px 4px 4px #0009;
 }
 </style>

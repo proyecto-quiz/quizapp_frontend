@@ -18,8 +18,8 @@
 .button--secondary {
   @apply button button--transition bg-secondary text-primary-light;
   @apply hover:bg-secondary/70;
-  @apply dark:bg-primary-light dark:text-primary-dark dark:hover:bg-primary-light/80;
-  @apply focus:ring-primary-dark/80 dark:focus:ring-secondary-normal;
+  @apply dark:text-primary-light dark:hover:bg-secondary-normal/60;
+  @apply focus:ring-secondary-normal/80 dark:focus:ring-secondary-normal;
 }
 
 .button--light {

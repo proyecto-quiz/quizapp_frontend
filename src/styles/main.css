@@ -9,6 +9,9 @@
 
 @import 'tailwindcss/utilities';
 
+/* Icons */
+@import 'boxicons';
+
 @layer base {
   body {
     @apply bg-secondary-light from-secondary-normal font-open-sans text-primary-dark dark:bg-primary-dark dark:text-primary-light;
