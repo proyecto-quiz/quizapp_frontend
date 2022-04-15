@@ -66,12 +66,12 @@ onUnmounted(() => {
 .alert {
   opacity: 1;
   @apply border shadow-md;
-  @apply relative flex flex-col flex-nowrap justify-around rounded-md px-4 py-3;
+  @apply relative my-3 flex flex-col flex-nowrap justify-around rounded-md px-4 py-3;
   @apply leading-5 tracking-normal;
 }
 
 .alert--content {
-  @apply text-sm before:bg-slate-50;
+  @apply whitespace-pre-line text-xs before:bg-slate-50 md:whitespace-normal md:text-sm;
 }
 
 /* Themes */
@@ -104,7 +104,7 @@ onUnmounted(() => {
 .button-close {
   right: 5px;
   top: 8px;
-  @apply text-sm shadow-md transition-colors duration-100;
+  @apply text-xs shadow-md transition-colors duration-100 md:text-sm;
   @apply absolute py-1 px-2;
 }
 

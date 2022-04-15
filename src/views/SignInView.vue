@@ -62,7 +62,7 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  sectionSignRef.value?.classList.add('show');
+  sectionSignRef.value?.classList.add('a--show');
   emailRef.value?.focus({ preventScroll: true });
 });
 </script>
@@ -174,7 +174,7 @@ onMounted(() => {
         </button>
       </form>
       <div class="separator my-2 text-center">O</div>
-      <button class="button--primary flex items-center justify-center gap-x-4">
+      <button type="button" class="button--primary flex items-center justify-center gap-x-4">
         <Google />
         <span class="text-sm">Iniciar sesión con Google</span>
       </button>

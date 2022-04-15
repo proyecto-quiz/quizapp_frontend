@@ -4,24 +4,29 @@ import { useDarkTheme, useLocalStorage } from '@/composables';
 import { useAuthStore } from '@/stores';
 import Spinner from './ui/Spinner.vue';
 
-const store = computed(() => useAuthStore()).value;
+const authStore = computed(() => useAuthStore()).value;
 
 const setUsername = useLocalStorage<string>('username')[1];
 useDarkTheme();
 
 onBeforeMount(async () => {
-  await store.meAction();
-  Promise.resolve(setUsername(store.user?.username || ''));
+  await authStore.meAction();
+  Promise.resolve(setUsername(authStore.user?.username || ''));
 });
 
 const divRef = ref<HTMLDivElement>();
+
 onMounted(() => {
-  divRef.value?.classList.add('show');
+  if (!authStore.isReady) divRef.value?.classList.add('a--show');
+  else {
+    divRef.value?.classList.remove('a--show');
+    divRef.value?.classList.add('a--hidden');
+  }
 });
 </script>
 
 <template>
-  <template v-if="!store.isReady">
+  <template v-if="!authStore.isReady">
     <div ref="divRef" class="flex flex-col items-center gap-3 pt-10">
       <h1 class="self-center text-5xl font-semibold">
         <span class="text-[#09FCED]">Note</span>

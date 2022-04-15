@@ -1,16 +1,36 @@
-.show {
+/* Show */
+.a--show {
   animation-duration: 2s;
   animation-fill-mode: forwards;
-  animation-name: hidden;
+  animation-name: show-animate;
   animation-direction: normal;
 }
 
-@keyframes hidden {
+@keyframes show-animate {
   from {
     opacity: 0;
   }
 
   to {
     opacity: 1;
+  }
+}
+
+/* Hidden */
+.a--hidden {
+  animation-duration: 2s;
+  animation-delay: 200ms;
+  animation-fill-mode: forwards;
+  animation-name: hidden-animate;
+  animation-direction: normal;
+}
+
+@keyframes hidden-animate {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }
