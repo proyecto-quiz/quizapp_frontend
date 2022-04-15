@@ -135,7 +135,7 @@ onUnmounted(() => {
 
   100% {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(55px);
   }
 }
 

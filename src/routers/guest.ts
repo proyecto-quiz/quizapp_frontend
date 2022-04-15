@@ -2,33 +2,50 @@ import { RouteRecordRaw } from 'vue-router';
 
 export const guestRoutes: RouteRecordRaw[] = [
   {
-    path: '/',
     name: 'Home',
+    path: '/',
     component: () => import('@/views/HomeView.vue'),
     alias: ['/home', '/index', '/inicio'],
     meta: {
       isGuest: true,
     },
   },
+
   {
-    path: '/temas',
     name: 'Temas',
+    path: '/temas',
     component: () => import('@/views/TemasView.vue'),
   },
 
   {
-    path: '/faq',
-    name: 'FAQ',
-    component: () => import('@/views/FAQView.vue'),
+    name: 'Service',
+    path: '/services',
+    component: () => import('@/views/services/ServiceView.vue'),
+    children: [],
   },
+
   {
-    path: '/about-me',
-    name: 'About',
+    name: 'Help',
+    path: '/help',
+    component: () => import('@/views/help/HelpView.vue'),
+    children: [
+      {
+        name: 'FAQ',
+        path: 'faq',
+        component: () => import('@/views/help/FAQView.vue'),
+      },
+    ],
+  },
+
+  {
+    name: 'AboutUs',
+    path: '/about-us',
     component: () => import('@/views/AboutView.vue'),
   },
+
   {
-    path: '/sign-in',
     name: 'SignIn',
+    path: '/sign-in',
     component: () => import('@/views/SignInView.vue'),
     meta: {
       signIn: true,

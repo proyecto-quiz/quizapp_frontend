@@ -1,4 +1,4 @@
-import { computed, onBeforeMount, ref } from 'vue';
+import { onBeforeMount, reactive, ref } from 'vue';
 import { useMediaQuery } from './useMediaQuery';
 import { useLocalStorage } from './useStorage';
 
@@ -18,5 +18,5 @@ export function useDarkTheme() {
     document.documentElement.classList.toggle('dark', enabled);
   });
 
-  return { isDark: computed(() => isDark.value), handleThemeChange };
+  return reactive({ isDark, handleThemeChange });
 }

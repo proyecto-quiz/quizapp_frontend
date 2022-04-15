@@ -1,5 +1,6 @@
 .input {
   @apply my-1 rounded-md px-4 py-2 tracking-wide shadow-md placeholder:text-sm;
+  @apply disabled:bg-slate-400 disabled:opacity-70;
 }
 
 .separator {

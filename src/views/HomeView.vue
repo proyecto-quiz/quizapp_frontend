@@ -6,9 +6,12 @@ import Main03Draw from '@/components/draws/Main03Draw.vue';
 import { useInterObserver } from '@/composables';
 import Footer from '@/components/Footer.vue';
 
-useInterObserver(
+const observer = useInterObserver(
   (entry) => {
     entry.target.classList.toggle('show', entry.isIntersecting);
+    if (entry.isIntersecting) {
+      observer.unobserve(entry.target);
+    }
   },
   {
     queryAllSelector: 'section.section',

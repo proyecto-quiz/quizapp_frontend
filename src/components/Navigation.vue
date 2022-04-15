@@ -17,13 +17,16 @@ const authStore = computed(() => useAuthStore()).value;
       <span class="flex-grow" />
       <ul class="text-md flex items-center justify-between gap-x-3 font-medium">
         <li>
-          <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'About' }">
+          <router-link
+            active-class="dark:text-contrast-01 text-secondary"
+            :to="{ name: 'AboutUs' }"
+          >
             Sobre Nosotros
           </router-link>
         </li>
         <li>
-          <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'FAQ' }">
-            FAQ's
+          <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'Help' }">
+            Ayuda
           </router-link>
         </li>
         <li>

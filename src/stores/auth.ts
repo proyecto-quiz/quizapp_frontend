@@ -8,7 +8,7 @@ import { useGetStorage } from '@/composables';
 type StateType = {
   user: null | UserAuthenticateResponse['user'];
   token: string;
-  isLoggedIn: boolean | false;
+  isLoggedIn: boolean;
   message?: ErrorResponse['detail'];
   status: 'error' | 'success' | 'idle' | 'loading';
   isReady: boolean;
@@ -16,7 +16,7 @@ type StateType = {
 
 type ActionsType = {
   signInAction(data: SignInForm): Promise<{ tokens: string[]; ok: boolean }>;
-  signOutAction(_fn?: () => Promise<void> | void): Promise<void> | void;
+  signOutAction(fn?: () => Promise<void> | void): Promise<void> | void;
   meAction(): Promise<void> | void;
   resetAction(): void;
 };
