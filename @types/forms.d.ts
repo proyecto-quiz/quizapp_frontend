@@ -4,4 +4,13 @@ declare module '@@/types-forms' {
     password: string;
     rememberPassword: boolean;
   };
+  type SolucionForm = {
+    //pregunta
+    preguntaId: string | undefined;
+    alternativaId: string | undefined;
+    tipo: string | null;
+    //tema,curso
+    id: string | undefined;
+    nombre: string | undefined;
+  };
 }

@@ -2,7 +2,6 @@
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import CursoImage from '@/assets/images/Geometria.jpg';
 </script>
-
 <template>
   <LayoutDefault title="Pregunta Tipo">
     <div class="container">
