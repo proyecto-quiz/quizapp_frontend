@@ -76,7 +76,7 @@ async function handleSelectClick() {
           </div>
           <h1 class="py-1 text-lg font-semibold uppercase md:text-2xl">Alternativas</h1>
           <div v-for="alternativa in preguntas?.alternativas" :key="alternativa.altId">
-            <div class="py-1 px-2">
+            <div class="px-3 py-1">
               <input
                 :id="alternativa.altId"
                 v-model="stateForm.alternativaId"
@@ -89,7 +89,7 @@ async function handleSelectClick() {
           </div>
         </div>
       </div>
-      <div class="flex flex-row justify-between gap-4 p-5">
+      <div class="flex flex-row justify-between gap-4">
         <button type="button" class="button--secondary" @click.prevent="handleSelectClick">
           Seleccionar
         </button>
