@@ -7,7 +7,7 @@ const theme = useDarkTheme();
   <button
     type="button"
     title="Cambiar tema"
-    class="flex flex-1 items-center"
+    class="flex items-center"
     @click="theme.handleThemeChange"
   >
     <i

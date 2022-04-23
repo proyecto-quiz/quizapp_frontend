@@ -4,6 +4,7 @@
     "moduleResolution": "Node",
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "importHelpers": true,
     "esModuleInterop": true,

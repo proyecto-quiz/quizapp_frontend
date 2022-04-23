@@ -1,5 +1,5 @@
-import { APIResponse } from '@@/type-config-api';
-import { SignInForm } from '@@/types-forms';
+import { APIResponse, OkResponse } from '@@/type-config-api';
+import { SignInForm, SignUpForm } from '@@/types-forms';
 import { TokenResponse } from '@@/types-response-users';
 import { client } from './config';
 
@@ -23,6 +23,19 @@ export async function signIn(data: SignInForm): APIResponse<TokenResponse> {
 export async function signOut(): APIResponse {
   try {
     return await client.post('/auth/sign-out/');
+  } catch (error: any) {
+    return error.response;
+  }
+}
+
+/**
+ *  Request create or register an user with credentials
+ * @param data
+ * @returns
+ */
+export async function signUp(data: SignUpForm): APIResponse<OkResponse> {
+  try {
+    return await client.post('/users/', data);
   } catch (error: any) {
     return error.response;
   }

@@ -19,6 +19,7 @@ declare module '@@/types-response-users' {
     isVerified: boolean;
     role: string;
   };
+
   export type UserAuthenticateResponse = {
     user: UserResponse;
   };
