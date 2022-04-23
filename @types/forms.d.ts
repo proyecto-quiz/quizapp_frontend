@@ -11,4 +11,14 @@ declare module '@@/types-forms' {
     password2: string;
     username: string;
   };
+
+  type SolucionForm = {
+    //pregunta
+    preguntaId: string | undefined;
+    alternativaId: string | undefined;
+    tipo: string | null;
+    //tema,curso
+    id: string | undefined;
+    nombre: string | undefined;
+  };
 }

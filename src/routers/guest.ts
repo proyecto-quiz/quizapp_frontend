@@ -1,6 +1,14 @@
 import { RouteRecordRaw } from 'vue-router';
 
 export const guestRoutes: RouteRecordRaw[] = [
+  // Errors views
+  {
+    name: 'NotFound',
+    path: '/:patchMatch(.*)*',
+    component: () => import('@/views/page-errors/NotFound.vue'),
+  },
+
+  // Guest views
   {
     name: 'Home',
     path: '/',
@@ -14,7 +22,7 @@ export const guestRoutes: RouteRecordRaw[] = [
   {
     name: 'Temas',
     path: '/temas',
-    component: () => import('@/views/TemasView.vue'),
+    component: () => import('@/views/cursos/TemasView.vue'),
   },
 
   {
@@ -58,5 +66,26 @@ export const guestRoutes: RouteRecordRaw[] = [
     meta: {
       sign: true,
     },
+  },
+  {
+    path: '/pregunta-tipo',
+    name: 'PreguntaTipo',
+    component: () => import('@/views/preguntas/PreguntaTipoView.vue'),
+  },
+  {
+    path: '/cursos',
+    name: 'Cursos',
+    meta: {
+      requiresAuth: false,
+    },
+    component: () => import('@/views/cursos/CursosView.vue'),
+  },
+  {
+    path: '/pregunta',
+    name: 'Pregunta',
+    meta: {
+      requiresAuth: false,
+    },
+    component: () => import('@/views/preguntas/PreguntaView.vue'),
   },
 ];
