@@ -52,6 +52,7 @@ onUnmounted(() => {
       </div>
       <button
         :class="`button-close--${props.type}`"
+        type="button"
         class="button button-close"
         title="Cerrar alerta"
         @click="handleCloseClick"
@@ -92,7 +93,7 @@ onUnmounted(() => {
 
 .danger {
   @apply border-rose-500/80 bg-rose-300 shadow-rose-300/50;
-  @apply text-rose-900;
+  @apply text-rose-700;
 }
 
 .alert__outline {

@@ -19,8 +19,7 @@ onMounted(() => {
 const tipo = route.params.tipo;
 </script>
 <template>
-  <div class="container">
-    <LayoutDefault title="Cursos"> </LayoutDefault>
+  <LayoutDefault title="Cursos">
     <h1 class="py-5 text-lg font-medium uppercase md:text-3xl">Selecciona un curso</h1>
     <p>Total cursos: {{ totalCursos }}</p>
     <div class="lista">
@@ -39,7 +38,7 @@ const tipo = route.params.tipo;
         </div>
       </div>
     </div>
-  </div>
+  </LayoutDefault>
 </template>
 <style>
 .image {

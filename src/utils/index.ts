@@ -1,3 +1,3 @@
-export function setLocalStorage() {
-  // TODO: Complete localstorage setitem
-}
+export * from './strings';
+
+export const EMAIL_PROVIDE = Symbol('Email provide/inject');

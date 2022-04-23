@@ -2,9 +2,14 @@ declare module '@@/type-config-api' {
   import { AxiosResponse } from 'axios';
 
   /**
+   * Reponses successfully
+   */
+  export type OkResponse = Record<string, string | string[] | object>;
+
+  /**
    * Error response API
    */
-  type ErrorResponse = {
+  export type ErrorResponse = {
     /**
      * detail message error
      * @type string, string[], object
@@ -23,6 +28,8 @@ declare module '@@/type-config-api' {
     statusCode: number;
   };
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  export type APIResponse<T = {}> = Promise<AxiosResponse<T & ErrorResponse>>;
+  /**
+   * API Response of Backend
+   */
+  export type APIResponse<T = any> = Promise<AxiosResponse<T & ErrorResponse>>;
 }
