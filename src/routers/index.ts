@@ -1,10 +1,10 @@
-import { computed } from 'vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { useAuthStore } from '@/stores';
 
 // Routes
 import { guestRoutes } from './guest';
 import { userRoutes } from './users';
+import { computed } from 'vue';
 
 const routes: RouteRecordRaw[] = [
   // Public routes
@@ -19,11 +19,16 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, _from, next) => {
-  const auth = computed(() => useAuthStore()).value;
+router.beforeEach((to, from, next) => {
+  const authStore = computed(() => useAuthStore()).value;
 
-  if (to.meta.requiredAuth && !auth.isAuth) {
-    next({ name: 'SignIn' });
+  const requiredAuth = (to.meta.requiredAuth || from.meta.requiredAuth) as boolean;
+  const signRoute = to.name === 'SignIn' || to.name === 'SignUp';
+
+  if (requiredAuth && !authStore.isAuth) {
+    next({ name: 'SignIn', replace: true });
+  } else if (authStore.isAuth && signRoute) {
+    next({ name: 'Profile', replace: true });
   } else {
     next();
   }

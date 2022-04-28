@@ -17,7 +17,7 @@ type StateType = {
 };
 
 type ActionsType = {
-  meAction(): Promise<void>;
+  meAction(): Promise<void> | void;
   resetAction(): void;
   saveValueAction<T>(value: T): void;
 
@@ -28,7 +28,8 @@ type ActionsType = {
 
 type GettersType = {
   getUser(state: StoreState<StateType>): StateType['user'];
-  isAuth(state: StoreState<StateType>): StateType['isLoggedIn'];
+  isAuth(state: StoreState<StateType>): boolean;
+  isReadyApp(state: StoreState<StateType>): boolean;
 
   // Statuses
   isError(state: StoreState<StateType>): boolean;
@@ -45,7 +46,6 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
       user: null,
       token: useGetStorage<TokenResponse>('tokens')?.accessToken || '',
       isLoggedIn: false,
-      message: undefined,
       isReady: false,
     }),
     getters: {
@@ -53,7 +53,11 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
         return state.user;
       },
       isAuth(state) {
-        return state.isLoggedIn;
+        return this.isLoggedIn && state.isLoggedIn;
+      },
+
+      isReadyApp(state) {
+        return state.isReady;
       },
 
       // Statuses
@@ -87,26 +91,23 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
       async meAction() {
         this.status = 'loading';
         const res = await me(this.token);
-        if (res.status == 200) {
-          this.status = 'idle';
-          this.isLoggedIn = Boolean(res.data.user);
+        if (res.status === 200) {
           this.isReady = Boolean(res.data.user);
+          this.isLoggedIn = Boolean(res.data.user);
           this.user = res.data.user;
         } else {
           this.isReady = true;
-          this.status = 'idle';
+          this.isLoggedIn = false;
+          this.user = null;
         }
+        this.status = 'idle';
       },
 
       async signOutAction(fn) {
         this.status = 'loading';
         const res = await signOut();
-        if (res.status == 200) {
-          await fn?.();
-          this.$reset();
-        } else {
-          this.$reset();
-        }
+        if (res.status == 200) await fn?.();
+        this.resetAction();
       },
 
       async signUpAction(data, fn) {

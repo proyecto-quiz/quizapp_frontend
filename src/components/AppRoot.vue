@@ -4,29 +4,30 @@ import { useDarkTheme, useLocalStorage } from '@/composables';
 import { useAuthStore } from '@/stores';
 import Spinner from './ui/Spinner.vue';
 
-const authStore = computed(() => useAuthStore()).value;
+const authStore = useAuthStore();
+const isReady = computed(() => useAuthStore().isReadyApp);
 
 const setUsername = useLocalStorage<string>('username')[1];
-useDarkTheme();
-
-onBeforeMount(async () => {
-  await authStore.meAction();
-  Promise.resolve(setUsername(authStore.user?.username || ''));
-});
-
 const divRef = ref<HTMLDivElement>();
 
+onBeforeMount(async () => {
+  setUsername(authStore.user?.username || '');
+});
+
 onMounted(() => {
-  if (!authStore.isReady) divRef.value?.classList.add('a--show');
+  let element = divRef.value;
+  if (!authStore.isReadyApp) element?.classList.add('a--show');
   else {
-    divRef.value?.classList.remove('a--show');
-    divRef.value?.classList.add('a--hidden');
+    element?.classList.remove('a--show');
+    element?.classList.add('a--hidden');
   }
 });
+
+useDarkTheme();
 </script>
 
 <template>
-  <template v-if="!authStore.isReady">
+  <template v-if="!isReady">
     <div ref="divRef" class="flex flex-col items-center gap-3 pt-10">
       <h1 class="self-center text-5xl font-semibold">
         <span class="text-[#09FCED]">Note</span>

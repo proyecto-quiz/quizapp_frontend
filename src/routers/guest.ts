@@ -14,9 +14,6 @@ export const guestRoutes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('@/views/HomeView.vue'),
     alias: ['/home', '/index', '/inicio'],
-    meta: {
-      isGuest: true,
-    },
   },
 
   {
@@ -55,17 +52,11 @@ export const guestRoutes: RouteRecordRaw[] = [
     name: 'SignIn',
     path: '/sign-in',
     component: () => import('@/views/SignInView.vue'),
-    meta: {
-      sign: true,
-    },
   },
   {
     name: 'SignUp',
     path: '/sign-up',
     component: () => import('@/views/SignUpView.vue'),
-    meta: {
-      sign: true,
-    },
   },
   {
     path: '/pregunta-tipo',
@@ -76,7 +67,7 @@ export const guestRoutes: RouteRecordRaw[] = [
     path: '/cursos',
     name: 'Cursos',
     meta: {
-      requiresAuth: false,
+      requiredAuth: true,
     },
     component: () => import('@/views/cursos/CursosView.vue'),
   },
@@ -84,7 +75,7 @@ export const guestRoutes: RouteRecordRaw[] = [
     path: '/pregunta',
     name: 'Pregunta',
     meta: {
-      requiresAuth: false,
+      requiredAuth: true,
     },
     component: () => import('@/views/preguntas/PreguntaView.vue'),
   },

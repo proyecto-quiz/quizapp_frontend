@@ -9,10 +9,13 @@ import '@/styles/main.css';
 
 // icons
 import 'boxicons';
-
-const piniaStore = createPinia();
+import { useAuthStore } from './stores';
 
 const app = createApp(NBApp);
+const piniaStore = createPinia();
+
 app.use(piniaStore);
+await useAuthStore(piniaStore).meAction();
+
 app.use(router);
 app.mount('#quiz-app', true);
