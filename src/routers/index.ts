@@ -19,8 +19,9 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const authStore = computed(() => useAuthStore()).value;
+  !authStore.isReadyApp && (await authStore.meAction());
 
   const requiredAuth = (to.meta.requiredAuth || from.meta.requiredAuth) as boolean;
   const signRoute = to.name === 'SignIn' || to.name === 'SignUp';

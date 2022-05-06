@@ -96,9 +96,9 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
           this.isLoggedIn = Boolean(res.data.user);
           this.user = res.data.user;
         } else {
-          this.isReady = true;
           this.isLoggedIn = false;
           this.user = null;
+          this.isReady = true;
         }
         this.status = 'idle';
       },

@@ -11,6 +11,7 @@ const setUsername = useLocalStorage<string>('username')[1];
 const divRef = ref<HTMLDivElement>();
 
 onBeforeMount(async () => {
+  // await authStore.meAction();
   setUsername(authStore.user?.username || '');
 });
 

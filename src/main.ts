@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
-import router from '@/routers';
 import { createPinia } from 'pinia';
+import router from '@/routers';
 
 import NBApp from '@/NBApp.vue';
 
@@ -9,13 +9,9 @@ import '@/styles/main.css';
 
 // icons
 import 'boxicons';
-import { useAuthStore } from './stores';
 
 const app = createApp(NBApp);
 const piniaStore = createPinia();
-
-app.use(piniaStore);
-await useAuthStore(piniaStore).meAction();
-
 app.use(router);
+app.use(piniaStore);
 app.mount('#quiz-app', true);
