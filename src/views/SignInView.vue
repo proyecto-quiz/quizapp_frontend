@@ -156,6 +156,7 @@ const match = useMediaQuery('(min-width: 768px)');
           class="input w-full border border-secondary/20 bg-inherit"
           name="password"
           type="password"
+          autocomplete="false"
           :disabled="authStore.isLoading"
           :has-error="v$.password.$error"
           :help-error-msg="v$.password.$errors[0]?.$message"

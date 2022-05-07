@@ -1,20 +1,15 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted, ref } from 'vue';
-import { useDarkTheme, useLocalStorage } from '@/composables';
+import { computed, onMounted, ref } from 'vue';
+import { useDarkTheme } from '@/composables';
 import { useAuthStore } from '@/stores';
 import Spinner from './ui/Spinner.vue';
 
 const authStore = useAuthStore();
 const isReady = computed(() => useAuthStore().isReadyApp);
 
-const setUsername = useLocalStorage<string>('username')[1];
 const divRef = ref<HTMLDivElement>();
 
-onBeforeMount(async () => {
-  // await authStore.meAction();
-  setUsername(authStore.user?.username || '');
-});
-
+useDarkTheme();
 onMounted(() => {
   let element = divRef.value;
   if (!authStore.isReadyApp) element?.classList.add('a--show');
@@ -23,8 +18,6 @@ onMounted(() => {
     element?.classList.add('a--hidden');
   }
 });
-
-useDarkTheme();
 </script>
 
 <template>

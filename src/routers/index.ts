@@ -4,7 +4,6 @@ import { useAuthStore } from '@/stores';
 // Routes
 import { guestRoutes } from './guest';
 import { userRoutes } from './users';
-import { computed } from 'vue';
 
 const routes: RouteRecordRaw[] = [
   // Public routes
@@ -20,7 +19,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const authStore = computed(() => useAuthStore()).value;
+  const authStore = useAuthStore();
+
   !authStore.isReadyApp && (await authStore.meAction());
 
   const requiredAuth = (to.meta.requiredAuth || from.meta.requiredAuth) as boolean;

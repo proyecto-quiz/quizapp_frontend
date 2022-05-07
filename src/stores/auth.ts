@@ -95,10 +95,12 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
           this.isReady = Boolean(res.data.user);
           this.isLoggedIn = Boolean(res.data.user);
           this.user = res.data.user;
+          localStorage.setItem('username', this.user.username);
         } else {
           this.isLoggedIn = false;
           this.user = null;
           this.isReady = true;
+          localStorage.removeItem('username');
         }
         this.status = 'idle';
       },
