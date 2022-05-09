@@ -79,4 +79,12 @@ export const guestRoutes: RouteRecordRaw[] = [
     },
     component: () => import('@/views/preguntas/PreguntaView.vue'),
   },
+  {
+    path: '/nota',
+    name: 'Nota',
+    meta: {
+      requiredAuth: true,
+    },
+    component: () => import('@/views/notas/NotaView.vue'),
+  },
 ];
