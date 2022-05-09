@@ -1,13 +1,13 @@
 import { defineStore, StoreState } from 'pinia';
 import { curso } from '@/api';
 
-interface cursoint {
+interface cursoInterface {
   id: string;
   nombre: string;
   temas: [];
 }
 type StateType = {
-  cursos: cursoint[];
+  cursos: cursoInterface[];
 };
 type GettersType = {
   getCursos(state: StoreState<StateType>): StateType['cursos'];
