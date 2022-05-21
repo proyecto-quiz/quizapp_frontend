@@ -21,7 +21,8 @@ import Google from '@/components/draws/icons/Google.vue';
 import SignInImage from '@/assets/images/sign-in.png';
 
 const router = useRouter();
-const authStore = computed(() => useAuthStore()).value;
+const authStore = useAuthStore();
+const authStoreComp = computed(() => authStore);
 const stateForm = reactive<SignInForm>({} as SignInForm);
 const rules = computed<Record<string, any>>(() => ({
   email: { required, emailValid },
@@ -118,18 +119,24 @@ const match = useMediaQuery('(min-width: 768px)');
         </p>
       </aside>
       <span class="my-2 w-full border-t border-secondary dark:border-primary-light" />
-      <Alert v-if="authStore.isError" outline type="danger" @on-close="authStore.resetAction()">
-        <span
-          v-for="(err, idx) in formatResponse(authStore.message)"
-          :key="err.value + idx"
-          class="capitalize"
-        >
+      <Alert
+        v-if="authStoreComp.isError"
+        outline
+        type="danger"
+        @on-close="authStoreComp.resetAction()"
+      >
+        <span v-for="(err, idx) in formatResponse(authStoreComp.message)" :key="err.value + idx">
           {{ err.value }}
           <br />
         </span>
       </Alert>
-      <Alert v-if="authStore.isSuccess" outline type="success" @on-close="authStore.resetAction()">
-        {{ authStore.message }}
+      <Alert
+        v-if="authStoreComp.isSuccess"
+        outline
+        type="success"
+        @on-close="authStoreComp.resetAction()"
+      >
+        {{ authStoreComp.message }}
       </Alert>
       <form
         class="flex h-auto flex-col items-center justify-between gap-y-5"
@@ -144,7 +151,7 @@ const match = useMediaQuery('(min-width: 768px)');
           name="email"
           type="email"
           placeholder="my-mail@mail.com"
-          :disabled="authStore.isLoading"
+          :disabled="authStoreComp.isLoading"
           :has-error="v$.email.$error"
           :help-error-msg="v$.email.$errors[0]?.$message"
         />
@@ -157,7 +164,7 @@ const match = useMediaQuery('(min-width: 768px)');
           name="password"
           type="password"
           autocomplete="false"
-          :disabled="authStore.isLoading"
+          :disabled="authStoreComp.isLoading"
           :has-error="v$.password.$error"
           :help-error-msg="v$.password.$errors[0]?.$message"
         />
@@ -171,14 +178,14 @@ const match = useMediaQuery('(min-width: 768px)');
           label-name="Recordar mi Contraseña"
           label-class="text-sm"
           class="rounded disabled:bg-slate-400"
-          :disabled="authStore.isLoading"
+          :disabled="authStoreComp.isLoading"
         />
         <button
           class="button--secondary flex w-full flex-col items-center font-medium disabled:cursor-not-allowed disabled:bg-secondary/50 dark:disabled:bg-slate-500"
           type="submit"
-          :disabled="v$.$error || authStore.isLoading"
+          :disabled="v$.$error || authStoreComp.isLoading"
         >
-          <Spinner v-if="authStore.isLoading" type="contrast" class="h-7 w-7" />
+          <Spinner v-if="authStoreComp.isLoading" type="contrast" class="h-7 w-7" />
           <span v-else>Iniciar Sesión</span>
         </button>
       </form>

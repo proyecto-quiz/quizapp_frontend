@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { onMounted, provide } from 'vue';
 import { useAuthStore } from '@/stores';
 import { useLocalStorage } from '@/composables';
 import VerticalNavigation from '@/components/ui/VerticalNavigation.vue';
 import ButtonTheme from '@/components/ui/ButtonTheme.vue';
 
 const authStore = useAuthStore();
-const authStoreCom = computed(() => authStore);
-const [_, setMinimizeNav, minimizeNavComp] = useLocalStorage('nav-active', true);
+const [minimizeNav, setMinimizeNav, minimizeNavComp] = useLocalStorage('nav-active', false);
+
+provide('minimizeNav', minimizeNav);
+provide('user', authStore.user);
 
 onMounted(() => {
   window.document.title = `Perfil - ${authStore.user?.username}`;
@@ -15,7 +17,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="[minimizeNavComp ? 'content__grid' : 'content__grid--fade']">
+  <section>
     <button
       :class="[
         'btn--change button--light',
@@ -27,20 +29,24 @@ onMounted(() => {
     >
       {{ minimizeNavComp ? '&#9776;' : '&#10140;' }}
     </button>
+
     <ButtonTheme
       class="button btn--theme"
       class-icon="text-primary-dark dark:text-secondary-light"
     />
-    <Transition name="nav_fade">
-      <VerticalNavigation v-if="minimizeNavComp" />
-    </Transition>
-    <main :class="['main-content', minimizeNavComp ? 'main-w-full' : 'w-full']">
-      <!-- Router Children -->
-      <router-view v-slot="{ Component, route }">
-        <component :is="Component" :key="route.path" :user="authStoreCom.user" v-bind="$attrs" />
-      </router-view>
-    </main>
-  </div>
+  </section>
+
+  <Transition name="nav_fade">
+    <VerticalNavigation v-if="minimizeNavComp" />
+  </Transition>
+  <main
+    :class="['main-content', { 'main-w-full': minimizeNavComp, 'w-full pl-8': !minimizeNavComp }]"
+  >
+    <!-- Router Children -->
+    <router-view v-slot="{ Component, route }">
+      <component :is="Component" :key="route.path" v-bind="$attrs" />
+    </router-view>
+  </main>
 </template>
 
 <style scoped>
@@ -63,13 +69,13 @@ main {
   Transition aside (el)
 */
 .nav_fade-enter-active {
-  transition-property: all;
+  transition-property: transform opacity;
   transition-duration: 230ms;
   transition-timing-function: ease-in;
 }
 
 .nav_fade-leave-active {
-  transition-property: all;
+  transition-property: transform opacity;
   transition-duration: 230ms;
   transition-timing-function: ease-out;
 }
@@ -90,7 +96,9 @@ main {
 
 /* Main transition */
 .main-content {
-  transition: all 230ms ease-out;
+  transition-duration: 230ms;
+  transition-timing-function: ease-out;
+  transition-property: margin-left width transform;
 }
 
 .main-w-full {
