@@ -4,8 +4,8 @@
 
 @import 'tailwindcss/components';
 /* ui and components */
-@import 'ui/index';
-@import 'ui/forms';
+@import 'ui/index.css';
+@import 'ui/forms.css';
 
 @import 'tailwindcss/utilities';
 

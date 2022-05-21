@@ -10,7 +10,7 @@
 
 .button--primary {
   @apply button button--transition bg-primary-dark text-primary-light;
-  @apply hover:bg-primary-dark/70;
+  @apply hover:bg-primary-dark/80;
   @apply dark:hover:bg-primary-light/10;
   @apply focus:ring-secondary;
 }
@@ -33,4 +33,13 @@
   @apply button button--transition;
   @apply hover:bg-contrast-01/70;
   @apply bg-contrast-01 dark:text-primary-dark;
+  @apply focus:outline-contrast-01 focus:ring-contrast-01;
+}
+
+.button--danger {
+  @apply button button--transition;
+  @apply bg-rose-600 text-white;
+  @apply hover:bg-rose-600/90;
+  @apply focus:ring-rose-300/90 dark:focus:ring-rose-400/90;
+  @apply outline-none focus:outline-1 focus:outline-rose-400/40;
 }

@@ -2,9 +2,9 @@
 import AppRoot from './components/AppRoot.vue';
 </script>
 <template>
-  <AppRoot>
-    <router-view v-slot="{ Component, route }">
+  <router-view v-slot="{ Component, route }">
+    <AppRoot>
       <component :is="Component" :key="route.path" />
-    </router-view>
-  </AppRoot>
+    </AppRoot>
+  </router-view>
 </template>

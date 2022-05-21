@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { useAuthStore } from '@/stores';
 import ButtonTheme from './ui/ButtonTheme.vue';
 
-const authStore = computed(() => useAuthStore()).value;
+const authStore = computed(() => useAuthStore());
 </script>
 
 <template>

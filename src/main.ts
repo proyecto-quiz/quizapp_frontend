@@ -12,6 +12,6 @@ import 'boxicons';
 
 const app = createApp(NBApp);
 const piniaStore = createPinia();
-app.use(router);
 app.use(piniaStore);
+app.use(router);
 app.mount('#quiz-app', true);

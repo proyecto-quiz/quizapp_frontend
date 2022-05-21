@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { UserResponse } from '@@/types-response-users';
+import { useAttrs } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores';
 
-// TODO: Complete with computed
 const authStore = useAuthStore();
 
 const router = useRouter();
+const { user } = useAttrs() as { user: UserResponse };
 
 async function handleSignOutClick() {
   await authStore.signOutAction(async () => {
@@ -18,13 +20,39 @@ async function handleSignOutClick() {
 
 <template>
   <div class="container">
-    <h1 class="text-4xl">{{ authStore.user?.username }}</h1>
-    <pre>
-      {{ authStore.user }}
-    </pre>
-    <button type="button" class="button--contrast-01" @click="router.back">Regresar</button>
-    <button type="button" class="button--secondary" @click="handleSignOutClick">
-      Cerrar sesión
+    <ul>
+      <li class="text-4xl text-red-500">
+        {{ user?.email }}
+      </li>
+      <li>
+        {{ user?.username }}
+      </li>
+      <li>
+        {{ user?.role }}
+      </li>
+    </ul>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
+      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
+      rem sequi sint sunt veritatis voluptatibus voluptatum.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
+      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
+      rem sequi sint sunt veritatis voluptatibus voluptatum.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
+      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
+      rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
+      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
+      rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
+      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
+      rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
+      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
+      rem sequi sint sunt veritatis voluptatibus voluptatum.
+    </p>
+    <button type="button" class="button--light" @click="router.push({ name: 'Home' })">
+      <i class="bx bx-arrow-back self-center text-xl" />
+    </button>
+    <button title="Cerrar sesión" type="button" class="button--danger" @click="handleSignOutClick">
+      <i class="bx bx-log-out-circle" /> Cerrar sesión
     </button>
   </div>
 </template>
