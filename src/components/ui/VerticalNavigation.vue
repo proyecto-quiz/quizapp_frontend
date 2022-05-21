@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useAuthStore } from '@/stores';
-import ButtonTheme from '@/components/ui/ButtonTheme.vue';
 
 const authUser = useAuthStore();
 const authUserComputed = computed(() => authUser);
@@ -47,14 +46,13 @@ const links = [
       >
         {{ link.value }}
       </a>
-      <ButtonTheme class="button" class-icon="text-primary-dark dark:text-secondary-light" />
     </aside>
   </nav>
 </template>
 
 <style scoped>
 .navigate {
-  @apply container fixed flex h-screen w-[25%] flex-col border-r border-r-secondary-normal;
+  @apply container fixed flex h-full w-[25%] flex-col border-r border-r-secondary-normal;
 }
 
 .navigate__vert {
@@ -62,7 +60,7 @@ const links = [
 }
 
 .navigate__img {
-  @apply w-auto rounded-md opacity-90 shadow-md;
+  @apply w-[10%] rounded-md opacity-90 shadow-md md:w-auto;
 }
 
 .navigate__user {

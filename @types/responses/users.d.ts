@@ -18,6 +18,7 @@ declare module '@@/types-response-users' {
     lastName: string;
     isVerified: boolean;
     role: string;
+    rememberPassword: boolean;
   };
 
   export type UserAuthenticateResponse = {

@@ -4,10 +4,10 @@ import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { required, email as emailValid, maxLength, minLength } from '@vuelidate/validators';
 import { SignInForm } from '@@/types-forms';
+import { TokenResponse } from '@@/types-response-users';
 import { useAuthStore } from '@/stores';
 import { useLocalStorage, useMediaQuery } from '@/composables';
 import ButtonTheme from '@/components/ui/ButtonTheme.vue';
-import { TokenResponse } from '@@/types-response-users';
 import Spinner from '@/components/ui/Spinner.vue';
 import InputForm from '@/components/ui/InputForm.vue';
 import Alert from '@/components/ui/Alert.vue';
@@ -21,11 +21,8 @@ import Google from '@/components/draws/icons/Google.vue';
 import SignInImage from '@/assets/images/sign-in.png';
 
 const router = useRouter();
-
 const authStore = computed(() => useAuthStore()).value;
-
 const stateForm = reactive<SignInForm>({} as SignInForm);
-
 const rules = computed<Record<string, any>>(() => ({
   email: { required, emailValid },
   password: { required, maxLength: maxLength(20), minLength: minLength(5) },
@@ -39,6 +36,8 @@ const setTokens = useLocalStorage<TokenResponse>('tokens', {
   refreshToken: '',
 })[1];
 
+const [_, setRememberPassword, rememberPassComp] = useLocalStorage('rp', false);
+
 async function handleFormSubmit() {
   let valid = await v$.value.$validate();
   if (!v$.value.$error && valid) {
@@ -48,6 +47,7 @@ async function handleFormSubmit() {
         refreshToken: tokens[1],
       });
       await authStore.meAction();
+      setRememberPassword(authStore.user?.rememberPassword || false);
       await router.push({ name: 'Home' });
     });
   }
@@ -164,6 +164,7 @@ const match = useMediaQuery('(min-width: 768px)');
 
         <InputForm
           v-model="stateForm.rememberPassword"
+          :checked="rememberPassComp"
           c-class="flex w-full items-center gap-x-2"
           name="remember-password"
           type="checkbox"
@@ -172,7 +173,6 @@ const match = useMediaQuery('(min-width: 768px)');
           class="rounded disabled:bg-slate-400"
           :disabled="authStore.isLoading"
         />
-
         <button
           class="button--secondary flex w-full flex-col items-center font-medium disabled:cursor-not-allowed disabled:bg-secondary/50 dark:disabled:bg-slate-500"
           type="submit"
