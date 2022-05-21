@@ -5,7 +5,7 @@ import { useAuthStore } from '@/stores';
 import Spinner from './ui/Spinner.vue';
 
 const authStore = useAuthStore();
-const isReady = computed(() => useAuthStore().isReadyApp);
+const isReady = computed(() => authStore.isReadyApp);
 
 const divRef = ref<HTMLDivElement>();
 

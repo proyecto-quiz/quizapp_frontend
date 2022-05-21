@@ -1,6 +1,6 @@
 import { defineStore, StoreState } from 'pinia';
 import { me, signIn, signOut, signUp } from '@/api';
-import { ErrorResponse } from '@@/type-config-api';
+import { ErrorResponse, GetStatusStore, TypeStatusStore } from '@@/type-config-api';
 import { SignInForm, SignUpForm } from '@@/types-forms';
 import { TokenResponse, UserAuthenticateResponse } from '@@/types-response-users';
 import { useGetStorage } from '@/composables';
@@ -10,7 +10,7 @@ type StateType = {
   token: string;
   isLoggedIn: boolean;
   message?: ErrorResponse['detail'];
-  status: 'error' | 'success' | 'idle' | 'loading';
+  status: TypeStatusStore;
   isReady: boolean;
 
   saveValue?: any;
@@ -33,11 +33,7 @@ type GettersType = {
   userFullName(state: StoreState<StateType>): string;
 
   // Statuses
-  isError(state: StoreState<StateType>): boolean;
-  isIdle(state: StoreState<StateType>): boolean;
-  isLoading(state: StoreState<StateType>): boolean;
-  isSuccess(state: StoreState<StateType>): boolean;
-};
+} & GetStatusStore<StoreState<StateType>>;
 
 export const useAuthStore = defineStore<'auth-store', StateType, GettersType, ActionsType>(
   'auth-store',

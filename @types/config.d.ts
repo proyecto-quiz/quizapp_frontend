@@ -2,7 +2,7 @@ declare module '@@/type-config-api' {
   import { AxiosResponse } from 'axios';
 
   /**
-   * Reponses successfully
+   * Responses successfully
    */
   export type OkResponse = Record<string, string | string[] | object>;
 
@@ -32,4 +32,16 @@ declare module '@@/type-config-api' {
    * API Response of Backend
    */
   export type APIResponse<T = any> = Promise<AxiosResponse<T & ErrorResponse>>;
+
+  /**
+   * Statuses
+   */
+  export type TypeStatusStore = 'error' | 'success' | 'idle' | 'loading';
+  export type GetStatusStore<T = any> = {
+    // Statuses
+    isError(state: T): boolean;
+    isIdle(state: T): boolean;
+    isLoading(state: T): boolean;
+    isSuccess(state: T): boolean;
+  };
 }

@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores';
 // Routes
 import { guestRoutes } from './guest';
 import { userRoutes } from './users';
+import { coursesRoutes } from './courses';
 
 const routes: RouteRecordRaw[] = [
   // Public routes
@@ -11,6 +12,9 @@ const routes: RouteRecordRaw[] = [
 
   // User routes
   ...userRoutes,
+
+  //  Cursos
+  ...coursesRoutes,
 ];
 
 const router = createRouter({
