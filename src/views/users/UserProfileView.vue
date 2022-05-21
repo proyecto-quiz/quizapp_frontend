@@ -19,34 +19,72 @@ async function handleSignOutClick() {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container pb-5">
     <ul>
       <li class="text-4xl text-red-500">
-        {{ user?.email }}
+        {{ user.email }}
       </li>
       <li>
-        {{ user?.username }}
+        {{ user.username }}
       </li>
-      <li>
-        {{ user?.role }}
+      <li class="font-semibold text-yellow-700">
+        {{ user.role }}
       </li>
     </ul>
-    <p>
+    <p class="leading-7 -tracking-tight">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
       est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
-      rem sequi sint sunt veritatis voluptatibus voluptatum.
+      rem sequi sint sunt veritatis voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur
+      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
+      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
+      voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
+      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem
+      ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio est hic
+      ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos, rem
+      sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur
+      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
+      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
+      voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
+      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.
+    </p>
+
+    <p class="leading-7 -tracking-tight">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
       est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
-      rem sequi sint sunt veritatis voluptatibus voluptatum.
+      rem sequi sint sunt veritatis voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur
+      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
+      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
+      voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
+      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem
+      ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio est hic
+      ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos, rem
+      sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur
+      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
+      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
+      voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
+      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.
+    </p>
+    <p class="leading-7 -tracking-tight">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
       est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
-      rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
-      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
-      rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
-      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
-      rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
-      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
-      rem sequi sint sunt veritatis voluptatibus voluptatum.
+      rem sequi sint sunt veritatis voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur
+      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
+      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
+      voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
+      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem
+      ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio est hic
+      ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos, rem
+      sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur
+      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
+      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
+      voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
+      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.
     </p>
     <button type="button" class="button--light" @click="router.push({ name: 'Home' })">
       <i class="bx bx-arrow-back self-center text-xl" />

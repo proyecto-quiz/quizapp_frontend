@@ -33,7 +33,10 @@ const authStore = computed(() => useAuthStore());
           <ButtonTheme />
         </li>
         <li v-if="authStore.isLoggedIn">
-          <router-link :to="{ name: 'Profile' }" active-class="dark:text-contrast-01">
+          <router-link
+            :to="{ name: 'Profile' }"
+            class="transition-colors duration-100 hover:text-contrast-01"
+          >
             {{ authStore.user?.username }}
           </router-link>
         </li>

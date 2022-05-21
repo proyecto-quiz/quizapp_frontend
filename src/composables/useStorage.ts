@@ -1,6 +1,6 @@
-import { computed, onMounted, reactive, ReactiveEffect, ref } from 'vue';
+import { computed, ComputedRef, onMounted, reactive, ref } from 'vue';
 
-type UseStorage<T> = [T, (value: T) => void, ReactiveEffect<T>];
+type UseStorage<T> = [T, (value: T) => void, ComputedRef<T>];
 
 function serializerJSON(value: any) {
   try {
@@ -30,8 +30,7 @@ function useStorage<T>(key: string, value: T | undefined, storage: Storage): Use
 
   onMounted(() => {
     if (state.value === null || state.value === undefined) return storage.removeItem(key);
-
-    storage.setItem(key, serializerJSON(state.value));
+    else storage.setItem(key, serializerJSON(state.value));
   });
 
   const setValue = (newValue: T) => {
@@ -39,7 +38,7 @@ function useStorage<T>(key: string, value: T | undefined, storage: Storage): Use
     storage.setItem(key, serializerJSON(state.value));
   };
 
-  return [computed(() => state.value).value, setValue, computed(() => state.value).effect];
+  return [state.value, setValue, computed(() => state.value)];
 }
 
 export function useSessionStorage<T = any>(key: string, value?: T) {
