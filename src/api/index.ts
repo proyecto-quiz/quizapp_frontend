@@ -4,3 +4,4 @@ export * from './user-api';
 export * from './curso-api';
 export * from './pregunta-api';
 export * from './solucion-api';
+export * from './nota-api';
