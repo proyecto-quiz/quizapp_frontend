@@ -3,7 +3,6 @@
  */
 
 import axios from 'axios';
-import { useGetStorage } from '@/composables';
 import { RefreshTokenResponse, TokenResponse } from '@@/types-response-users';
 
 // URL Api
@@ -12,26 +11,10 @@ const API_V1 = `${API_URL}/api`;
 
 export const client = axios.create({ baseURL: API_V1 });
 
-const username = useGetStorage<string>('username');
-const tokens = useGetStorage<TokenResponse>('tokens');
+const username = localStorage.getItem('username');
+const tokens = JSON.parse(localStorage.getItem('tokens') || '{}') as TokenResponse;
 
 client.defaults.headers.common['Content-Type'] = 'application/json;';
-
-if (tokens) {
-  client.defaults.headers.common['Authorization'] = `Bearer ${tokens?.accessToken}`;
-}
-
-/**
- * Interceptor request
- */
-client.interceptors.request.use(
-  (config) => {
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 let isRefresh = false;
 /**

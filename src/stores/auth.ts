@@ -27,9 +27,10 @@ type ActionsType = {
 };
 
 type GettersType = {
-  getUser(state: StoreState<StateType>): StateType['user'];
   isAuth(state: StoreState<StateType>): boolean;
   isReadyApp(state: StoreState<StateType>): boolean;
+
+  userFullName(state: StoreState<StateType>): string;
 
   // Statuses
   isError(state: StoreState<StateType>): boolean;
@@ -49,15 +50,17 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
       isReady: false,
     }),
     getters: {
-      getUser(state) {
-        return state.user;
-      },
       isAuth(state) {
         return this.isLoggedIn && state.isLoggedIn;
       },
-
       isReadyApp(state) {
         return state.isReady;
+      },
+
+      userFullName(state) {
+        const user = state.user;
+        if (!!user?.name && !!user?.lastName) return `${state.user?.name} ${state.user?.lastName}`;
+        return user?.username || '';
       },
 
       // Statuses
@@ -107,7 +110,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
 
       async signOutAction(fn) {
         this.status = 'loading';
-        const res = await signOut();
+        const res = await signOut(this.token);
         if (res.status == 200) await fn?.();
         this.resetAction();
       },
