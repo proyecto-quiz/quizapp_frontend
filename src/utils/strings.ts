@@ -41,7 +41,7 @@ function formatObj(value: any, format: FormatS[], hasKeys: boolean, only?: strin
  *
  * @param value
  * @param keys return with keys
- * @param only specific keys to format it array
+ * @param only specific keys to format it an array
  * @returns
  */
 export function formatResponse(value: any, keys = false, only?: string | string[]): FormatS[] {

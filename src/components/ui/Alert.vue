@@ -7,10 +7,11 @@ interface Props {
   headTitle?: string;
   content?: ErrorResponse['detail'];
   outline?: boolean;
+  showAlert?: boolean;
 }
 
 const props = defineProps<Props>();
-const emits = defineEmits(['onClose', 'onHidden']);
+const emits = defineEmits(['hidden-alert']);
 
 const alertRef = ref<HTMLDivElement>();
 const showRef = ref(true);
@@ -26,7 +27,7 @@ function handleCloseClick() {
   let time = setTimeout(() => {
     showRef.value = false;
     alertRef.value = undefined;
-    emits('onClose');
+    emits('hidden-alert');
     clearTimeout(time);
   }, 500);
 }
@@ -37,37 +38,39 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <template v-if="showRef">
-    <div ref="alertRef" class="alert" :class="[props.type, props.outline && 'alert__outline']">
-      <h3 v-if="props.headTitle" class="text-base font-semibold md:text-lg">
-        {{ props.headTitle }}
-      </h3>
-      <template v-if="props.content">
-        <div class="alert--content font-medium">
-          {{ props.content }}
-        </div>
-      </template>
-      <div v-else class="alert--content">
-        <slot />
+  <div
+    v-if="showRef"
+    ref="alertRef"
+    :class="['alert', props.type, props.outline && 'alert__outline']"
+  >
+    <h3 v-if="props.headTitle" class="text-base font-semibold md:text-lg">
+      {{ props.headTitle }}
+    </h3>
+    <template v-if="props.content">
+      <div class="alert--content font-medium">
+        {{ props.content }}
       </div>
-      <button
-        :class="`button-close--${props.type}`"
-        type="button"
-        class="button button-close"
-        title="Cerrar alerta"
-        @click="handleCloseClick"
-      >
-        &#10006;
-      </button>
+    </template>
+    <div v-else class="alert--content">
+      <slot />
     </div>
-  </template>
+    <button
+      :class="`button-close--${props.type}`"
+      type="button"
+      class="button button-close"
+      title="Cerrar alerta"
+      @click="handleCloseClick"
+    >
+      &#10006;
+    </button>
+  </div>
 </template>
 
 <style lang="css" scoped>
 .alert {
   opacity: 1;
   @apply border shadow-md;
-  @apply relative my-3 flex flex-col flex-nowrap justify-around rounded-md px-4 py-3;
+  @apply relative my-1 flex flex-col flex-nowrap justify-around rounded-md px-4 py-3;
   @apply leading-5 tracking-normal;
 }
 
@@ -136,15 +139,15 @@ onUnmounted(() => {
 
   100% {
     opacity: 0;
-    transform: translateX(55px);
+    transform: translateX(20px);
   }
 }
 
 .hidden__alert {
   animation-name: hidden-alert;
   animation-direction: normal;
-  animation-duration: 1s;
-  animation-delay: 0.5ms;
+  animation-duration: 0.86s;
+  animation-delay: 0.35ms;
   animation-fill-mode: forwards;
   animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }

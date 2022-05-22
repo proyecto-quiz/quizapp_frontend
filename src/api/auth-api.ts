@@ -6,7 +6,7 @@ import { client } from './config';
 /**
  * Request post and sign-in with user credentials
  * @param data
- * @returns {APIResponse<UserAuthenticate>}
+ * @returns {APIResponse<TokenResponse>}
  */
 export async function signIn(data: SignInForm): APIResponse<TokenResponse> {
   try {

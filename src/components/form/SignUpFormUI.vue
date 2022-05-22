@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import { SignUpForm } from '@@/types-forms';
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
-import { required, email as emailValid, maxLength, minLength, sameAs } from '@vuelidate/validators';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useAuthStore } from '@/stores';
-import InputForm from '@/components/ui/InputForm.vue';
-import Alert from '@/components/ui/Alert.vue';
-import Spinner from '@/components/ui/Spinner.vue';
+import { SignUpForm } from '@@/types-forms';
+import { email as emailValid, maxLength, minLength, required, sameAs } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
-import { formatResponse } from '@/utils/strings';
+import Alert from '@/components/ui/Alert.vue';
+import { formatResponse } from '@/utils';
+import InputForm from '@/components/ui/InputForm.vue';
+import Spinner from '@/components/ui/Spinner.vue';
 
 const router = useRouter();
 const authStore = computed(() => useAuthStore()).value;
@@ -40,15 +39,23 @@ async function handleUpSubmit() {
     });
   } else return;
 }
+
+// Ref
+const signUpFormRef = ref<HTMLElement>();
+
+onMounted(() => {
+  signUpFormRef.value?.classList.add('a--show');
+});
 </script>
 
 <template>
-  <LayoutDefault title="Registrarse">
-    <h1 class="my-3 text-lg font-medium tracking-wider first-letter:text-sky-600 md:text-4xl">
+  <section ref="signUpFormRef" class="flex flex-col px-7 py-3 md:gap-5 md:px-10">
+    <slot />
+    <h1 class="text-lg font-medium tracking-wider first-letter:text-sky-600 md:text-4xl">
       Registrarse
     </h1>
 
-    <Alert v-if="authStore.isError" type="danger" outline @on-close="authStore.resetAction()">
+    <Alert v-if="authStore.isError" type="danger" outline @hidden-alert="authStore.resetAction()">
       <span
         v-for="(err, idx) of formatResponse(authStore.message, false)"
         :key="'err' + idx"
@@ -119,5 +126,5 @@ async function handleUpSubmit() {
         <span v-else>Registrarse</span>
       </button>
     </form>
-  </LayoutDefault>
+  </section>
 </template>

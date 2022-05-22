@@ -1,3 +1,4 @@
-@import 'components/buttons';
-@import 'forms';
-@import 'animations/main';
+@import 'components/buttons.css';
+@import 'forms.css';
+@import 'animations/main.css';
+@import 'animations/alert.css';

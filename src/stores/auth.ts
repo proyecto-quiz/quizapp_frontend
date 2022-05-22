@@ -22,8 +22,8 @@ type ActionsType = {
   saveValueAction<T>(value: T): void;
 
   signInAction(data: SignInForm, fn: (tokens: string[]) => Promise<void> | void): Promise<void>;
-  signOutAction(fn?: () => Promise<void> | void): Promise<void>;
-  signUpAction(data: SignUpForm, fn?: () => Promise<void> | void): Promise<void>;
+  signOutAction(fn: () => Promise<void> | void): Promise<void>;
+  signUpAction(data: SignUpForm, fn: () => Promise<void> | void): Promise<void>;
 };
 
 type GettersType = {
@@ -80,7 +80,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
         if (res.status === 200) {
           this.status = 'success';
           this.token = res.data.accessToken;
-          await fn?.([res.data.accessToken, res.data.refreshToken]);
+          await fn([res.data.accessToken, res.data.refreshToken]);
         } else {
           this.status = 'error';
           this.message = res.data.detail || res.data.nonFieldErrors;
@@ -107,7 +107,8 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
       async signOutAction(fn) {
         this.status = 'loading';
         const res = await signOut(this.token);
-        if (res.status == 200) await fn?.();
+        if (res.status == 200) await fn();
+
         this.resetAction();
       },
 
@@ -117,7 +118,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
         if (res.status == 200 || res.status == 201) {
           this.status = 'success';
           this.message = res.data.message;
-          await fn?.();
+          await fn();
         } else {
           this.status = 'error';
           this.message = res.data.nonFieldErrors || res.data.detail || res.data;

@@ -2,14 +2,14 @@ import { defineStore, StoreState } from 'pinia';
 import { curso } from '@/api';
 import { GetStatusStore, TypeStatusStore } from '@@/type-config-api';
 
-interface cursoint {
+interface ICurso {
   id: string;
   nombre: string;
-  temas: [];
+  temas: any[];
 }
 
 type StateType = {
-  cursos: cursoint[];
+  cursos: ICurso[];
   count: number;
   status: TypeStatusStore;
 };
@@ -57,6 +57,8 @@ export const useCursoStore = defineStore<'curso', StateType, GettersType, Action
         this.count = res.data.count;
       } else {
         this.status = 'error';
+        this.cursos = [];
+        this.count = 0;
       }
     },
   },
