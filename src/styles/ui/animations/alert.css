@@ -1,0 +1,18 @@
+/* Transition Vue */
+.alert-message-enter-from,
+.alert-message-leave-to {
+  opacity: 1;
+}
+
+.alert-message-enter-to,
+.alert-message-leave-from {
+  opacity: 0;
+}
+
+.alert-message-enter-active,
+.alert-message-leave-active {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition-duration: 400ms;
+  transition-delay: 0.4s;
+}

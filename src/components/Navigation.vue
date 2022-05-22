@@ -41,7 +41,7 @@ const authStore = computed(() => useAuthStore());
           </router-link>
         </li>
         <li v-else>
-          <router-link :to="{ name: 'SignIn' }" class="button-sign-in">
+          <router-link :to="{ name: 'Sign' }" class="button-sign-in">
             <svg
               width="14"
               height="14"

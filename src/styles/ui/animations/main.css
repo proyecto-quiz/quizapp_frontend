@@ -34,3 +34,40 @@
     opacity: 0;
   }
 }
+
+/* Show */
+.a--x--show {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-name: show-translate-animate;
+  animation-direction: normal;
+}
+
+@keyframes show-translate-animate {
+  from {
+    transform: translateX(300px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Hidden */
+.a--x--hidden {
+  animation-duration: 1s;
+  animation-delay: 200ms;
+  animation-fill-mode: forwards;
+  animation-name: hidden-translate-animate;
+  animation-direction: normal;
+}
+
+@keyframes hidden-translate-animate {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
