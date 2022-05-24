@@ -11,7 +11,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const emits = defineEmits(['hidden-alert']);
+const emits = defineEmits(['on-close']);
 
 const alertRef = ref<HTMLDivElement>();
 const showRef = ref(true);
@@ -27,7 +27,7 @@ function handleCloseClick() {
   let time = setTimeout(() => {
     showRef.value = false;
     alertRef.value = undefined;
-    emits('hidden-alert');
+    emits('on-close');
     clearTimeout(time);
   }, 500);
 }
@@ -146,8 +146,8 @@ onUnmounted(() => {
 .hidden__alert {
   animation-name: hidden-alert;
   animation-direction: normal;
-  animation-duration: 0.86s;
-  animation-delay: 0.35ms;
+  animation-duration: 480ms;
+  animation-delay: 50ms;
   animation-fill-mode: forwards;
   animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }

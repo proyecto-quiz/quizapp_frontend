@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  type: 'primary' | 'secondary' | 'light' | 'contrast' | 'green' | 'amber';
+  type: 'primary' | 'secondary' | 'light' | 'contrast' | 'green' | 'amber' | 'rose';
 }
 
 const props = defineProps<Props>();
@@ -61,6 +61,15 @@ const props = defineProps<Props>();
   border-radius: 50%;
   @apply border-slate-300/50 dark:border-primary-light/50;
   @apply border-t-amber-600 dark:border-t-amber-300;
+
+  animation: spin ease-in 0.3s infinite;
+}
+
+.rose {
+  border-width: 4px;
+  border-radius: 50%;
+  @apply border-slate-300/50 dark:border-primary-light/50;
+  @apply border-t-rose-600 dark:border-t-rose-300;
 
   animation: spin ease-in 0.3s infinite;
 }

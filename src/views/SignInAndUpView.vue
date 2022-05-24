@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useMediaQuery } from '@/composables';
 import SignInFormUI from '@/components/form/SignInFormUI.vue';
@@ -14,7 +14,7 @@ const route = useRoute();
 
 const matchUp = computed(() => route.query.type === 'sign-up');
 
-onBeforeMount(() => {
+onMounted(() => {
   window.document.title = 'NoteBlue - Iniciar Sesión';
 });
 

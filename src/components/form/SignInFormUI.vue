@@ -47,6 +47,8 @@ async function handleFormSubmit() {
       await router.push({ name: 'Home' });
     });
   }
+
+  if (authStore.isError) stateForm.password = '';
 }
 
 // Ref
@@ -65,12 +67,7 @@ onMounted(() => {
 <template>
   <section ref="signInFormRef" class="flex flex-col px-7 py-3 md:gap-5 md:px-10">
     <slot />
-    <Alert
-      v-if="authStoreComp.isError"
-      outline
-      type="danger"
-      @on-close="authStoreComp.resetAction()"
-    >
+    <Alert v-if="authStoreComp.isError" outline type="danger" @on-close="authStore.resetAction()">
       <span v-for="(err, idx) in formatResponse(authStoreComp.message)" :key="err.value + idx">
         {{ err.value }}
         <br />
@@ -80,7 +77,7 @@ onMounted(() => {
       v-if="authStoreComp.isSuccess"
       outline
       type="success"
-      @on-close="authStoreComp.resetAction()"
+      @on-close="authStore.resetAction()"
     >
       {{ authStoreComp.message }}
     </Alert>
@@ -98,7 +95,7 @@ onMounted(() => {
         type="email"
         placeholder="my-mail@mail.com"
         :disabled="authStoreComp.isLoading"
-        :has-error="v$.email.$error"
+        :has-error="v$.email.$error || authStoreComp.isError"
         :help-error-msg="v$.email.$errors[0]?.$message"
       />
 
@@ -111,7 +108,7 @@ onMounted(() => {
         type="password"
         autocomplete="false"
         :disabled="authStoreComp.isLoading"
-        :has-error="v$.password.$error"
+        :has-error="v$.password.$error || authStoreComp.isError"
         :help-error-msg="v$.password.$errors[0]?.$message"
       />
 
@@ -133,7 +130,9 @@ onMounted(() => {
         :disabled="v$.$error || authStoreComp.isLoading"
       >
         <Spinner v-if="authStoreComp.isLoading" type="contrast" class="h-7 w-7" />
-        <span v-else>Iniciar Sesión</span>
+        <span v-else class="flex justify-center">
+          <i class="bx bx-log-in mr-2 text-2xl" /><span>Iniciar Sesión</span>
+        </span>
       </button>
     </form>
     <div class="separator my-2 text-center">O</div>
