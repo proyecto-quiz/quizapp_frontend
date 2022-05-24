@@ -11,7 +11,8 @@ import InputForm from '@/components/ui/InputForm.vue';
 import Spinner from '@/components/ui/Spinner.vue';
 
 const router = useRouter();
-const authStore = computed(() => useAuthStore()).value;
+const authStore = useAuthStore();
+const authStoreComp = computed(() => authStore);
 
 const stateForm = reactive<SignUpForm>({} as SignUpForm);
 
@@ -55,9 +56,9 @@ onMounted(() => {
       Registrarse
     </h1>
 
-    <Alert v-if="authStore.isError" type="danger" outline @hidden-alert="authStore.resetAction()">
+    <Alert v-if="authStoreComp.isError" type="danger" outline @on-close="authStore.resetAction()">
       <span
-        v-for="(err, idx) of formatResponse(authStore.message, false)"
+        v-for="(err, idx) of formatResponse(authStoreComp.message, false)"
         :key="'err' + idx"
         class="first-letter:uppercase"
       >
@@ -76,7 +77,7 @@ onMounted(() => {
         type="email"
         class="input w-full border border-secondary/20 bg-inherit"
         placeholder="my-email@mail-com"
-        :disabled="authStore.isLoading"
+        :disabled="authStoreComp.isLoading"
         :has-error="v$.email.$error"
         :help-error-msg="v$.email.$errors[0]?.$message"
       />
@@ -88,7 +89,7 @@ onMounted(() => {
         name="username"
         type="text"
         class="input w-full border border-secondary/20 bg-inherit"
-        :disabled="authStore.isLoading"
+        :disabled="authStoreComp.isLoading"
         :has-error="v$.username.$error"
         :help-error-msg="v$.username.$errors[0]?.$message"
       />
@@ -100,7 +101,7 @@ onMounted(() => {
         name="password"
         type="password"
         class="input w-full border border-secondary/20 bg-inherit"
-        :disabled="authStore.isLoading"
+        :disabled="authStoreComp.isLoading"
         :has-error="v$.password.$error"
         :help-error-msg="v$.password.$errors[0]?.$message"
       />
@@ -112,7 +113,7 @@ onMounted(() => {
         name="password2"
         type="password"
         class="input w-full border border-secondary/20 bg-inherit"
-        :disabled="authStore.isLoading"
+        :disabled="authStoreComp.isLoading"
         :has-error="v$.password2.$error"
         :help-error-msg="v$.password2.$errors[0]?.$message"
       />
@@ -120,10 +121,12 @@ onMounted(() => {
       <button
         class="button--secondary flex w-full flex-col items-center disabled:cursor-not-allowed disabled:bg-secondary/40"
         type="submit"
-        :disabled="v$.$error || authStore.isLoading"
+        :disabled="v$.$error || authStoreComp.isLoading"
       >
-        <Spinner v-if="authStore.isLoading" type="green" class="h-7 w-7" />
-        <span v-else>Registrarse</span>
+        <Spinner v-if="authStoreComp.isLoading" type="green" class="h-7 w-7" />
+        <span v-else class="flex justify-center">
+          <i class="bx bx-user-plus mr-2 text-2xl" /> Registrarse
+        </span>
       </button>
     </form>
   </section>

@@ -1,17 +1,12 @@
 <script setup lang="ts">
 import { UserResponse } from '@@/types-response-users';
 import { inject } from 'vue';
-import { useRouter } from 'vue-router';
 
-const router = useRouter();
 const user = inject<UserResponse>('user');
 </script>
 
 <template>
   <div class="container pb-5">
-    <button type="button" class="button--light" @click="router.push({ name: 'Home' })">
-      <i class="bx bx-arrow-back self-center text-xl" />
-    </button>
     <ul>
       <li class="text-4xl text-red-500">
         {{ user.email }}

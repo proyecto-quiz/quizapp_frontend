@@ -8,7 +8,6 @@ export default defineConfig({
   server: {
     port: 7880,
   },
-
   resolve: {
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.d.ts'],
     alias: {

@@ -28,10 +28,10 @@ router.beforeEach(async (to, from, next) => {
   !authStore.isReadyApp && (await authStore.meAction());
 
   const requiredAuth = (to.meta.requiredAuth || from.meta.requiredAuth) as boolean;
-  const signRoute = to.name === 'SignIn' || to.name === 'SignUp';
+  const signRoute = to.name === 'Sign';
 
   if (requiredAuth && !authStore.isAuth) {
-    next({ name: 'SignIn', replace: true });
+    next({ name: 'Sign', replace: true, query: { type: 'sign-in' } });
   } else if (authStore.isAuth && signRoute) {
     next({ name: 'Profile', replace: true });
   } else {

@@ -4,6 +4,6 @@ import LayoutDefault from '@/layouts/LayoutDefault.vue';
 
 <template>
   <LayoutDefault title="Sobre Nosotros">
-    <h1>Sobre Nosotros</h1>
+    <h1 class="text-4xl">Sobre Nosotros</h1>
   </LayoutDefault>
 </template>

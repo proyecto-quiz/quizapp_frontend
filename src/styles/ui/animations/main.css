@@ -1,6 +1,6 @@
 /* Show */
 .a--show {
-  animation-duration: 2s;
+  animation-duration: 850ms;
   animation-fill-mode: forwards;
   animation-name: show-animate;
   animation-direction: normal;

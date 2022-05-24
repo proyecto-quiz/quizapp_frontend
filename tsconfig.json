@@ -11,9 +11,10 @@
     "incremental": true,
     "isolatedModules": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
-    "module": "ESNext",
+    "module": "esnext",
     "strict": true,
     "alwaysStrict": true,
+    "composite": true,
     "jsx": "preserve",
     "types": ["vite/client"],
     "paths": {
