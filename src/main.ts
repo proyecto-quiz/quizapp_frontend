@@ -12,6 +12,7 @@ import 'boxicons';
 
 const app = createApp(NBApp);
 const piniaStore = createPinia();
+
 app.use(piniaStore);
 app.use(router);
-app.mount('#quiz-app', true);
+app.mount('#noteblue-app', true);

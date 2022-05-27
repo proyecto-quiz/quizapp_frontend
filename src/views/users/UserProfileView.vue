@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { inject, ref } from 'vue';
 import { UserResponse } from '@@/types-response-users';
-import { inject } from 'vue';
 
+const valueRef = ref<string>();
 const user = inject<UserResponse>('user');
 </script>
 
 <template>
-  <div class="container pb-5">
+  <div class="container">
     <ul>
       <li class="text-4xl text-red-500">
         {{ user.email }}
@@ -18,60 +19,8 @@ const user = inject<UserResponse>('user');
         {{ user.role }}
       </li>
     </ul>
-    <p class="leading-7 -tracking-tight">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
-      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
-      rem sequi sint sunt veritatis voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
-      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
-      voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
-      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem
-      ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio est hic
-      ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos, rem
-      sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
-      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
-      voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
-      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.
-    </p>
-
-    <p class="leading-7 -tracking-tight">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
-      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
-      rem sequi sint sunt veritatis voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
-      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
-      voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
-      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem
-      ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio est hic
-      ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos, rem
-      sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
-      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
-      voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
-      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.
-    </p>
-    <p class="leading-7 -tracking-tight">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio
-      est hic ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos,
-      rem sequi sint sunt veritatis voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
-      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
-      voluptatibus voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
-      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.Lorem
-      ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad deserunt distinctio est hic
-      ipsam non numquam officia officiis perferendis placeat, possimus provident quis quos, rem
-      sequi sint sunt veritatis voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit. Accusantium ad deserunt distinctio est hic ipsam non numquam officia
-      officiis perferendis placeat, possimus provident quis quos, rem sequi sint sunt veritatis
-      voluptatibus voluptatum.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-      ad deserunt distinctio est hic ipsam non numquam officia officiis perferendis placeat,
-      possimus provident quis quos, rem sequi sint sunt veritatis voluptatibus voluptatum.
-    </p>
+    <p>{{ valueRef }}</p>
+    <input v-model="valueRef" type="url" name="url-image" class="rounded" />
+    <img v-if="!!valueRef" :src="valueRef" alt="image-user" />
   </div>
 </template>

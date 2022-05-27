@@ -7,7 +7,7 @@
     "build": "vite build",
     "format:all": "prettier -w . & prettier -c .",
     "format:single": "prettier -w",
-    "preview": "vite preview"
+    "preview": "vite build && vite preview"
   },
   "dependencies": {
     "@vuelidate/core": "2.0.0-alpha.40",

@@ -103,17 +103,19 @@ async function handleSelectClick() {
       <button class="button" disabled>Respuesta: {{ solucionStore.respuesta }}</button>
       <a href="#solucion" class="button--contrast-01">Ver Solución</a>
     </div>
-    <div id="solucion" class="modal">
-      <div class="modal-contenido text-justify">
-        <a href="#">X</a>
-        <h2 class="my-4 text-center text-lg">SOLUCIÓN</h2>
-        <div>
-          <p><strong> Author:</strong> {{ solucion?.author }}</p>
-          <p><strong> Resolución:</strong> {{ solucion?.resolucion }}</p>
-          <p><strong> Referencia:</strong>{{ solucion?.referencia }}</p>
+    <Teleport to="#noteblue-app">
+      <div id="solucion" class="modal">
+        <div class="modal-contenido text-justify">
+          <a href="#">X</a>
+          <h2 class="my-4 text-center text-lg">SOLUCIÓN</h2>
+          <div>
+            <p><strong>Author:</strong> {{ solucion?.author }}</p>
+            <p><strong>Resolución:</strong> {{ solucion?.resolucion }}</p>
+            <p><strong>Referencia:</strong>{{ solucion?.referencia }}</p>
+          </div>
         </div>
       </div>
-    </div>
+    </Teleport>
   </div>
 </template>
 
@@ -144,6 +146,7 @@ async function handleSelectClick() {
   opacity: 0;
   pointer-events: none;
   transition: all 0.5s;
+  z-index: 10;
 }
 
 .modal-contenido {

@@ -67,7 +67,7 @@ onMounted(() => {
 <template>
   <section ref="signInFormRef" class="flex flex-col px-7 py-3 md:gap-5 md:px-10">
     <slot />
-    <Alert v-if="authStoreComp.isError" outline type="danger" @on-close="authStore.resetAction()">
+    <Alert v-if="authStoreComp.isError" outline type="danger" @on-close="authStore.resetAction">
       <span v-for="(err, idx) in formatResponse(authStoreComp.message)" :key="err.value + idx">
         {{ err.value }}
         <br />
