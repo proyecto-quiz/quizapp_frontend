@@ -7,7 +7,7 @@ const authStore = computed(() => useAuthStore());
 </script>
 
 <template>
-  <header class="sticky top-0 z-10 min-h-full p-2 py-3 md:container">
+  <header class="sticky top-0 z-10 box-border min-h-full px-2 py-3 md:container">
     <nav class="flex items-center justify-between">
       <h1 class="text-lg font-medium uppercase md:text-3xl">
         <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'Home' }">

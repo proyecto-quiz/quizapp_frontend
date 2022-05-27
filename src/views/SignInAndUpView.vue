@@ -22,19 +22,18 @@ const match = useMediaQuery('(min-width: 768px)');
 </script>
 
 <template>
-  <main class="grid grid-rows-1 items-stretch md:h-screen md:grid-cols-2">
-    <section class="top-4 z-10 mt-2 flex w-full justify-between px-10 md:fixed md:mt-4">
-      <router-link
-        type="button"
-        title="Regresar"
-        class="button--contrast-01 flex items-center gap-1 text-sm"
-        :to="{ name: 'Home' }"
-      >
-        <i class="bx bx-arrow-back bx-xs self-center" /> Regresar
-      </router-link>
-      <ButtonTheme />
-    </section>
-
+  <section class="top-4 z-10 mt-2 flex w-full justify-between px-10 md:fixed md:mt-4">
+    <router-link
+      type="button"
+      title="Regresar"
+      class="button--contrast-01 flex items-center gap-1 text-sm"
+      :to="{ name: 'Home' }"
+    >
+      <i class="bx bx-arrow-back bx-xs self-center" /> Regresar
+    </router-link>
+    <ButtonTheme />
+  </section>
+  <main class="grid md:h-screen md:grid-cols-2">
     <section v-if="match" class="relative flex h-screen flex-col">
       <p
         class="text--shadow fixed top-1/3 px-5 text-base leading-8 text-slate-100 sm:w-2/4 md:leading-11"
@@ -42,7 +41,7 @@ const match = useMediaQuery('(min-width: 768px)');
         <i class="bx-pull-left bx bxs-quote-alt-left bx-lg" />
         {{ summaryJson['sign-in'].text }}
         <br />
-        <span class="text-base font-medium">{{ summaryJson['sign-in'].author }} </span>
+        <span class="text-base font-medium" v-text="summaryJson['sign-in'].author" />
       </p>
       <img
         :src="SignInImage"
@@ -50,11 +49,11 @@ const match = useMediaQuery('(min-width: 768px)');
         alt="Book Image"
       />
     </section>
-
     <SignInFormUI v-if="!matchUp">
       <aside class="my-2">
         <h1 class="title-nb title-nb-01">
-          <span class="text-[#09FCED]">Note</span><span class="text-secondary-normal">Blue</span>
+          <span class="text-[#09FCED]" v-text="'Note'" />
+          <span class="text-secondary-normal" v-text="'Blue'" />
         </h1>
         <h3 class="text-center text-lg md:text-left md:text-xl">Inicia sesión con tu cuenta</h3>
         <p class="text-center text-sm text-secondary-normal md:text-left">

@@ -16,7 +16,8 @@ const observer = useInterObserver(
   {
     queryAllSelector: 'section.section',
     init: {
-      rootMargin: '-150px',
+      root: document.querySelector('main.container'),
+      rootMargin: '0px',
     },
   }
 );
@@ -94,7 +95,7 @@ const observer = useInterObserver(
 
 <style scoped>
 .section {
-  @apply flex flex-col items-start justify-between gap-2 py-3 md:h-screen md:gap-10;
+  @apply flex h-screen flex-col items-start justify-between gap-2 py-3 md:gap-10;
   opacity: 0;
   transform: translateX(-100px);
 }
@@ -107,7 +108,7 @@ const observer = useInterObserver(
 .section {
   transition-delay: 0.25s;
   transition-duration: 1.5s;
-  transition-property: transform opacity;
+  transition-property: transform, opacity;
   transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
