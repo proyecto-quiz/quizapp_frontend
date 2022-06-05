@@ -5,10 +5,14 @@ import { useAuthStore } from '@/stores';
 import { guestRoutes } from './guest';
 import { userRoutes } from './users';
 import { coursesRoutes } from './courses';
+import { blogsRoutes } from '@/routers/blogs';
 
 const routes: RouteRecordRaw[] = [
   // Public routes
   ...guestRoutes,
+
+  // Blogs routes
+  ...blogsRoutes,
 
   // User routes
   ...userRoutes,

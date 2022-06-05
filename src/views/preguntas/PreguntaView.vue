@@ -94,14 +94,16 @@ async function handleSelectClick() {
       </div>
     </div>
     <div class="flex flex-row justify-between gap-4">
-      <button type="button" class="button--secondary" @click.prevent="handleSelectClick">
+      <button type="button" class="button button--secondary" @click.prevent="handleSelectClick">
         Seleccionar
       </button>
-      <button class="button--secondary" @click.prevent="handlePreguntaClick">Siguiente</button>
+      <button class="button button--secondary" @click.prevent="handlePreguntaClick">
+        Siguiente
+      </button>
     </div>
     <div class="flex flex-row gap-4">
-      <button class="button" disabled>Respuesta: {{ solucionStore.respuesta }}</button>
-      <a href="#solucion" class="button--contrast-01">Ver Solución</a>
+      <span>Respuesta: {{ solucionStore.respuesta }}</span>
+      <a href="#solucion" class="button button--contrast-01">Ver Solución</a>
     </div>
     <Teleport to="#noteblue-app">
       <div id="solucion" class="modal">

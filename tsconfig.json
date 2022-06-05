@@ -24,6 +24,13 @@
       "@@/*": ["./*"]
     }
   },
-  "include": ["vite.config.ts", "@types", "@types/**/*.d.ts", "src/**/*.vue", "src/**/*.ts"],
+  "include": [
+    "vite.config.ts",
+    "@types",
+    "@types/**/*.d.ts",
+    "src/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.json"
+  ],
   "exclude": ["node_modules", "dist"]
 }

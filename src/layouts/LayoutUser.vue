@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores';
 import { useLocalStorage } from '@/composables';
 import VerticalNavigation from '@/components/ui/VerticalNavigation.vue';
 import ButtonTheme from '@/components/ui/ButtonTheme.vue';
+import Search from '@/components/ui/Search.vue';
 
 const authStore = useAuthStore();
 const [minimizeNav, setMinimizeNav, minimizeNavComp] = useLocalStorage('nav-active', true);
@@ -22,7 +23,7 @@ onMounted(() => {
   <section>
     <button
       :class="[
-        'btn--change button--light',
+        'button--sm btn--change button--light',
         { 'left-[22%] md:left-[24%]': minimizeNavComp, 'left-[1%]': !minimizeNavComp },
       ]"
       title="Navigation"
@@ -31,7 +32,7 @@ onMounted(() => {
       v-text="minimizeNavComp ? '&#9776;' : '&#10140;'"
     />
     <ButtonTheme
-      class="button btn--theme"
+      class="button--sm btn--theme"
       class-icon="text-primary-dark dark:text-secondary-light"
     />
   </section>
@@ -70,7 +71,7 @@ main {
 }
 
 .btn--theme {
-  @apply fixed top-2 right-2;
+  @apply fixed top-2 right-2 z-[1];
   @apply bg-secondary-light font-semibold hover:bg-secondary-light dark:bg-primary-dark;
 }
 

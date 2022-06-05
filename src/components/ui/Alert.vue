@@ -42,6 +42,7 @@ onUnmounted(() => {
     v-if="showRef"
     ref="alertRef"
     :class="['alert', props.type, props.outline && 'alert__outline']"
+    role="alert"
   >
     <h3 v-if="props.headTitle" class="text-base font-semibold md:text-lg">
       {{ props.headTitle }}

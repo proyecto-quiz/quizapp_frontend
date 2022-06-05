@@ -119,7 +119,7 @@ onMounted(() => {
       />
 
       <button
-        class="button--secondary flex w-full flex-col items-center disabled:cursor-not-allowed disabled:bg-secondary/40"
+        class="button button--secondary flex w-full flex-col items-center disabled:cursor-not-allowed disabled:bg-secondary/40"
         type="submit"
         :disabled="v$.$error || authStoreComp.isLoading"
       >
