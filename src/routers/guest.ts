@@ -52,17 +52,4 @@ export const guestRoutes: RouteRecordRaw[] = [
     path: '/sign',
     component: () => import('@/views/SignInAndUpView.vue'),
   },
-  {
-    path: '/pregunta-tipo',
-    name: 'PreguntaTipo',
-    component: () => import('@/views/preguntas/PreguntaTipoView.vue'),
-  },
-  {
-    path: '/cursos',
-    name: 'Cursos',
-    meta: {
-      requiredAuth: true,
-    },
-    component: () => import('@/views/cursos/CursosView.vue'),
-  },
 ];

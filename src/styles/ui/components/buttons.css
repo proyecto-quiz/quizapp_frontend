@@ -5,7 +5,7 @@
 }
 
 .button--sm {
-  @apply rounded py-[0.25rem] px-[0.50rem] text-[0.85rem] font-medium tracking-tight shadow;
+  @apply rounded py-[0.3rem] px-[0.55rem] text-[0.85rem] font-medium tracking-tight shadow;
   @apply focus:ring-1;
 }
 
@@ -14,35 +14,56 @@
 }
 
 .button--primary {
-  @apply button button--transition bg-primary-dark text-primary-light;
+  @apply button--transition bg-primary-dark text-primary-light;
   @apply hover:bg-primary-dark/80;
   @apply dark:hover:bg-primary-light/10;
   @apply focus:ring-secondary;
 }
 
+.button--primary--outline {
+  @apply button--transition bg-primary-dark/10 text-primary-dark;
+  @apply border border-primary-dark/80 hover:bg-primary-dark/20;
+  @apply dark:border-secondary-normal dark:text-primary-light dark:hover:bg-primary-dark/50 dark:hover:bg-primary-light/10;
+  @apply outline-none focus:outline-1 focus:ring-secondary/50;
+}
+
 .button--secondary {
-  @apply button button--transition bg-secondary text-primary-light;
+  @apply button--transition bg-secondary text-primary-light;
   @apply hover:bg-secondary/70;
   @apply dark:text-primary-light dark:hover:bg-secondary-normal/60;
   @apply focus:ring-secondary-normal/80 dark:focus:ring-secondary-normal;
 }
 
+.button--secondary--outline {
+  @apply button--transition border bg-secondary/10 text-secondary;
+  @apply hover:bg-secondary/20 dark:bg-secondary/30;
+  @apply dark:text-primary-light dark:hover:bg-secondary-normal/30;
+  @apply border-secondary-normal outline-none focus:ring-2 focus:ring-secondary-normal/80 dark:focus:ring-secondary-normal;
+}
+
 .button--light {
-  @apply button button--transition bg-sky-300/20;
+  @apply button--transition bg-sky-300/20;
   @apply hover:bg-sky-300/50;
   @apply dark:bg-secondary-normal/20 dark:via-primary-dark dark:hover:bg-secondary-normal/40;
   @apply focus:ring-sky-300/90 dark:focus:ring-sky-300/60;
 }
 
 .button--contrast-01 {
-  @apply button button--transition;
+  @apply button--transition;
   @apply hover:bg-contrast-01/70;
   @apply bg-contrast-01 dark:text-primary-dark;
   @apply focus:outline-contrast-01 focus:ring-contrast-01;
 }
 
+.button--contrast--outline {
+  @apply button--transition border border-contrast-01 bg-contrast-01/20;
+  @apply hover:bg-contrast-01/50;
+  @apply dark:text-primary-dark dark:text-contrast-01 dark:hover:bg-contrast-01/30;
+  @apply outline-none focus:outline-contrast-01 focus:ring-contrast-01;
+}
+
 .button--danger {
-  @apply button button--transition;
+  @apply button--transition;
   @apply bg-rose-600 text-white;
   @apply hover:bg-rose-600/90;
   @apply focus:ring-rose-300/90 dark:focus:ring-rose-400/90;

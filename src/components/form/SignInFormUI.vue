@@ -125,8 +125,9 @@ onMounted(() => {
         @click="setRememberPassword(!rememberPass)"
       />
       <button
-        class="button--secondary flex w-full flex-col items-center font-medium disabled:cursor-not-allowed disabled:bg-secondary/50 dark:disabled:bg-slate-500"
+        class="button button--secondary flex w-full flex-col items-center font-medium disabled:cursor-not-allowed disabled:bg-secondary/50 dark:disabled:bg-slate-500"
         type="submit"
+        role="button"
         :disabled="v$.$error || authStoreComp.isLoading"
       >
         <Spinner v-if="authStoreComp.isLoading" type="contrast" class="h-7 w-7" />
@@ -136,7 +137,7 @@ onMounted(() => {
       </button>
     </form>
     <div class="separator my-2 text-center">O</div>
-    <button type="button" class="button--primary flex items-center justify-center gap-x-4">
+    <button type="button" class="button button--primary flex items-center justify-center gap-x-4">
       <Google />
       <span class="text-sm">Iniciar sesión con Google</span>
     </button>

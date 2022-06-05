@@ -26,7 +26,7 @@ const match = useMediaQuery('(min-width: 768px)');
     <router-link
       type="button"
       title="Regresar"
-      class="button--contrast-01 flex items-center gap-1 text-sm"
+      class="button--sm button--primary--outline flex items-center gap-1 text-sm text-secondary-light"
       :to="{ name: 'Home' }"
     >
       <i class="bx bx-arrow-back bx-xs self-center" /> Regresar

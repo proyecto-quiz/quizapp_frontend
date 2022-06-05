@@ -7,9 +7,6 @@ import NBApp from '@/NBApp.vue';
 // css
 import '@/styles/main.css';
 
-// icons
-import 'boxicons';
-
 const app = createApp(NBApp);
 const piniaStore = createPinia();
 

@@ -61,7 +61,9 @@ function handleVerifyClick() {
         class="rounded-md bg-rose-300/70 p-2 text-[0.85rem] font-semibold text-rose-500 dark:text-red-800"
       >
         Su cuenta aun no fue verificada
-        <button class="button--danger" @click="handleVerifyClick">Verificar cuenta</button>
+        <button class="button--sm button--danger" @click="handleVerifyClick">
+          Verificar cuenta
+        </button>
       </div>
       <router-link
         v-for="(link, index) of links"
@@ -69,6 +71,7 @@ function handleVerifyClick() {
         :title="link.value"
         :to="{ name: link.name }"
         class="navigate__links"
+        active-class="navigate__links--active"
       >
         {{ link.value }}
       </router-link>
@@ -78,10 +81,10 @@ function handleVerifyClick() {
       :disabled="authUserComp.isLoading"
       title="Cerrar sesión"
       type="button"
-      class="button--sm button--danger--outline button__sign-out"
+      class="button--sm button--secondary--outline button__sign-out"
       @click="handleSignOutClick"
     >
-      <Spinner v-if="authUserComp.isLoading" type="rose" class="mr-2 h-5 w-5" />
+      <Spinner v-if="authUserComp.isLoading" type="secondary" class="mr-2 h-5 w-5" />
       <i v-else class="bx bx-log-out-circle mr-2 text-xl" />
       {{ authUserComp.isLoading ? 'Cerrando sesión' : 'Cerrar sesión' }}
     </button>
@@ -91,7 +94,7 @@ function handleVerifyClick() {
 <style scoped>
 .navigate {
   @apply container fixed flex h-full w-[25%] flex-col justify-start border-r-2 border-r-secondary-normal/20;
-  @apply pb-5 pt-2;
+  @apply gap-y-2 overflow-y-auto pb-5 pt-2;
 }
 
 .navigate__logo {
@@ -111,7 +114,13 @@ function handleVerifyClick() {
 }
 
 .navigate__links {
-  @apply text-[0.85rem] font-semibold transition-colors duration-75 hover:text-secondary dark:hover:text-secondary-light;
+  @apply box-content px-3 py-2 text-[0.85rem] font-semibold transition-colors duration-75 hover:text-secondary dark:hover:text-secondary-light;
+  @apply rounded outline-none focus:ring-2;
+}
+
+.navigate__links--active {
+  @apply box-content rounded px-3 py-2 text-secondary ring-1 ring-secondary-normal;
+  @apply dark:border-secondary-normal/70 dark:text-secondary-light;
 }
 
 .button__sign-out {
