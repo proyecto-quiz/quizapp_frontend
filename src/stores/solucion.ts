@@ -29,7 +29,6 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
         const res = await solucion(data);
         this.soluciones = res.data.solucion;
         this.respuesta = res.data.respuesta;
-        console.log(this.soluciones);
       },
     },
   }

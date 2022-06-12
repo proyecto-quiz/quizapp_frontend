@@ -22,7 +22,6 @@ export const useNotaStore = defineStore<'nota', StateType, GettersType, ActionsT
   actions: {
     async notaMeAction(tipo) {
       const res = await notaMe(tipo);
-      console.log(res);
       this.notas = res.data;
     },
   },

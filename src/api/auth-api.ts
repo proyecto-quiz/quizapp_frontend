@@ -20,9 +20,8 @@ export async function signIn(data: SignInForm): APIResponse<TokenResponse> {
  * Request post and sign-out with user credentials
  * @returns {APIResponse}
  */
-export async function signOut(token: string): APIResponse {
+export async function signOut(): APIResponse {
   try {
-    client.defaults.headers.post['Authorization'] = `Bearer ${token}`;
     return await client.post('/auth/sign-out/');
   } catch (error: any) {
     return error.response;

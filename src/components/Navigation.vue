@@ -3,41 +3,56 @@ import { computed } from 'vue';
 import { useAuthStore } from '@/stores';
 import ButtonTheme from './ui/ButtonTheme.vue';
 
-const authStore = computed(() => useAuthStore());
+const authStoreComp = computed(() => useAuthStore());
+
+const LINKS = [
+  {
+    nameRoute: 'Home',
+    nameLink: 'Inicio',
+  },
+  {
+    nameRoute: 'AboutUs',
+    nameLink: 'Sobre Nosotros',
+  },
+  {
+    nameRoute: 'Help',
+    nameLink: 'Ayuda',
+  },
+];
 </script>
 
 <template>
-  <header class="sticky top-0 z-10 box-border min-h-full px-2 py-3 md:container">
-    <nav class="flex items-center justify-between">
-      <h1 class="text-lg font-medium uppercase md:text-3xl">
+  <header class="sticky top-0 z-10 min-h-full w-screen px-2 py-3 md:container">
+    <nav class="navigation">
+      <h1 class="navigation__heading">
         <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'Home' }">
-          Inicio
+          <h1 class="self-center text-3xl font-semibold">
+            <span class="text-[#09FCED]">N</span>
+            <span class="text-secondary-normal">B</span>
+          </h1>
         </router-link>
       </h1>
       <span class="flex-grow" />
-      <ul class="text-md flex items-center justify-between gap-x-3 font-medium">
-        <li>
+      <ul class="navigation__links">
+        <li v-for="item of LINKS" :key="item.nameLink">
           <router-link
             active-class="dark:text-contrast-01 text-secondary"
-            :to="{ name: 'AboutUs' }"
+            class="transition-colors delay-75 duration-100 hover:text-secondary/60 dark:hover:text-secondary-normal"
+            :to="{ name: item.nameRoute }"
           >
-            Sobre Nosotros
+            {{ item.nameLink }}
           </router-link>
         </li>
-        <li>
-          <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'Help' }">
-            Ayuda
-          </router-link>
-        </li>
+
         <li>
           <ButtonTheme />
         </li>
-        <li v-if="authStore.isLoggedIn">
+        <li v-if="authStoreComp.isLoggedIn">
           <router-link
             :to="{ name: 'Profile' }"
             class="transition-colors duration-100 hover:text-contrast-01"
           >
-            {{ authStore.user?.username }}
+            {{ authStoreComp.user?.username }}
           </router-link>
         </li>
         <li v-else>
@@ -64,8 +79,17 @@ const authStore = computed(() => useAuthStore());
 </template>
 
 <style scoped>
-nav {
+.navigation {
+  @apply flex items-center justify-between;
   @apply rounded-sm px-2 py-1 shadow-md backdrop-blur dark:from-primary-dark/70 md:px-5 md:py-3;
+}
+
+.navigation__heading {
+  @apply text-lg font-medium uppercase md:text-3xl;
+}
+
+.navigation__links {
+  @apply flex items-center justify-between gap-x-3 text-lg font-medium;
 }
 
 li {

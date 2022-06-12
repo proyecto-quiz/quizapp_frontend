@@ -1,7 +1,3 @@
-<script setup lang="ts">
-console.log('Scores');
-</script>
-
 <template>
   <section
     v-for="el of Array(2)"

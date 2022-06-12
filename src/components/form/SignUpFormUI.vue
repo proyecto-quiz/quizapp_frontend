@@ -35,7 +35,6 @@ async function handleUpSubmit() {
   if (!v$.value.$error && valid) {
     authStore.resetAction();
     await authStore.signUpAction(stateForm, async () => {
-      authStore.saveValueAction(stateForm.email);
       await router.push({ name: 'SignIn', query: { up: 'success' } });
     });
   } else return;
@@ -71,7 +70,7 @@ onMounted(() => {
       <InputForm
         v-model="stateForm.email"
         is-focus
-        label-name="Email"
+        label-name="Correo Electrónico"
         label-class="text-secondary dark:text-contrast-01"
         name="email"
         type="email"
