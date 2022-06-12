@@ -7,13 +7,9 @@ import { client } from './config';
  * a token
  @returns
  */
-export async function me(token: string): APIResponse<UserAuthenticateResponse> {
+export async function me(): APIResponse<UserAuthenticateResponse> {
   try {
-    return await client.get('/users/me/', {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : '',
-      },
-    });
+    return await client.get('/users/me/');
   } catch (error: any) {
     return error.response;
   }

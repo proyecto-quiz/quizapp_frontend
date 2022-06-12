@@ -1,4 +1,4 @@
-import { computed, ComputedRef, onMounted, reactive, ref } from 'vue';
+import { computed, ComputedRef, onMounted, reactive } from 'vue';
 
 type UseStorage<T> = [T, (value: T) => void, ComputedRef<T>];
 
@@ -58,5 +58,8 @@ function getVal<T>(key: string, s: Storage) {
 
 // Getters
 export function useGetStorage<T = any>(key: string, obj: 'local' | 'session' = 'local') {
-  return ref(getVal<T>(key, obj === 'local' ? localStorage : sessionStorage)).value;
+  const val = getVal<T>(key, obj === 'local' ? localStorage : sessionStorage);
+  const s = reactive({ val });
+
+  return s.val;
 }

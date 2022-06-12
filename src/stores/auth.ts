@@ -7,7 +7,7 @@ import { useGetStorage } from '@/composables';
 
 type StateType = {
   user: UserAuthenticateResponse['user'] | null;
-  token: string;
+  tokens: TokenResponse;
   isLoggedIn: boolean;
   message?: ErrorResponse['detail'];
   status: TypeStatusStore;
@@ -19,20 +19,16 @@ type StateType = {
 type ActionsType = {
   meAction(): Promise<void> | void;
   resetAction(): void;
-  saveValueAction<T>(value: T): void;
 
-  signInAction(data: SignInForm, fn: (tokens: string[]) => Promise<void> | void): Promise<void>;
-  signOutAction(fn: () => Promise<void> | void): Promise<void>;
-  signUpAction(data: SignUpForm, fn: () => Promise<void> | void): Promise<void>;
+  signInAction(data: SignInForm, fn: (tokens: string[]) => Promise<void>): Promise<void>;
+  signOutAction(fn: () => Promise<void>): Promise<void>;
+  signUpAction(data: SignUpForm, fn: () => Promise<void>): Promise<void>;
 };
 
 type GettersType = {
   isAuth(state: StoreState<StateType>): boolean;
   isReadyApp(state: StoreState<StateType>): boolean;
-
   userFullName(state: StoreState<StateType>): string;
-
-  // Statuses
 } & GetStatusStore<StoreState<StateType>>;
 
 export const useAuthStore = defineStore<'auth-store', StateType, GettersType, ActionsType>(
@@ -41,7 +37,11 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
     state: () => ({
       status: 'idle',
       user: null,
-      token: useGetStorage<TokenResponse>('tokens')?.accessToken || '',
+      tokens: {
+        accessToken: useGetStorage<TokenResponse>('tokens')?.accessToken || '',
+        refreshToken: useGetStorage<TokenResponse>('tokens')?.refreshToken || '',
+      },
+
       isLoggedIn: false,
       isReady: false,
     }),
@@ -79,8 +79,8 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
         const res = await signIn(data);
         if (res.status === 200) {
           this.status = 'success';
-          this.token = res.data.accessToken;
-          await fn([res.data.accessToken, res.data.refreshToken]);
+          this.tokens = res.data;
+          await fn([this.tokens.accessToken, this.tokens.refreshToken]);
         } else {
           this.status = 'error';
           this.message = res.data.detail || res.data.nonFieldErrors;
@@ -89,7 +89,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
 
       async meAction() {
         this.status = 'loading';
-        const res = await me(this.token);
+        const res = await me();
         if (res.status === 200) {
           this.isReady = Boolean(res.data.user);
           this.isLoggedIn = Boolean(res.data.user);
@@ -106,7 +106,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
 
       async signOutAction(fn) {
         this.status = 'loading';
-        const res = await signOut(this.token);
+        const res = await signOut();
         if (res.status == 200) await fn();
 
         this.resetAction();
@@ -123,10 +123,6 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
           this.status = 'error';
           this.message = res.data.nonFieldErrors || res.data.detail || res.data;
         }
-      },
-
-      saveValueAction<T = any>(value: T) {
-        this.saveValue = value;
       },
 
       resetAction() {

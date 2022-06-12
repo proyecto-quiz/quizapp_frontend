@@ -30,13 +30,11 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
         const res = await preguntaGeneral();
         this.preguntas = res.data.pregunta;
         this.tipo = res.data.tipo;
-        console.log(this.preguntas);
       },
       async preguntaTemaAction(id) {
         const res = await preguntaTema(id);
         this.preguntas = res.data.pregunta;
         this.tipo = res.data.tipo;
-        console.log(this.preguntas);
       },
     },
   }

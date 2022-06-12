@@ -16,7 +16,7 @@
     "alwaysStrict": true,
     "composite": true,
     "jsx": "preserve",
-    "types": ["vite/client"],
+    "types": ["vite/client", "@types/node", "node"],
     "paths": {
       "@/*": ["./src/*"],
       "~/*": ["./src/*"],

@@ -95,7 +95,7 @@ const observer = useInterObserver(
 
 <style scoped>
 .section {
-  @apply flex h-screen flex-col items-start justify-between gap-2 py-3 md:gap-10;
+  @apply flex min-h-screen flex-col justify-start gap-2 py-3 md:gap-10;
   opacity: 0;
   transform: translateX(-100px);
 }

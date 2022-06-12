@@ -3,7 +3,6 @@ import InputForm from '@/components/ui/InputForm.vue';
 import Alert from '@/components/ui/Alert.vue';
 import useVuelidate from '@vuelidate/core';
 import { useLocalStorage } from '@/composables';
-import { TokenResponse } from '@@/types-response-users';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores';
 import { computed, onMounted, reactive, ref } from 'vue';
@@ -14,6 +13,7 @@ import { formatResponse } from '@/utils';
 
 // Icon
 import Google from '@/components/draws/icons/Google.vue';
+import { TokenResponse } from '@@/types-response-users';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -26,11 +26,7 @@ const rules = computed<Record<string, any>>(() => ({
 
 // Hook Validate
 const v$ = useVuelidate(rules, stateForm, { $autoDirty: true });
-
-const setTokens = useLocalStorage<TokenResponse>('tokens', {
-  accessToken: '',
-  refreshToken: '',
-})[1];
+const setTokensStorage = useLocalStorage<TokenResponse>('tokens')[1];
 
 const [rememberPass, setRememberPassword, rememberPassComp] = useLocalStorage('rp', false);
 
@@ -38,17 +34,15 @@ async function handleFormSubmit() {
   let valid = await v$.value.$validate();
   if (!v$.value.$error && valid) {
     await authStore.signInAction(stateForm, async (tokens) => {
-      setTokens({
-        accessToken: tokens[0],
-        refreshToken: tokens[1],
-      });
-      await authStore.meAction();
+      setTokensStorage({ accessToken: tokens[0], refreshToken: tokens[1] });
       setRememberPassword(authStore.user?.rememberPassword || false);
-      await router.push({ name: 'Home' });
+      const time = setTimeout(async () => {
+        clearTimeout(time);
+        await authStore.meAction();
+        await router.push({ name: 'Profile' });
+      }, 300);
     });
-  }
-
-  if (authStore.isError) stateForm.password = '';
+  } else if (authStore.isError) stateForm.password = '';
 }
 
 // Ref
@@ -79,7 +73,7 @@ onMounted(() => {
       type="success"
       @on-close="authStore.resetAction()"
     >
-      {{ authStoreComp.message }}
+      Inicio de sesión correctamente.
     </Alert>
     <form
       class="flex h-auto flex-col items-center justify-between gap-y-5"
@@ -122,7 +116,7 @@ onMounted(() => {
         label-class="text-sm"
         class="rounded disabled:bg-slate-400"
         :disabled="authStoreComp.isLoading"
-        @click="setRememberPassword(!rememberPass)"
+        @change="setRememberPassword(!rememberPass)"
       />
       <button
         class="button button--secondary flex w-full flex-col items-center font-medium disabled:cursor-not-allowed disabled:bg-secondary/50 dark:disabled:bg-slate-500"

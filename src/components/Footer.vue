@@ -24,7 +24,7 @@ const links: Link[] = [
     ],
   },
   {
-    title: 'Sobre Nostros',
+    title: 'Sobre Nosotros',
     nameUrl: 'AboutUs',
     links: [
       {

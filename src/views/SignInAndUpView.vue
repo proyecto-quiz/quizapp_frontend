@@ -49,43 +49,45 @@ const match = useMediaQuery('(min-width: 768px)');
         alt="Book Image"
       />
     </section>
-    <SignInFormUI v-if="!matchUp">
-      <aside class="my-2">
-        <h1 class="title-nb title-nb-01">
-          <span class="text-[#09FCED]" v-text="'Note'" />
-          <span class="text-secondary-normal" v-text="'Blue'" />
-        </h1>
-        <h3 class="text-center text-lg md:text-left md:text-xl">Inicia sesión con tu cuenta</h3>
-        <p class="text-center text-sm text-secondary-normal md:text-left">
-          Puedes registrarte con tu
-          <router-link
-            :to="{ name: 'Sign', query: { type: 'sign-up' } }"
-            class="text-secondary underline dark:text-contrast-02/90"
-          >
-            correo electrónico
-          </router-link>
-        </p>
-      </aside>
-      <span class="my-2 w-full border-t border-secondary dark:border-primary-light" />
-    </SignInFormUI>
-    <SignUpFormUI v-else>
-      <aside class="my-2">
-        <h1 class="title-nb title-nb-01">
-          <span class="text-[#09FCED]">Note</span><span class="text-secondary-normal">Blue</span>
-        </h1>
-        <h3 class="text-center text-lg md:text-left md:text-xl">Ya puedes crearte una cuenta!</h3>
-        <p class="text-center text-sm text-secondary-normal md:text-left">
-          <router-link
-            :to="{ name: 'Sign', query: { type: 'sign-in' } }"
-            class="text-secondary underline dark:text-contrast-02/90"
-          >
-            Inicia sesión
-          </router-link>
-          con tu cuenta
-        </p>
-      </aside>
-      <span class="my-2 w-full border-t border-secondary dark:border-primary-light" />
-    </SignUpFormUI>
+    <KeepAlive>
+      <SignInFormUI v-if="!matchUp">
+        <aside class="my-2">
+          <h1 class="title-nb title-nb-01">
+            <span class="text-[#09FCED]" v-text="'Note'" />
+            <span class="text-secondary-normal" v-text="'Blue'" />
+          </h1>
+          <h3 class="text-center text-lg md:text-left md:text-xl">Inicia sesión con tu cuenta</h3>
+          <p class="text-center text-sm text-secondary-normal md:text-left">
+            Puedes registrarte con tu
+            <router-link
+              :to="{ name: 'Sign', query: { type: 'sign-up' } }"
+              class="text-secondary underline dark:text-contrast-02/90"
+            >
+              correo electrónico
+            </router-link>
+          </p>
+        </aside>
+        <span class="my-2 w-full border-t border-secondary dark:border-primary-light" />
+      </SignInFormUI>
+      <SignUpFormUI v-else>
+        <aside class="my-2">
+          <h1 class="title-nb title-nb-01">
+            <span class="text-[#09FCED]">Note</span><span class="text-secondary-normal">Blue</span>
+          </h1>
+          <h3 class="text-center text-lg md:text-left md:text-xl">Ya puedes crearte una cuenta!</h3>
+          <p class="text-center text-sm text-secondary-normal md:text-left">
+            <router-link
+              :to="{ name: 'Sign', query: { type: 'sign-in' } }"
+              class="text-secondary underline dark:text-contrast-02/90"
+            >
+              Inicia sesión
+            </router-link>
+            con tu cuenta
+          </p>
+        </aside>
+        <span class="my-2 w-full border-t border-secondary dark:border-primary-light" />
+      </SignUpFormUI>
+    </KeepAlive>
   </main>
 </template>
 

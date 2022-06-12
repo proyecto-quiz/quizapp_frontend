@@ -4,17 +4,17 @@
 
 import axios from 'axios';
 import { RefreshTokenResponse, TokenResponse } from '@@/types-response-users';
+import { useGetStorage } from '@/composables';
 
 // URL Api
-const API_URL = <string>import.meta.env.VITE_APP_API_URL || '';
+const API_URL = import.meta.env.VITE_APP_API_URL || '';
 const API_V1 = `${API_URL}/api`;
 
 export const client = axios.create({ baseURL: API_V1 });
+client.defaults.headers.common['Content-Type'] = 'application/json;';
 
 const username = localStorage.getItem('username');
-const tokens = JSON.parse(localStorage.getItem('tokens') || '{}') as TokenResponse;
-
-client.defaults.headers.common['Content-Type'] = 'application/json;';
+const tokens = useGetStorage<TokenResponse>('tokens');
 
 let isRefresh = false;
 /**
@@ -34,7 +34,7 @@ axios.interceptors.response.use(
         }
       );
       if (res.status === 200) {
-        client.defaults.headers.common['Authorization'] = `Bearer ${res.data.accessToken}`;
+        client.defaults.headers.common['authorization'] = `Bearer ${res.data.accessToken}`;
         return client(error.config);
       }
     }
