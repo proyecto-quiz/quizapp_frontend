@@ -14,14 +14,24 @@ export const coursesRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/cursos/CursosView.vue'),
       },
       {
+        path: 'temas',
+        name: 'Temas',
+        component: () => import('@/views/cursos/TemasView.vue'),
+      },
+      {
         path: 'pregunta',
         name: 'Pregunta',
         component: () => import('@/views/preguntas/PreguntaView.vue'),
       },
       {
-        path: '/pregunta-tipo',
+        path: 'pregunta-tipo',
         name: 'PreguntaTipo',
         component: () => import('@/views/preguntas/PreguntaTipoView.vue'),
+      },
+      {
+        path: 'notas',
+        name: 'Notas',
+        component: () => import('@/views/notas/NotaView.vue'),
       },
     ],
   },

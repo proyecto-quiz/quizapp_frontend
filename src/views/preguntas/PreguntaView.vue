@@ -64,7 +64,7 @@ async function handleSelectClick() {
 <template>
   <div class="container">
     <div class="pregunta">
-      <h1 class="text-lg font-medium uppercase md:text-3xl">
+      <h1 class="text-lg font-medium uppercase text-contrast-01 md:text-3xl">
         {{ preguntas?.curso }}
       </h1>
       <h2 class="text-lg font-light uppercase md:text-2xl">{{ preguntas?.tema }}</h2>

@@ -14,12 +14,12 @@ const links = [
     name: 'Profile',
   },
   {
-    value: 'Ver los cursos',
-    name: 'Cursos',
+    value: 'Ver mis notas',
+    name: 'Notas',
   },
   {
     value: 'Hacer el examen',
-    name: 'Pregunta',
+    name: 'PreguntaTipo',
   },
 ];
 

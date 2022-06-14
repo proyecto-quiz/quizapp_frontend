@@ -17,9 +17,9 @@ export const guestRoutes: RouteRecordRaw[] = [
   },
 
   {
-    name: 'Temas',
-    path: '/temas',
-    component: () => import('@/views/cursos/TemasView.vue'),
+    name: 'CursosTemas',
+    path: '/Cursos-Temas',
+    component: () => import('@/views/CursosTemasView.vue'),
   },
 
   {
