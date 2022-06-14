@@ -18,6 +18,10 @@ const LINKS = [
     nameRoute: 'Help',
     nameLink: 'Ayuda',
   },
+  {
+    nameRoute: 'CursosTemas',
+    nameLink: 'Nuestros Cursos',
+  },
 ];
 </script>
 

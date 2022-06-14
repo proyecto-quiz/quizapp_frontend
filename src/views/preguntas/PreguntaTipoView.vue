@@ -1,52 +1,49 @@
 <script setup lang="ts">
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import CursoImage from '@/assets/images/Geometria.jpg';
 </script>
 <template>
-  <LayoutDefault title="Pregunta Tipo">
-    <div class="container">
-      <h1 class="py-5 text-lg font-medium uppercase md:text-3xl">Selecciona un tipo de pregunta</h1>
-      <div class="listCard">
-        <div class="card">
-          <router-link :to="{ name: 'Pregunta', params: { tipo: 'general' } }">
-            <img class="image" :src="CursoImage" alt="imagen pregunta general" />
-            <strong class="text-lg font-bold text-contrast-01">Pregunta de manera General</strong>
-            <section class="m-2 px-2 py-2">
-              <strong>Descripción</strong>
-              <p class="text-base">
-                Genera una pregunta de manera general de los cursos y temas existentes en la base de
-                datos.
-              </p>
-            </section>
-          </router-link>
-        </div>
-        <div class="card">
-          <router-link :to="{ name: 'Cursos', params: { tipo: 'curso' } }">
-            <img class="image" :src="CursoImage" alt="imagen pregunta por curso" />
-            <strong class="text-lg font-bold text-contrast-01">Pregunta por curso</strong>
-            <section class="m-2 px-2 py-2">
-              <strong>Descripción</strong>
-              <p class="text-base">
-                Genera una pregunta de un curso de su elección exitentes en la base de datos.
-              </p>
-            </section>
-          </router-link>
-        </div>
-        <div class="card">
-          <router-link :to="{ name: 'Cursos', params: { tipo: 'tema' } }">
-            <img class="image" :src="CursoImage" alt="imagen pregunta por tema" />
-            <strong class="text-lg font-bold text-contrast-01">Pregunta por tema</strong>
-            <section class="m-2 px-2 py-2">
-              <strong>Descripción</strong>
-              <p class="text-base">
-                Genera una pregunta de un tema de los cursos existentes en la base de datos.
-              </p>
-            </section>
-          </router-link>
-        </div>
+  <div class="container">
+    <h1 class="py-5 text-lg font-medium uppercase md:text-3xl">¿Cómo generar la pregunta?</h1>
+    <div class="listCard">
+      <div class="card">
+        <router-link :to="{ name: 'Pregunta', params: { tipo: 'general' } }">
+          <img class="image" :src="CursoImage" alt="imagen pregunta general" />
+          <strong class="text-lg font-bold text-contrast-01">Pregunta de manera General</strong>
+          <section class="m-2 px-2 py-2">
+            <strong>Descripción</strong>
+            <p class="text-base">
+              Genera una pregunta de manera general de los cursos y temas existentes en la base de
+              datos.
+            </p>
+          </section>
+        </router-link>
+      </div>
+      <div class="card">
+        <router-link :to="{ name: 'Cursos', params: { tipo: 'curso' } }">
+          <img class="image" :src="CursoImage" alt="imagen pregunta por curso" />
+          <strong class="text-lg font-bold text-contrast-01">Pregunta por curso</strong>
+          <section class="m-2 px-2 py-2">
+            <strong>Descripción</strong>
+            <p class="text-base">
+              Genera una pregunta de un curso de su elección exitentes en la base de datos.
+            </p>
+          </section>
+        </router-link>
+      </div>
+      <div class="card">
+        <router-link :to="{ name: 'Cursos', params: { tipo: 'tema' } }">
+          <img class="image" :src="CursoImage" alt="imagen pregunta por tema" />
+          <strong class="text-lg font-bold text-contrast-01">Pregunta por tema</strong>
+          <section class="m-2 px-2 py-2">
+            <strong>Descripción</strong>
+            <p class="text-base">
+              Genera una pregunta de un tema de los cursos existentes en la base de datos.
+            </p>
+          </section>
+        </router-link>
       </div>
     </div>
-  </LayoutDefault>
+  </div>
 </template>
 <style>
 .image {
