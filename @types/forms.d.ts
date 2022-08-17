@@ -21,4 +21,13 @@ declare module '@@/types-forms' {
     id: string | undefined;
     nombre: string | undefined;
   };
+  type alternativas = {
+    contenido: string;
+    is_answer: boolean;
+  };
+  type PreguntaForm = {
+    texto: string;
+    tema: string;
+    alternativas: alternativas[];
+  };
 }

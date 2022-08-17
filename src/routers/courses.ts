@@ -33,6 +33,11 @@ export const coursesRoutes: RouteRecordRaw[] = [
         name: 'Notas',
         component: () => import('@/views/notas/NotaView.vue'),
       },
+      {
+        name: 'PreguntaAdd',
+        path: '/preguntaAdd',
+        component: () => import('@/views/preguntas/preguntaAddView.vue'),
+      },
     ],
   },
 ];

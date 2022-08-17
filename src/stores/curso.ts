@@ -2,10 +2,14 @@ import { defineStore, StoreState } from 'pinia';
 import { curso } from '@/api';
 import { GetStatusStore, TypeStatusStore } from '@@/type-config-api';
 
+interface temas {
+  id: string;
+  nombre: string;
+}
 interface ICurso {
   id: string;
   nombre: string;
-  temas: any[];
+  temas: [temas];
 }
 
 type StateType = {

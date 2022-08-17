@@ -56,7 +56,7 @@ import CursoImage from '@/assets/images/Geometria.jpg';
 }
 
 .listCard {
-  @apply grid grid-cols-1 gap-8 overflow-auto py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
-  xl:grid-cols-5;
+  @apply grid justify-between gap-8 overflow-auto py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
+  xl:grid-cols-3;
 }
 </style>
