@@ -1,4 +1,5 @@
 import { client } from './config';
+import { PreguntaForm } from '@@/types-forms';
 /**
  * Preguntas
  */
@@ -13,6 +14,13 @@ export async function preguntaGeneral() {
 export async function preguntaTema(id: string | undefined) {
   try {
     return await client.get(`/pregunta_tema/${id}/`);
+  } catch (error: any) {
+    return error.response;
+  }
+}
+export async function preguntaAdd(data: PreguntaForm) {
+  try {
+    return await client.post('/pregunta/', data);
   } catch (error: any) {
     return error.response;
   }

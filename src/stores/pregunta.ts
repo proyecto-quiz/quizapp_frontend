@@ -1,6 +1,7 @@
 import { defineStore, StoreState } from 'pinia';
-import { preguntaGeneral, preguntaTema } from '@/api';
+import { preguntaGeneral, preguntaTema, preguntaAdd } from '@/api';
 import { UsePreguntaResponse } from '@@/types-response-pregunta';
+import { PreguntaForm } from '@@/types-forms';
 
 type StateType = {
   preguntas: null | UsePreguntaResponse['pregunta'];
@@ -12,6 +13,7 @@ type GettersType = {
 type ActionsType = {
   preguntaGeneralAction(): Promise<void> | void;
   preguntaTemaAction(id: string | undefined): Promise<void> | void;
+  preguntaAddAction(data: PreguntaForm): Promise<void> | void;
 };
 export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, ActionsType>(
   'pregunta',
@@ -35,6 +37,15 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
         const res = await preguntaTema(id);
         this.preguntas = res.data.pregunta;
         this.tipo = res.data.tipo;
+      },
+      async preguntaAddAction(data) {
+        const res = await preguntaAdd(data);
+        console.log(res.status);
+        if (res.status === 201) {
+          console.log('guardado');
+        } else {
+          console.log('error');
+        }
       },
     },
   }
