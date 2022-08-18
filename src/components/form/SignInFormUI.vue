@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import InputForm from '@/components/ui/InputForm.vue';
 import Alert from '@/components/ui/Alert.vue';
-import useVuelidate from '@vuelidate/core';
+import { useVuelidate } from '@vuelidate/core';
 import { useLocalStorage } from '@/composables';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores';

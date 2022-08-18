@@ -51,10 +51,6 @@ onMounted(() => {
 <template>
   <section ref="signUpFormRef" class="flex flex-col px-7 py-3 md:gap-5 md:px-10">
     <slot />
-    <h1 class="text-lg font-medium tracking-wider first-letter:text-sky-600 md:text-4xl">
-      Registrarse
-    </h1>
-
     <Alert v-if="authStoreComp.isError" type="danger" outline @on-close="authStore.resetAction()">
       <span
         v-for="(err, idx) of formatResponse(authStoreComp.message, false)"
@@ -71,7 +67,6 @@ onMounted(() => {
         v-model="stateForm.email"
         is-focus
         label-name="Correo Electrónico"
-        label-class="text-secondary dark:text-contrast-01"
         name="email"
         type="email"
         class="input w-full border border-secondary/20 bg-inherit"
@@ -84,7 +79,6 @@ onMounted(() => {
       <InputForm
         v-model="stateForm.username"
         label-name="Nombre de usuario"
-        label-class="text-secondary dark:text-contrast-01"
         name="username"
         type="text"
         class="input w-full border border-secondary/20 bg-inherit"
@@ -96,7 +90,6 @@ onMounted(() => {
       <InputForm
         v-model="stateForm.password"
         label-name="Contraseña"
-        label-class="text-secondary dark:text-contrast-01"
         name="password"
         type="password"
         class="input w-full border border-secondary/20 bg-inherit"
@@ -108,7 +101,6 @@ onMounted(() => {
       <InputForm
         v-model="stateForm.password2"
         label-name="Repite la contraseña"
-        label-class="text-secondary dark:text-contrast-01"
         name="password2"
         type="password"
         class="input w-full border border-secondary/20 bg-inherit"

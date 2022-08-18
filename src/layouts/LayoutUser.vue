@@ -5,7 +5,6 @@ import { useAuthStore } from '@/stores';
 import { useLocalStorage } from '@/composables';
 import VerticalNavigation from '@/components/ui/VerticalNavigation.vue';
 import ButtonTheme from '@/components/ui/ButtonTheme.vue';
-import Search from '@/components/ui/Search.vue';
 
 const authStore = useAuthStore();
 const [minimizeNav, setMinimizeNav, minimizeNavComp] = useLocalStorage('nav-active', true);
@@ -24,7 +23,7 @@ onMounted(() => {
     <button
       :class="[
         'button--sm btn--change button--light',
-        { 'left-[22%] md:left-[24%]': minimizeNavComp, 'left-[1%]': !minimizeNavComp },
+        { 'left-[19%] md:left-[21%]': minimizeNavComp, 'left-[1%]': !minimizeNavComp },
       ]"
       title="Navigation"
       aria-label="button-navigation"
@@ -52,7 +51,7 @@ onMounted(() => {
   </Transition>
   <!-- children -->
   <router-view v-slot="{ Component, route }">
-    <main :class="['main-content', { 'main-w-full': minimizeNavComp, 'w-full': !minimizeNavComp }]">
+    <main :class="['main-content px-8', { 'main-w-full': minimizeNavComp, 'w-full': !minimizeNavComp }]">
       <component :is="Component" :key="route.path" v-bind="$attrs" />
     </main>
   </router-view>
@@ -114,6 +113,6 @@ main {
 }
 
 .main-w-full {
-  @apply ml-[25%] w-[75%];
+  @apply ml-[22%] w-[78%];
 }
 </style>

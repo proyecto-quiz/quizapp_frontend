@@ -22,7 +22,13 @@ const user = inject<UserResponse>('user');
         </li>
       </ul>
       <p>{{ valueRef }}</p>
-      <input v-model="valueRef" type="url" name="url-image" class="rounded" />
+      <input
+        v-model="valueRef"
+        class="rounded text-sm text-secondary"
+        placeholder="Ingrese la url de imagen"
+        type="url"
+        name="url-image"
+      />
       <img v-if="!!valueRef" :src="valueRef" alt="image-user" />
     </section>
     <Scores />
