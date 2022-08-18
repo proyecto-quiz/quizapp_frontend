@@ -21,6 +21,10 @@ const links = [
     value: 'Hacer el examen',
     name: 'PreguntaTipo',
   },
+  {
+    value: 'Agregar Pregunta',
+    name: 'PreguntaAdd',
+  },
 ];
 
 async function handleSignOutClick() {
