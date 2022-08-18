@@ -104,6 +104,8 @@ li {
   @apply flex items-center gap-2 rounded-md  px-3 py-2 text-sm  shadow;
   @apply bg-secondary-light text-primary-dark transition-colors duration-100;
   @apply focus:ring-2 focus:ring-primary-dark/60 dark:focus:ring-secondary-normal;
-  @apply hover:bg-primary-dark/10 dark:hover:bg-secondary-light/70;
+  @apply hover:bg-primary-dark/80 dark:hover:bg-secondary-light/70;
+  @apply bg-primary-dark dark:bg-secondary-light;
+  @apply text-secondary-light dark:text-primary-dark;
 }
 </style>

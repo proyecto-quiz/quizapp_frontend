@@ -55,7 +55,7 @@ function handleVerifyClick() {
         :alt="`User - ${authUserComp.userFullName}`"
         :title="`User - ${authUserComp.userFullName}`"
       />
-      <h1 class="navigate__user">{{ authUserComp.userFullName }}</h1>
+      <h1 class="navigate__user-name">{{ authUserComp.userFullName }}</h1>
       <div
         v-if="!authUserComp.user?.isVerified"
         class="rounded-md bg-rose-300/70 p-2 text-[0.85rem] font-semibold text-rose-500 dark:text-red-800"
@@ -70,7 +70,7 @@ function handleVerifyClick() {
         :key="'link' + link.name + (index + 1)"
         :title="link.value"
         :to="{ name: link.name }"
-        class="navigate__links"
+        :class="['navigate__links']"
         active-class="navigate__links--active"
       >
         {{ link.value }}
@@ -81,7 +81,7 @@ function handleVerifyClick() {
       :disabled="authUserComp.isLoading"
       title="Cerrar sesión"
       type="button"
-      class="button--sm button--secondary--outline button__sign-out"
+      class="button--sm button--secondary--outline button__sign-out w-auto"
       @click="handleSignOutClick"
     >
       <Spinner v-if="authUserComp.isLoading" type="secondary" class="mr-2 h-5 w-5" />
@@ -93,8 +93,25 @@ function handleVerifyClick() {
 
 <style scoped>
 .navigate {
-  @apply container fixed flex h-full w-[25%] flex-col justify-start border-r-2 border-r-secondary-normal/20;
+  @apply container fixed flex h-full w-[22%] flex-col justify-start border-r-2 border-r-secondary-normal/20;
   @apply gap-y-2 overflow-y-auto pb-5 pt-2;
+}
+
+/* scroll */
+.navigate::-webkit-scrollbar {
+  @apply w-[5px];
+}
+
+.navigate::-webkit-scrollbar-thumb {
+  @apply rounded-md bg-secondary-normal/80;
+}
+
+.navigate::-webkit-scrollbar-thumb:hover {
+  @apply bg-secondary-normal;
+}
+
+.navigate::-webkit-scrollbar-track {
+  @apply rounded-md;
 }
 
 .navigate__logo {
@@ -106,20 +123,24 @@ function handleVerifyClick() {
 }
 
 .navigate__img {
-  @apply w-[10%] rounded-md opacity-90 shadow-md md:w-auto;
+  @apply h-1/3 w-[10%] self-center rounded-md object-cover opacity-90 shadow-md md:w-auto;
 }
 
-.navigate__user {
-  @apply text-lg font-semibold capitalize text-cyan-600 dark:text-cyan-200;
+.navigate__user-name {
+  @apply text-base text-lg font-semibold capitalize text-cyan-600 dark:text-cyan-200 md:text-[1.125rem];
 }
 
 .navigate__links {
-  @apply box-content px-3 py-2 text-[0.85rem] font-semibold transition-colors duration-75 hover:text-secondary dark:hover:text-secondary-light;
+  width: 100%;
+  box-sizing: border-box;
+  @apply px-3 py-2 text-[0.85rem] font-semibold transition-colors duration-75 hover:text-secondary dark:hover:text-secondary-light;
   @apply rounded outline-none focus:ring-2;
+  @apply hover:bg-secondary/10;
 }
 
 .navigate__links--active {
-  @apply box-content rounded px-3 py-2 text-secondary ring-1 ring-secondary-normal;
+  box-sizing: border-box;
+  @apply rounded px-3 py-2 text-secondary ring-1 ring-secondary-normal;
   @apply dark:border-secondary-normal/70 dark:text-secondary-light;
 }
 
