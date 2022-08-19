@@ -35,13 +35,15 @@ async function handleUpSubmit() {
   if (!v$.value.$error && valid) {
     authStore.resetAction();
     await authStore.signUpAction(stateForm, async () => {
-      await router.push({ name: 'SignIn', query: { up: 'success' } });
+      formRef.value?.reset();
+      await router.push({ name: 'Sign', query: { up: 'success', type: 'sign-in' } });
     });
-  } else return;
+  }
 }
 
 // Ref
 const signUpFormRef = ref<HTMLElement>();
+const formRef = ref<HTMLFormElement>();
 
 onMounted(() => {
   signUpFormRef.value?.classList.add('a--show');
@@ -62,7 +64,7 @@ onMounted(() => {
       </span>
     </Alert>
 
-    <form class="flex flex-1 flex-col gap-4" @submit.prevent="handleUpSubmit">
+    <form ref="formRef" class="flex flex-1 flex-col gap-4" @submit.prevent="handleUpSubmit">
       <InputForm
         v-model="stateForm.email"
         is-focus

@@ -29,13 +29,13 @@ export async function signOut(): APIResponse {
 }
 
 /**
- *  Request create or register an user with credentials
+ * Request create or register an user with credentials
  * @param data
  * @returns
  */
 export async function signUp(data: SignUpForm): APIResponse<OkResponse> {
   try {
-    return await client.post('/users/', data);
+    return await client.post('/auth/sign-up/', data);
   } catch (error: any) {
     return error.response;
   }
