@@ -2,11 +2,12 @@
 import { onMounted, computed, reactive } from 'vue';
 import { usePreguntaStore } from '@/stores';
 //import PreguntaImage from '@/assets/images/Geometria.jpg';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { SolucionForm } from '@@/types-forms';
 import { useSolucionStore } from '@/stores';
 
 const route = useRoute();
+const router = useRouter();
 const preguntaStore = usePreguntaStore();
 const solucionStore = useSolucionStore();
 
@@ -20,10 +21,13 @@ const solucion = computed(() => {
 onMounted(() => {
   const tipo = route.params.tipo;
   const id = String(route.params.id);
+  solucionStore.$reset();
   if (tipo == 'general') {
     preguntaStore.preguntaGeneralAction();
   } else if (tipo == 'tema') {
     preguntaStore.preguntaTemaAction(id);
+  } else {
+    router.push({ name: 'PreguntaTipo' });
   }
 });
 
@@ -35,6 +39,7 @@ async function handlePreguntaClick() {
     const temaId = preguntas.value?.temaId;
     await preguntaStore.preguntaTemaAction(temaId);
   }
+  solucionStore.$reset();
 }
 
 const stateForm = reactive<SolucionForm>({
@@ -62,7 +67,7 @@ async function handleSelectClick() {
 </script>
 
 <template>
-  <div class="container">
+  <form class="container" @submit.stop.prevent="handlePreguntaClick">
     <div class="pregunta">
       <h1 class="text-lg font-medium uppercase text-contrast-01 md:text-3xl">
         {{ preguntas?.curso }}
@@ -93,17 +98,30 @@ async function handleSelectClick() {
         </div>
       </div>
     </div>
+    <div v-if="solucionStore.respuesta != null" class="flex flex-row justify-between gap-4">
+      <label
+        v-if="solucionStore.respuesta === 'correcta'"
+        class="label border-lg border border-green-900 text-green-700"
+      >
+        Muy Bien ...!!!
+      </label>
+      <label v-else class="label border-lg border border-red-900 text-red-700">
+        Fallaste la respuesta es:
+        <strong>{{ solucionStore.respuestaCorrecta }}</strong>
+      </label>
+
+      <a href="#solucion" class="button button--contrast-01">Ver Solución</a>
+    </div>
     <div class="flex flex-row justify-between gap-4">
-      <button type="button" class="button button--secondary" @click.prevent="handleSelectClick">
+      <button
+        v-if="solucionStore.respuesta === null"
+        type="button"
+        class="button button--secondary"
+        @click.prevent="handleSelectClick"
+      >
         Seleccionar
       </button>
-      <button class="button button--secondary" @click.prevent="handlePreguntaClick">
-        Siguiente
-      </button>
-    </div>
-    <div class="flex flex-row gap-4">
-      <span>Respuesta: {{ solucionStore.respuesta }}</span>
-      <a href="#solucion" class="button button--contrast-01">Ver Solución</a>
+      <button type="submit" class="button button--secondary--outline">Siguiente</button>
     </div>
     <Teleport to="#noteblue-app">
       <div id="solucion" class="modal">
@@ -118,7 +136,7 @@ async function handleSelectClick() {
         </div>
       </div>
     </Teleport>
-  </div>
+  </form>
 </template>
 
 <style scoped>

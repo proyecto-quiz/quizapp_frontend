@@ -5,6 +5,7 @@ import { UseSolucionResponse } from '@@/types-response-solucion';
 type StateType = {
   soluciones: null | UseSolucionResponse['solucion'];
   respuesta: string | null;
+  respuestaCorrecta: string | null;
 };
 type GettersType = {
   getSolucion(state: StoreState<StateType>): StateType['soluciones'];
@@ -18,6 +19,7 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
     state: () => ({
       soluciones: null,
       respuesta: null,
+      respuestaCorrecta: null,
     }),
     getters: {
       getSolucion(state) {
@@ -29,6 +31,7 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
         const res = await solucion(data);
         this.soluciones = res.data.solucion;
         this.respuesta = res.data.respuesta;
+        this.respuestaCorrecta = res.data.respuestaCorrecta;
       },
     },
   }
