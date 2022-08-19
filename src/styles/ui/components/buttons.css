@@ -23,7 +23,7 @@
 .button--primary--outline {
   @apply button--transition bg-primary-dark/10 text-primary-dark;
   @apply border border-primary-dark/80 hover:bg-primary-dark/20;
-  @apply dark:border-secondary-normal dark:text-primary-light dark:hover:bg-primary-dark/50 ;
+  @apply dark:border-secondary-normal dark:text-primary-light dark:hover:bg-primary-dark/50;
   @apply outline-none focus:outline-1 focus:ring-secondary/50;
 }
 

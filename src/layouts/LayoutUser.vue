@@ -51,7 +51,9 @@ onMounted(() => {
   </Transition>
   <!-- children -->
   <router-view v-slot="{ Component, route }">
-    <main :class="['main-content px-8', { 'main-w-full': minimizeNavComp, 'w-full': !minimizeNavComp }]">
+    <main
+      :class="['main-content px-8', { 'main-w-full': minimizeNavComp, 'w-full': !minimizeNavComp }]"
+    >
       <component :is="Component" :key="route.path" v-bind="$attrs" />
     </main>
   </router-view>

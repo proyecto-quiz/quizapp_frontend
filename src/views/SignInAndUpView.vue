@@ -63,7 +63,7 @@ const match = useMediaQuery('(min-width: 768px)');
               :to="{ name: 'Sign', query: { type: 'sign-up' } }"
               class="text-secondary underline dark:text-contrast-02/90"
             >
-              aqui
+              aquí
             </router-link>
           </p>
         </aside>
