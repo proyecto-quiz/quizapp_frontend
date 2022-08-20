@@ -118,8 +118,8 @@ const answerColor = 'red';
             {{ index + 1 }})
             {{ alterList.contenido }}
             <strong v-if="alterList.is_answer == true" :style="{ color: answerColor }">
-              respuesta</strong
-            >
+              respuesta
+            </strong>
             <button
               class="button button--primary--outline mx-4 max-w-sm"
               @click.prevent="removeAlter(index)"
