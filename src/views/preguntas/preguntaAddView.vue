@@ -22,8 +22,8 @@ const stateForm = reactive<PreguntaForm>({
 async function handleSelectClick() {
   await preguntaStore.preguntaAddAction(stateForm);
 }
-const newAlterText = '';
-const is_answer = false;
+const newAlterText = ref('');
+const is_answer = ref(false);
 async function addNewAlternativa(newAlterText: string, is_answer: boolean) {
   stateForm.alternativas.push({
     contenido: newAlterText,
