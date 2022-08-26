@@ -19,8 +19,9 @@ const stateForm = reactive<PreguntaForm>({
   tema: '',
   alternativas: [],
 });
-async function handleSelectClick() {
+async function handleFormClick() {
   await preguntaStore.preguntaAddAction(stateForm);
+  alert('Guardado correctamente');
 }
 const newAlterText = ref('');
 const is_answer = ref(false);
@@ -38,7 +39,7 @@ const answerColor = 'red';
 
 <template>
   <div class="container">
-    <form class="p-4" @submit.prevent="handleSelectClick">
+    <form class="p-4" @submit.prevent="handleFormClick">
       <div class="pregunta">
         <h1 class="text-lg font-medium uppercase text-contrast-01 md:text-3xl">Agregar Pregunta</h1>
         <div class="rounded-t-lg bg-white py-2 px-4 dark:bg-secondary">
@@ -95,7 +96,6 @@ const answerColor = 'red';
               <label for="answer">¿Es la respuesta?</label>
               <input id="answer" v-model="is_answer" type="checkbox" />
             </div>
-
             <div v-if="stateForm.alternativas.length < 5">
               <button
                 class="button button--secondary"
@@ -129,7 +129,7 @@ const answerColor = 'red';
           </li>
         </ul>
       </div>
-      <div class="flex justify-between">
+      <div v-if="stateForm.alternativas.length > 1" class="flex justify-between">
         <button type="submit" class="button button--secondary">Guardar</button>
       </div>
     </form>
