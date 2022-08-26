@@ -2,55 +2,49 @@
 import { computed } from 'vue';
 import { useNotaStore } from '@/stores';
 const notaStore = useNotaStore();
+const tipos = [
+  { value: 'general', name: 'General' },
+  { value: 'curso', name: 'Curso' },
+  { value: 'tema', name: 'Tema' },
+];
 
 const notas = computed(() => {
   return notaStore.getNotas;
 });
-const stateForm = {
-  tipo: '',
-};
-async function handleNotaClick() {
-  const tipo = stateForm.tipo;
+async function handleNotaClick(tipo: string) {
   await notaStore.notaMeAction(tipo);
 }
 </script>
 <template>
   <div class="container">
-    <h1 class="mb-2 text-lg font-medium uppercase dark:text-contrast-01 md:text-3xl">MIS NOTAS</h1>
-    <form class="mb-2 flex" @submit.prevent="handleNotaClick">
-      <label class="mr-4">Filtrar por: </label>
-      <select v-model="stateForm.tipo" class="mr-4 text-secondary" required>
-        <option value="general">General</option>
-        <option value="curso">Curso</option>
-        <option value="tema">Tema</option>
-      </select>
-      <button type="submit" class="button--secondary">Seleccionar</button>
-    </form>
-    <div>
-      <table class="table table-auto border-collapse border">
-        <thead>
-          <tr>
-            <th class="border border-slate-300 p-2 dark:text-contrast-01">ESPECIFICACIÓN</th>
-            <th class="border border-slate-300 p-2 dark:text-contrast-01">PUNTAJE</th>
-          </tr>
-        </thead>
-        <tbody v-for="nota in notas" :key="nota.tipo">
-          <tr>
-            <td class="border border-slate-300 p-2">
-              {{ nota.especificacion }}
-            </td>
-            <td class="border border-slate-300 p-2">
-              {{ nota.puntaje }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <h1 class="mb-2 text-lg font-medium dark:text-contrast-01 md:text-3xl">MIS NOTAS</h1>
+    <ul class="flex place-items-center border-b border-secondary dark:border-secondary-light">
+      <li v-for="item in tipos" :key="item.id" class="hover:-mb-px">
+        <a
+          class="inline-block cursor-pointer rounded-t border-l border-t border-r bg-white py-2 px-4 font-semibold text-blue-700 hover:border-blue-500 hover:bg-secondary-light focus:ring-2 focus:ring-blue-500"
+          @click="handleNotaClick(item.value)"
+        >
+          {{ item.name }}
+        </a>
+      </li>
+    </ul>
+    <table class="m-2 mt-4 w-full table-fixed border-separate p-4 text-center">
+      <thead class="rounded-full bg-indigo-700 dark:text-contrast-01">
+        <tr>
+          <th class="w-1/2 rounded-l-lg border-slate-300 bg-indigo-700 p-2">Especificación</th>
+          <th class="w-1/4 rounded-r-lg border-slate-300 bg-indigo-700 p-2">Puntaje</th>
+        </tr>
+      </thead>
+      <tbody class="bg-indigo-400">
+        <tr v-for="nota in notas" :key="nota.tipo">
+          <td class="rounded-l-lg p-2">
+            {{ nota.especificacion }}
+          </td>
+          <td class="rounded-r-lg p-2">
+            {{ nota.puntaje }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
-
-<style>
-.table {
-  @apply w-full text-center text-sm shadow-2xl;
-}
-</style>

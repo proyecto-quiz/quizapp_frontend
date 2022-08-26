@@ -10,3 +10,11 @@ export async function notaMe(tipo: string | undefined) {
     return error.response;
   }
 }
+
+export async function notaRanking(tipo: string, idTemaCurso: string | undefined) {
+  try {
+    return await client.get(`/nota_ranking/${tipo}/${idTemaCurso}/`);
+  } catch (error: any) {
+    return error.response;
+  }
+}

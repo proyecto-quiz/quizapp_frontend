@@ -25,6 +25,10 @@ const links = [
     value: 'Agregar Pregunta',
     name: 'PreguntaAdd',
   },
+  {
+    value: 'Ranking',
+    name: 'NotaRanking',
+  },
 ];
 
 async function handleSignOutClick() {
