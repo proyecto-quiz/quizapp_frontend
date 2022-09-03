@@ -85,14 +85,14 @@ const links: Link[] = [
                 <div class="relative flex justify-center">
                   <img src="@/assets/images/cris.jpg" class="h-15 w-11 rounded" />
                 </div>
-                <h3>Cristian R. E.</h3>
+                <h2>Cristian R. E.</h2>
                 <span class="text-sm opacity-70">Backend Developer</span>
               </div>
               <div class="flex flex-col">
                 <div class="relative flex justify-center">
                   <img src="@/assets/images/jose.png" class="h-15 w-11 justify-center rounded" />
                 </div>
-                <h3>José T. C.</h3>
+                <h2>José T. C.</h2>
                 <span class="text-sm opacity-70">Full Stack Developer</span>
               </div>
             </div>
