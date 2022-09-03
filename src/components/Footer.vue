@@ -78,7 +78,7 @@ const links: Link[] = [
           </div>
           <div class="container mb-4 flex flex-col gap-2 text-center">
             <strong class="text-base font-medium text-secondary dark:text-contrast-01 md:text-lg">
-              Equipo de desarrollo
+              Equipo de Desarrollo
             </strong>
             <div class="flex flex-row gap-4">
               <div class="flex flex-col">
