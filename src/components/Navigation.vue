@@ -30,7 +30,7 @@ const LINKS = [
     <nav class="navigation">
       <h1 class="navigation__heading">
         <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'Home' }">
-          <img src="/logo.svg" class="h-13 w-12 rounded-md" />
+          <img src="@/assets/images/logo.svg" class="h-13 w-12 rounded-md" />
         </router-link>
       </h1>
       <span class="flex-grow" />

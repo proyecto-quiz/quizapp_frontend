@@ -70,7 +70,7 @@ const links: Link[] = [
       <aside class="place-self-center md:self-start">
         <div class="flex flex-row justify-between gap-5">
           <div>
-            <img src="/logo.svg" class="h-13 w-12 rounded-md" />
+            <img src="@/assets/images/logo.svg" class="h-13 w-12 rounded-md" />
             <h3 class="text-xl">
               <span class="text-[#09FCED]">Note</span>
               <span class="text-secondary-normal">Blue</span>
