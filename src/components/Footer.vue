@@ -68,11 +68,36 @@ const links: Link[] = [
   <footer class="footer">
     <div class="footer__links">
       <aside class="place-self-center md:self-start">
-        <h1 class="self-center text-3xl font-semibold">
-          <span class="text-[#09FCED]">N</span>
-          <span class="text-secondary-normal">B</span>
-        </h1>
-        <h3 class="text-xl">NoteBlue</h3>
+        <div class="flex flex-row justify-between gap-5">
+          <div>
+            <img src="/logo.svg" class="h-13 w-12 rounded-md" />
+            <h3 class="text-xl">
+              <span class="text-[#09FCED]">Note</span>
+              <span class="text-secondary-normal">Blue</span>
+            </h3>
+          </div>
+          <div class="container mb-4 flex flex-col gap-2 text-center">
+            <strong class="text-base font-medium text-secondary dark:text-contrast-01 md:text-lg">
+              Equipo de Desarrollo
+            </strong>
+            <div class="flex flex-row gap-4">
+              <div class="flex flex-col">
+                <div class="relative flex justify-center">
+                  <img src="@/assets/images/cris.jpg" class="h-15 w-11 rounded" />
+                </div>
+                <h3>Cristian R. E.</h3>
+                <span class="text-sm opacity-70">Backend Developer</span>
+              </div>
+              <div class="flex flex-col">
+                <div class="relative flex justify-center">
+                  <img src="@/assets/images/jose.png" class="h-15 w-11 justify-center rounded" />
+                </div>
+                <h3>José T. C.</h3>
+                <span class="text-sm opacity-70">Full Stack Developer</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </aside>
       <div :class="['mb-3 grid grid-cols-2 gap-3 md:gap-6', `md:grid-cols-4`]">
         <ul

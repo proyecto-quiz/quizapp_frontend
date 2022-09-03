@@ -30,10 +30,7 @@ const LINKS = [
     <nav class="navigation">
       <h1 class="navigation__heading">
         <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'Home' }">
-          <h1 class="self-center text-3xl font-semibold">
-            <span class="text-[#09FCED]">N</span>
-            <span class="text-secondary-normal">B</span>
-          </h1>
+          <img src="/logo.svg" class="h-13 w-12 rounded-md" />
         </router-link>
       </h1>
       <span class="flex-grow" />
