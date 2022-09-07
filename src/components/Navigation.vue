@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useAuthStore } from '@/stores';
 import ButtonTheme from './ui/ButtonTheme.vue';
+import Logo from './draws/icons/Logo.vue';
 
 const authStoreComp = computed(() => useAuthStore());
 
@@ -30,10 +31,7 @@ const LINKS = [
     <nav class="navigation">
       <h1 class="navigation__heading">
         <router-link active-class="dark:text-contrast-01 text-secondary" :to="{ name: 'Home' }">
-          <h1 class="self-center text-3xl font-semibold">
-            <span class="text-[#09FCED]">N</span>
-            <span class="text-secondary-normal">B</span>
-          </h1>
+          <Logo />
         </router-link>
       </h1>
       <span class="flex-grow" />
