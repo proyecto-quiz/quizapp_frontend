@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Facebook from './draws/icons/Facebook.vue';
+import Logo from './draws/icons/Logo.vue';
 
 type LinkUrl = {
   nameUrl: string;
@@ -70,7 +71,7 @@ const links: Link[] = [
       <aside class="place-self-center md:self-start">
         <div class="flex flex-row justify-between gap-5">
           <div>
-            <img src="@/assets/images/logo.svg" class="h-13 w-12 rounded-md" />
+            <Logo />
             <h3 class="text-xl">
               <span class="text-[#09FCED]">Note</span>
               <span class="text-secondary-normal">Blue</span>
