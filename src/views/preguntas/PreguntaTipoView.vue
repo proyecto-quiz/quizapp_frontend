@@ -8,7 +8,7 @@ import CursoImage from '@/assets/images/Geometria.jpg';
       <div class="card">
         <router-link :to="{ name: 'Pregunta', params: { tipo: 'general' } }">
           <img class="image" :src="CursoImage" alt="imagen pregunta general" />
-          <strong class="text-lg font-bold text-contrast-01">Pregunta de manera General</strong>
+          <strong class="text-lg font-bold text-contrast-01">Nivel Experto</strong>
           <section class="m-2 px-2 py-2">
             <strong>Descripción</strong>
             <p class="text-base">
@@ -21,7 +21,7 @@ import CursoImage from '@/assets/images/Geometria.jpg';
       <div class="card">
         <router-link :to="{ name: 'Cursos', params: { tipo: 'curso' } }">
           <img class="image" :src="CursoImage" alt="imagen pregunta por curso" />
-          <strong class="text-lg font-bold text-contrast-01">Pregunta por curso</strong>
+          <strong class="text-lg font-bold text-contrast-01">Nivel Intermedio</strong>
           <section class="m-2 px-2 py-2">
             <strong>Descripción</strong>
             <p class="text-base">
@@ -33,7 +33,7 @@ import CursoImage from '@/assets/images/Geometria.jpg';
       <div class="card">
         <router-link :to="{ name: 'Cursos', params: { tipo: 'tema' } }">
           <img class="image" :src="CursoImage" alt="imagen pregunta por tema" />
-          <strong class="text-lg font-bold text-contrast-01">Pregunta por tema</strong>
+          <strong class="text-lg font-bold text-contrast-01">Nivel Básico</strong>
           <section class="m-2 px-2 py-2">
             <strong>Descripción</strong>
             <p class="text-base">

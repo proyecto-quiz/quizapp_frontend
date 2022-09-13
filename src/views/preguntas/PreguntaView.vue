@@ -24,6 +24,8 @@ onMounted(() => {
   solucionStore.$reset();
   if (tipo == 'general') {
     preguntaStore.preguntaGeneralAction();
+  } else if (tipo == 'curso') {
+    preguntaStore.preguntaCursoAction(id);
   } else if (tipo == 'tema') {
     preguntaStore.preguntaTemaAction(id);
   } else {
@@ -35,6 +37,9 @@ async function handlePreguntaClick() {
   const tipo = preguntaStore.tipo;
   if (tipo == 'general') {
     await preguntaStore.preguntaGeneralAction();
+  } else if (tipo == 'curso') {
+    const cursoId = preguntas.value?.cursoId;
+    await preguntaStore.preguntaCursoAction(cursoId);
   } else if (tipo == 'tema') {
     const temaId = preguntas.value?.temaId;
     await preguntaStore.preguntaTemaAction(temaId);

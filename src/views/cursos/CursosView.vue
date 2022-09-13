@@ -37,7 +37,10 @@ const tipo = route.params.tipo;
               </router-link>
             </template>
             <template v-else>
-              <router-link :to="{ name: 'Pregunta' }" :title="curso.nombre">
+              <router-link
+                :to="{ name: 'Pregunta', params: { id: curso.id, tipo: 'curso' } }"
+                :title="curso.nombre"
+              >
                 <img class="curso__image" :src="CursoImage" :alt="`Curso - ${curso.nombre}`" />
                 <p class="p-2 font-semibold tracking-wide">{{ curso.nombre }}</p>
               </router-link>

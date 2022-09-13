@@ -1,5 +1,5 @@
 import { defineStore, StoreState } from 'pinia';
-import { preguntaGeneral, preguntaTema, preguntaAdd } from '@/api';
+import { preguntaGeneral, preguntaTema, preguntaCurso, preguntaAdd } from '@/api';
 import { UsePreguntaResponse } from '@@/types-response-pregunta';
 import { PreguntaForm } from '@@/types-forms';
 
@@ -13,6 +13,7 @@ type GettersType = {
 type ActionsType = {
   preguntaGeneralAction(): Promise<void> | void;
   preguntaTemaAction(id: string | undefined): Promise<void> | void;
+  preguntaCursoAction(id: string | undefined): Promise<void> | void;
   preguntaAddAction(data: PreguntaForm): Promise<void> | void;
 };
 export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, ActionsType>(
@@ -35,6 +36,11 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
       },
       async preguntaTemaAction(id) {
         const res = await preguntaTema(id);
+        this.preguntas = res.data.pregunta;
+        this.tipo = res.data.tipo;
+      },
+      async preguntaCursoAction(id) {
+        const res = await preguntaCurso(id);
         this.preguntas = res.data.pregunta;
         this.tipo = res.data.tipo;
       },
