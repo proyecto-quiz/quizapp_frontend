@@ -12,13 +12,13 @@ const user = inject<UserResponse>('user');
     <section>
       <ul>
         <li class="text-4xl text-red-500">
-          {{ user.email }}
+          {{ user?.email }}
         </li>
         <li>
-          {{ user.username }}
+          {{ user?.username }}
         </li>
         <li class="font-semibold text-yellow-700">
-          {{ user.role }}
+          {{ user?.role }}
         </li>
       </ul>
       <p>{{ valueRef }}</p>

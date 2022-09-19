@@ -148,7 +148,7 @@ const links: Link[] = [
 
 <style scoped>
 .footer {
-  @apply container mt-10;
+  @apply container;
 }
 
 .footer__links {

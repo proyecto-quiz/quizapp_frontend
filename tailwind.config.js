@@ -1,4 +1,4 @@
-/** @type{import("tailwindcss/tailwind-config").TailwindConfig} */
+/** @type{import("tailwindcss").Config} */
 const tailwindConfig = {
   darkMode: 'class',
   content: [

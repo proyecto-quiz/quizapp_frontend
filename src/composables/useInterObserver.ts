@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 type Options = {
   queryAllSelector: string;
@@ -17,18 +17,18 @@ export function useInterObserver(callback: Callback, options: Options) {
     entries.forEach(callback);
   }, options.init);
 
-  onMounted(() => {
-    const elementsDOM = document.querySelectorAll(options.queryAllSelector);
+  const elementsDOM = ref<NodeListOf<Element>>();
 
-    elementsDOM.forEach((el) => {
+  onMounted(() => {
+    elementsDOM.value = document.querySelectorAll(options.queryAllSelector);
+
+    elementsDOM.value.forEach((el) => {
       observer.observe(el);
     });
   });
 
   onUnmounted(() => {
-    const elementsDOM = document.querySelectorAll(options.queryAllSelector);
-
-    elementsDOM.forEach((el) => {
+    elementsDOM.value?.forEach((el) => {
       observer.unobserve(el);
     });
   });

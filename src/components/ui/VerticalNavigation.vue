@@ -135,7 +135,7 @@ function handleVerifyClick() {
 }
 
 .navigate__user-name {
-  @apply text-base text-lg font-semibold capitalize text-cyan-600 dark:text-cyan-200 md:text-[1.125rem];
+  @apply text-base font-semibold capitalize text-cyan-600 dark:text-cyan-200 md:text-lg md:text-[1.125rem];
 }
 
 .navigate__links {
