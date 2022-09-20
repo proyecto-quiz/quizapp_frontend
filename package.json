@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "format:all": "prettier -w . & prettier -c .",
+    "format": "prettier -w . & prettier -c .",
     "format:single": "prettier -w",
-    "preview": "vite build && vite preview"
+    "preview": "npm run format && vite build && vite preview"
   },
   "dependencies": {
     "@vuelidate/core": "2.0.0-alpha.40",
@@ -21,7 +21,7 @@
   "devDependencies": {
     "@tailwindcss/forms": "0.5.0",
     "@types/node": "17.0.23",
-    "@vitejs/plugin-vue": "2.3.3",
+    "@vitejs/plugin-vue": "3.1.0",
     "@vue/eslint-config-typescript": "10.0.0",
     "autoprefixer": "10.4.8",
     "eslint": "8.11.0",

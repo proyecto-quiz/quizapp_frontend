@@ -1,12 +1,12 @@
 import { defineStore, StoreState } from 'pinia';
-import { me, signIn, signOut, signUp } from '@/api';
-import { ErrorResponse, GetStatusStore, TypeStatusStore } from '@@/type-config-api';
 import { SignInForm, SignUpForm } from '@@/types-forms';
+import { ErrorResponse, GetStatusStore, TypeStatusStore } from '@@/type-config-api';
 import { TokenResponse, UserAuthenticateResponse } from '@@/types-response-users';
+import { me, signIn, signOut, signUp } from '@/api';
 import { useGetStorage } from '@/composables';
 
 type StateType = {
-  user: UserAuthenticateResponse['user'] | null;
+  user: UserAuthenticateResponse['user'] | undefined;
   tokens: TokenResponse;
   isLoggedIn: boolean;
   message?: ErrorResponse['detail'];
@@ -36,7 +36,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
   {
     state: () => ({
       status: 'idle',
-      user: null,
+      user: undefined,
       tokens: {
         accessToken: useGetStorage<TokenResponse>('tokens')?.accessToken || '',
         refreshToken: useGetStorage<TokenResponse>('tokens')?.refreshToken || '',
@@ -97,7 +97,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
           localStorage.setItem('username', this.user.username);
         } else {
           this.isLoggedIn = false;
-          this.user = null;
+          this.user = undefined;
           this.isReady = true;
           localStorage.removeItem('username');
         }

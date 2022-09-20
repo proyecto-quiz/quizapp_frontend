@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import Footer from '@/components/Footer.vue';
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
+
+// Icons
 import Main01Draw from '@/components/draws/Main01Draw.vue';
 import Main02Draw from '@/components/draws/Main02Draw.vue';
 import Main03Draw from '@/components/draws/Main03Draw.vue';
+
 import { useInterObserver } from '@/composables';
-import Footer from '@/components/Footer.vue';
 
 const observer = useInterObserver(
   (entry) => {
@@ -15,18 +18,14 @@ const observer = useInterObserver(
   },
   {
     queryAllSelector: 'section.section',
-    init: {
-      root: document.querySelector('main.container'),
-      rootMargin: '0px',
-    },
   }
 );
 </script>
 
 <template>
-  <LayoutDefault title="Inicio">
+  <LayoutDefault title="Inicio" class="overflow-x-hidden">
     <section class="section section-1">
-      <aside class="self-center">
+      <aside class="w-2/4 self-start">
         <h1 class="title-nb title-nb-01">
           <span class="text-[#09FCED]">Note</span><span class="text-secondary-normal">Blue</span>
         </h1>
@@ -42,13 +41,13 @@ const observer = useInterObserver(
           un modo experto donde podrás demostrar tus habilidades y ser el rey de las preguntas.
         </p>
       </aside>
-      <aside class="self-center">
+      <aside class="w-2/4 self-center">
         <Main01Draw />
       </aside>
     </section>
 
     <section class="section section-2">
-      <aside class="self-center">
+      <aside class="w-2/4 self-start">
         <h1 class="title-nb title-nb-02">
           <span class="mx-2">Preguntas</span>
           <span class="mx-2 text-contrast-01">Online</span>
@@ -62,13 +61,13 @@ const observer = useInterObserver(
           ninguna pregunta te detenga de tus sueños y convertirte en el rey de las preguntas.
         </p>
       </aside>
-      <aside class="self-center">
+      <aside class="w-2/4 self-start">
         <Main02Draw />
       </aside>
     </section>
 
     <section class="section section-3">
-      <aside class="self-center">
+      <aside class="w-2/4 self-start">
         <h1 class="title-nb title-nb-03">
           <span class="mx-2">Preguntas</span>
           <span class="mx-2 text-contrast-01">Aleatorias</span>
@@ -83,7 +82,7 @@ const observer = useInterObserver(
           misma pregunta podrás tener la respuesta más rápida y lograras aprender.
         </p>
       </aside>
-      <aside class="self-center">
+      <aside class="w-2/4 self-center">
         <Main03Draw />
       </aside>
     </section>
@@ -93,7 +92,7 @@ const observer = useInterObserver(
 
 <style scoped>
 .section {
-  @apply flex min-h-screen flex-col justify-start gap-2 py-3 md:gap-10;
+  @apply flex min-h-screen flex-col items-center justify-start gap-2 py-3 md:gap-10;
   opacity: 0;
   transform: translateX(-100px);
 }
@@ -136,5 +135,26 @@ const observer = useInterObserver(
 
 .title-nb-03 {
   @apply md:text-left;
+}
+
+@media only screen and (max-width: 767px) {
+  .section aside {
+    @apply self-center;
+  }
+
+  .section aside svg {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .section aside {
+    @apply self-start;
+  }
+
+  .section aside svg {
+    width: max(100%, 14rem);
+  }
 }
 </style>

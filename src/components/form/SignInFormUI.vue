@@ -1,23 +1,30 @@
 <script setup lang="ts">
+// Vue
+import { computed, onMounted, reactive, ref } from 'vue';
+
+// Types
+import { TokenResponse } from '@@/types-response-users';
+import { SignInForm } from '@@/types-forms';
+
+// Components
 import InputForm from '@/components/ui/InputForm.vue';
 import Alert from '@/components/ui/Alert.vue';
+import Spinner from '@/components/ui/Spinner.vue';
+import Google from '@/components/draws/icons/Google.vue';
+
+// Composables
 import { useVuelidate } from '@vuelidate/core';
 import { useLocalStorage } from '@/composables';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores';
-import { computed, onMounted, reactive, ref } from 'vue';
-import { SignInForm } from '@@/types-forms';
 import { email as emailValid, maxLength, minLength, required } from '@vuelidate/validators';
-import Spinner from '@/components/ui/Spinner.vue';
-import { formatResponse } from '@/utils';
+import { useAuthRef } from '@/composables/stores';
 
-// Icon
-import Google from '@/components/draws/icons/Google.vue';
-import { TokenResponse } from '@@/types-response-users';
+// Libs
+import { formatResponse } from '@/utils';
 
 const router = useRouter();
 const authStore = useAuthStore();
-const authStoreComp = computed(() => authStore);
 const stateForm = reactive<SignInForm>({} as SignInForm);
 const rules = computed<Record<string, any>>(() => ({
   email: { required, emailValid },
@@ -56,23 +63,20 @@ onMounted(() => {
   }
   signInFormRef.value?.classList.add('a--show');
 });
+
+const { isError, message, isSuccess, isLoading } = useAuthRef();
 </script>
 
 <template>
   <section ref="signInFormRef" class="flex flex-col px-7 py-3 md:gap-5 md:px-10">
     <slot />
-    <Alert v-if="authStoreComp.isError" outline type="danger" @on-close="authStore.resetAction">
-      <span v-for="(err, idx) in formatResponse(authStoreComp.message)" :key="err.value + idx">
+    <Alert v-if="isError" outline type="danger" @on-close="authStore.resetAction">
+      <span v-for="(err, idx) in formatResponse(message)" :key="err.value + idx">
         {{ err.value }}
         <br />
       </span>
     </Alert>
-    <Alert
-      v-if="authStoreComp.isSuccess"
-      outline
-      type="success"
-      @on-close="authStore.resetAction()"
-    >
+    <Alert v-if="isSuccess" outline type="success" @on-close="authStore.resetAction">
       Inicio de sesión correctamente.
     </Alert>
     <form
@@ -88,8 +92,8 @@ onMounted(() => {
         name="email"
         type="email"
         placeholder="my-mail@mail.com"
-        :disabled="authStoreComp.isLoading"
-        :has-error="v$.email.$error || authStoreComp.isError"
+        :disabled="isLoading"
+        :has-error="v$.email.$error || isError"
         :help-error-msg="v$.email.$errors[0]?.$message"
       />
 
@@ -101,8 +105,8 @@ onMounted(() => {
         name="password"
         type="password"
         autocomplete="false"
-        :disabled="authStoreComp.isLoading"
-        :has-error="v$.password.$error || authStoreComp.isError"
+        :disabled="isLoading"
+        :has-error="v$.password.$error || isError"
         :help-error-msg="v$.password.$errors[0]?.$message"
       />
 
@@ -115,16 +119,16 @@ onMounted(() => {
         label-name="Recordar mi Contraseña"
         label-class="text-sm"
         class="rounded disabled:bg-slate-400"
-        :disabled="authStoreComp.isLoading"
+        :disabled="isLoading"
         @change="setRememberPassword(!rememberPass)"
       />
       <button
         class="button button--secondary flex w-full flex-col items-center font-medium disabled:cursor-not-allowed disabled:bg-secondary/50 dark:disabled:bg-slate-500"
         type="submit"
         role="button"
-        :disabled="v$.$error || authStoreComp.isLoading"
+        :disabled="v$.$error || isLoading"
       >
-        <Spinner v-if="authStoreComp.isLoading" type="contrast" class="h-7 w-7" />
+        <Spinner v-if="isLoading" type="contrast" class="h-7 w-7" />
         <span v-else class="flex justify-center">
           <i class="bx bx-log-in mr-2 text-2xl" /><span>Iniciar Sesión</span>
         </span>

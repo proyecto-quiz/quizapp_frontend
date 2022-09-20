@@ -1,10 +1,5 @@
 <template>
-  <svg
-    class="h-13 w-12 rounded-md"
-    viewBox="0 0 470 293"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg class="h-13 w-12 rounded-md" viewBox="0 0 470 293">
     <g filter="url(#filter0_d_309_398)">
       <rect width="462" height="285" transform="translate(4)" fill="#151D2B" />
       <path
@@ -47,5 +42,3 @@
     </defs>
   </svg>
 </template>
-
-<style scoped></style>
