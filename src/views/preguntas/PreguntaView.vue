@@ -5,12 +5,12 @@ import { usePreguntaStore } from '@/stores';
 import { useRoute, useRouter } from 'vue-router';
 import { SolucionForm } from '@@/types-forms';
 import { useSolucionStore } from '@/stores';
-
+import Spinner from '@/components/ui/Spinner.vue';
 const route = useRoute();
 const router = useRouter();
 const preguntaStore = usePreguntaStore();
 const solucionStore = useSolucionStore();
-
+const preguntaStoreComp = computed(() => preguntaStore);
 const preguntas = computed(() => {
   return preguntaStore.getPregunta;
 });
@@ -45,6 +45,7 @@ async function handlePreguntaClick() {
     await preguntaStore.preguntaTemaAction(temaId);
   }
   solucionStore.$reset();
+  stateForm.alternativaId = '';
 }
 
 const stateForm = reactive<SolucionForm>({
@@ -72,99 +73,107 @@ async function handleSelectClick() {
 </script>
 
 <template>
-  <form class="container" @submit.stop.prevent="handlePreguntaClick">
-    <div class="pregunta">
-      <h1 class="text-lg font-medium uppercase text-contrast-01 md:text-3xl">
-        {{ preguntas?.curso }}
-      </h1>
-      <h2 class="text-lg font-light uppercase md:text-2xl">{{ preguntas?.tema }}</h2>
-      <div class="flex flex-col gap-2">
-        <div class="pregunta__text">
-          <h1 class="py-2 text-lg font-semibold uppercase md:text-2xl">pregunta</h1>
-          <p>
-            {{ preguntas?.texto }}
-          </p>
-          <div v-if="preguntas?.imagen != null">
-            <img class="imagen" :src="preguntas?.imagen" alt="imagen_pregunta" />
-          </div>
-        </div>
-        <h1 class="py-1 text-lg font-semibold uppercase md:text-2xl">Alternativas</h1>
-        <div v-for="alternativa in preguntas?.alternativas" :key="alternativa.altId">
-          <div class="px-2 py-1">
-            <input
-              :id="alternativa.altId"
-              v-model="stateForm.alternativaId"
-              class="peer hidden"
-              type="radio"
-              name="alternativaId"
-              :value="alternativa.altId"
-            />
-            <label
-              class="label show flex gap-1 rounded-xl bg-secondary-normal bg-opacity-90 p-2 shadow-xl backdrop-blur-2xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
-              :for="alternativa.altId"
-            >
-              {{ alternativa.contenido }}
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="solucionStore.respuesta != null" class="flex flex-row justify-between gap-4">
-      <label
-        v-if="solucionStore.respuesta === 'correcta'"
-        class="label border-lg border border-green-900 text-green-700"
-      >
-        Muy Bien ...!!!
-      </label>
-      <label v-else class="label border-lg border border-red-900 text-red-700">
-        Fallaste la respuesta es:
-        <strong>{{ solucionStore.respuestaCorrecta }}</strong>
-      </label>
-
-      <a href="#solucion" class="button button--contrast-01">Ver Solución</a>
-    </div>
-    <div class="flex flex-row justify-between gap-4 p-4">
-      <button
-        v-if="solucionStore.respuesta === null"
-        type="button"
-        class="button button--secondary"
-        @click.prevent="handleSelectClick"
-      >
-        Seleccionar
-      </button>
-      <button type="submit" class="button button--secondary--outline">Siguiente</button>
-    </div>
-    <Teleport to="#noteblue-app">
-      <div id="solucion" class="modal snap-y overflow-scroll">
-        <div class="modal-contenido text-justify">
-          <a href="#">
-            <div title="close" class="closeImage"></div>
-          </a>
-          <h2 class="my-4 text-center text-lg">SOLUCIÓN</h2>
-          <div>
-            <p><strong>Author:</strong> {{ solucion?.author }}</p>
-            <p><strong>Resolución:</strong> {{ solucion?.resolucion }}</p>
-            <div class="snap-center">
-              <p><strong>Referencia:</strong>{{ solucion?.referencia }}</p>
+  <Transition name="view-pregunta">
+    <section v-if="preguntaStoreComp.isLoading" class="spinner__loading">
+      <Spinner type="green" class="h-8 w-8" />
+    </section>
+    <form v-else class="container" @submit.stop.prevent="handlePreguntaClick">
+      <div class="pregunta">
+        <h1 class="text-lg font-medium uppercase text-contrast-01 md:text-3xl">
+          {{ preguntas?.curso }}
+        </h1>
+        <h2 class="text-lg font-light uppercase md:text-2xl">{{ preguntas?.tema }}</h2>
+        <div class="flex flex-col gap-2">
+          <div class="pregunta__text">
+            <h1 class="py-2 text-lg font-semibold uppercase md:text-2xl">pregunta</h1>
+            <p>
+              {{ preguntas?.texto }}
+            </p>
+            <div v-if="preguntas?.imagen != null">
+              <img class="imagen" :src="preguntas?.imagen" alt="imagen_pregunta" />
             </div>
-
-            <div class="p-10">
-              <iframe
-                class="aspect-video h-full w-full rounded-md"
-                src=""
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
+          </div>
+          <h1 class="py-1 text-lg font-semibold uppercase md:text-2xl">Alternativas</h1>
+          <div v-for="alternativa in preguntas?.alternativas" :key="alternativa.altId">
+            <div class="px-2 py-1">
+              <input
+                :id="alternativa.altId"
+                v-model="stateForm.alternativaId"
+                class="peer hidden"
+                type="radio"
+                name="alternativaId"
+                :value="alternativa.altId"
+              />
+              <label
+                class="label show flex gap-1 rounded-xl bg-secondary-normal bg-opacity-90 p-2 shadow-xl backdrop-blur-2xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
+                :for="alternativa.altId"
+              >
+                {{ alternativa.contenido }}
+              </label>
             </div>
           </div>
         </div>
       </div>
-    </Teleport>
-  </form>
+      <div v-if="solucionStore.respuesta != null" class="flex flex-row justify-between gap-4">
+        <label
+          v-if="solucionStore.respuesta === 'correcta'"
+          class="label border-lg border border-green-900 text-green-700"
+        >
+          Muy Bien ...!!!
+        </label>
+        <label v-else class="label border-lg border border-red-900 text-red-700">
+          Fallaste la respuesta es:
+          <strong>{{ solucionStore.respuestaCorrecta }}</strong>
+        </label>
+
+        <a href="#solucion" class="button button--contrast-01">Ver Solución</a>
+      </div>
+      <div class="flex flex-row justify-between gap-4 p-4">
+        <button
+          v-if="solucionStore.respuesta === null"
+          type="button"
+          class="button button--secondary"
+          @click.prevent="handleSelectClick"
+        >
+          Seleccionar
+        </button>
+        <button type="submit" class="button button--secondary--outline">Siguiente</button>
+      </div>
+      <Teleport to="#noteblue-app">
+        <div id="solucion" class="modal snap-y overflow-scroll">
+          <div class="modal-contenido text-justify">
+            <a href="#">
+              <div title="close" class="closeImage"></div>
+            </a>
+            <h2 class="my-4 text-center text-lg">SOLUCIÓN</h2>
+            <div>
+              <p><strong>Author:</strong> {{ solucion?.author }}</p>
+              <p><strong>Resolución:</strong> {{ solucion?.resolucion }}</p>
+              <div class="snap-center">
+                <p><strong>Referencia:</strong>{{ solucion?.referencia }}</p>
+              </div>
+
+              <div class="p-10">
+                <iframe
+                  class="aspect-video h-full w-full rounded-md"
+                  src=""
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Teleport>
+    </form>
+  </Transition>
 </template>
 
 <style scoped>
+.spinner__loading {
+  @apply flex flex-col items-center justify-center gap-y-3;
+}
 .pregunta__text {
   @apply basis-1/2;
 }
@@ -212,5 +221,23 @@ async function handleSelectClick() {
     left top no-repeat;
   width: 67px;
   height: 67px;
+}
+/* view-pregunta transition */
+.view-pregunta-enter-from,
+.view-pregunta-leave-to {
+  opacity: 0;
+}
+
+.view-pregunta-enter-to,
+.view-pregunta-leave-leave {
+  opacity: 1;
+}
+
+.view-pregunta-enter-active,
+.view-pregunta-leave-active {
+  transition-property: opacity;
+  transition-duration: 800ms;
+  transition-timing-function: cubic-bezier(0.115, 0.74, 0.855, 1);
+  transition-delay: 500ms;
 }
 </style>
