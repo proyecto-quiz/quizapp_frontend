@@ -1,11 +1,11 @@
 declare module '@@/types-response-solucion' {
   type solucionResponse = {
-    id: string;
-    author: string;
-    imagen: string;
-    pregunta: string;
-    referencia: string;
-    resolucion: string;
+    solucionId: string | undefined;
+    author: string | null;
+    image: string | null;
+    pregunta: string | null;
+    referencia: string | undefined;
+    resolucion: string | null;
   };
   export type UseSolucionResponse = {
     solucion: solucionResponse;
