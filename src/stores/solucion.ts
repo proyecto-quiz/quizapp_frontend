@@ -3,7 +3,7 @@ import { solucion } from '@/api';
 import { SolucionForm } from '@@/types-forms';
 import { UseSolucionResponse } from '@@/types-response-solucion';
 type StateType = {
-  soluciones: null | UseSolucionResponse['solucion'];
+  soluciones: [] | UseSolucionResponse;
   respuesta: string | null;
   respuestaCorrecta: string | null;
 };
@@ -17,7 +17,7 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
   'solucion',
   {
     state: () => ({
-      soluciones: null,
+      soluciones: [],
       respuesta: null,
       respuestaCorrecta: null,
     }),

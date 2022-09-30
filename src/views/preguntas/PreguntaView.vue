@@ -146,22 +146,28 @@ async function handleSelectClick() {
               <div title="close" class="closeImage"></div>
             </a>
             <h2 class="my-4 text-center text-lg">SOLUCIÓN</h2>
-            <div>
-              <p><strong>Author:</strong> {{ solucion?.author }}</p>
-              <p><strong>Resolución:</strong> {{ solucion?.resolucion }}</p>
-              <div class="snap-center">
-                <p><strong>Referencia:</strong>{{ solucion?.referencia }}</p>
+            <div v-if="solucion">
+              <div v-for="solucionItem in solucion" :key="solucionItem.solucionId">
+                <p><strong>Author:</strong> {{ solucionItem.author }}</p>
+                <p><strong>Resolución:</strong> {{ solucionItem.resolucion }}</p>
+                <div class="snap-center">
+                  <a href="solucionItem?.referencia">
+                    <strong>Referencia:</strong>{{ solucionItem.referencia }}
+                  </a>
+                </div>
+                <div class="p-10">
+                  <iframe
+                    class="aspect-video h-full w-full rounded-md"
+                    :src="solucionItem.referencia"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
               </div>
-
-              <div class="p-10">
-                <iframe
-                  class="aspect-video h-full w-full rounded-md"
-                  src=""
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
-              </div>
+            </div>
+            <div v-else>
+              <h1 class="my-4 text-center text-lg">no exite solucion</h1>
             </div>
           </div>
         </div>
