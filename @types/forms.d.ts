@@ -30,4 +30,10 @@ declare module '@@/types-forms' {
     tema: string;
     alternativas: alternativas[];
   };
+  type SolucionAddForm = {
+    imagen: null | [];
+    pregunta: string | undefined;
+    referencia: string;
+    resolucion: string;
+  };
 }
