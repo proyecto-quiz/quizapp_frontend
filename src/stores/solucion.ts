@@ -1,6 +1,6 @@
 import { defineStore, StoreState } from 'pinia';
-import { solucion } from '@/api';
-import { SolucionForm } from '@@/types-forms';
+import { solucion, solucionAdd } from '@/api';
+import { SolucionForm, SolucionAddForm } from '@@/types-forms';
 import { UseSolucionResponse } from '@@/types-response-solucion';
 type StateType = {
   soluciones: [] | UseSolucionResponse;
@@ -12,6 +12,7 @@ type GettersType = {
 };
 type ActionsType = {
   solucionAction(data: SolucionForm): Promise<void> | void;
+  solucionAddAction(data: SolucionAddForm): Promise<void> | void;
 };
 export const useSolucionStore = defineStore<'solucion', StateType, GettersType, ActionsType>(
   'solucion',
@@ -32,6 +33,14 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
         this.soluciones = res.data.solucion;
         this.respuesta = res.data.respuesta;
         this.respuestaCorrecta = res.data.respuestaCorrecta;
+      },
+      async solucionAddAction(data) {
+        const res = await solucionAdd(data);
+        if (res.status == 201) {
+          console.log('guardado');
+        } else {
+          console.log('error');
+        }
       },
     },
   }

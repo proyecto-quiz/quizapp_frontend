@@ -70,6 +70,10 @@ async function handleSelectClick() {
   }
   await solucionStore.solucionAction(stateForm);
 }
+async function agregarSolucion() {
+  let preguntaId = preguntas.value?.preguntaId;
+  router.push({ name: 'SolucionAdd', params: { idPregunta: preguntaId } });
+}
 </script>
 
 <template>
@@ -145,8 +149,10 @@ async function handleSelectClick() {
             <a href="#">
               <div title="close" class="closeImage"></div>
             </a>
-            <h2 class="my-4 text-center text-lg">SOLUCIÓN</h2>
-            <div v-if="solucion">
+            <h2 class="text-center text-lg font-medium uppercase text-contrast-01 md:text-3xl">
+              SOLUCIÓN
+            </h2>
+            <div v-if="solucion?.length >= 1">
               <div v-for="solucionItem in solucion" :key="solucionItem.solucionId">
                 <p><strong>Author:</strong> {{ solucionItem.author }}</p>
                 <p><strong>Resolución:</strong> {{ solucionItem.resolucion }}</p>
@@ -155,7 +161,7 @@ async function handleSelectClick() {
                     <strong>Referencia:</strong>{{ solucionItem.referencia }}
                   </a>
                 </div>
-                <div class="p-10">
+                <div v-if="solucionItem.referencia?.includes('https://')" class="p-10">
                   <iframe
                     class="aspect-video h-full w-full rounded-md"
                     :src="solucionItem.referencia"
@@ -164,11 +170,19 @@ async function handleSelectClick() {
                     allowfullscreen
                   ></iframe>
                 </div>
+                <div v-else>
+                  <h2>{{ solucionItem.referencia }}</h2>
+                </div>
               </div>
             </div>
             <div v-else>
-              <h1 class="my-4 text-center text-lg">no exite solucion</h1>
+              <h1 class="my-4 text-center text-lg">
+                <strong>No hay solucines agregadas</strong>
+              </h1>
             </div>
+            <button type="button" class="button hover: bg-secondary" @click="agregarSolucion">
+              Agregar una solución
+            </button>
           </div>
         </div>
       </Teleport>

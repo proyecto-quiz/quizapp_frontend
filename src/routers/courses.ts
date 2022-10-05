@@ -43,6 +43,11 @@ export const coursesRoutes: RouteRecordRaw[] = [
         path: '/notaranking',
         component: () => import('@/views/ranking/RankingView.vue'),
       },
+      {
+        name: 'SolucionAdd',
+        path: '/solucionAdd',
+        component: () => import('@/views/solucion/SolucionAddView.vue'),
+      },
     ],
   },
 ];
