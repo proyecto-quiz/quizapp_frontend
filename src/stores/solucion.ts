@@ -1,18 +1,19 @@
 import { defineStore, StoreState } from 'pinia';
 import { solucion, solucionAdd } from '@/api';
-import { SolucionForm, SolucionAddForm } from '@@/types-forms';
+import { SolucionForm } from '@@/types-forms';
 import { UseSolucionResponse } from '@@/types-response-solucion';
 type StateType = {
   soluciones: [] | UseSolucionResponse;
   respuesta: string | null;
   respuestaCorrecta: string | null;
+  message: string | null;
 };
 type GettersType = {
   getSolucion(state: StoreState<StateType>): StateType['soluciones'];
 };
 type ActionsType = {
   solucionAction(data: SolucionForm): Promise<void> | void;
-  solucionAddAction(data: SolucionAddForm): Promise<void> | void;
+  solucionAddAction(data: FormData): Promise<void> | void;
 };
 export const useSolucionStore = defineStore<'solucion', StateType, GettersType, ActionsType>(
   'solucion',
@@ -21,6 +22,7 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
       soluciones: [],
       respuesta: null,
       respuestaCorrecta: null,
+      message: null,
     }),
     getters: {
       getSolucion(state) {
@@ -36,10 +38,11 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
       },
       async solucionAddAction(data) {
         const res = await solucionAdd(data);
-        if (res.status == 201) {
+        if (res.status === 201) {
+          this.message = 'Guardado Correctamente';
           console.log('guardado');
         } else {
-          console.log('error');
+          this.message = 'Uno de los campos no es valido';
         }
       },
     },

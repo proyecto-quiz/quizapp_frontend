@@ -31,8 +31,8 @@ declare module '@@/types-forms' {
     alternativas: alternativas[];
   };
   type SolucionAddForm = {
-    imagen: null | [];
-    pregunta: string | undefined;
+    imagen: null | undefined | Blob;
+    pregunta: string;
     referencia: string;
     resolucion: string;
   };

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { SolucionAddForm } from '@@/types-forms';
 import { useSolucionStore } from '@/stores';
 import { useRoute } from 'vue-router';
@@ -14,12 +14,27 @@ const solucionForm = reactive<SolucionAddForm>({
   resolucion: '',
 });
 async function handleSolucionClick() {
-  await solucionStore.solucionAddAction(solucionForm);
-  alert('guardado');
+  let solutionForm = new FormData();
+  solutionForm.append('pregunta', solucionForm.pregunta);
+  solutionForm.append('referencia', solucionForm.referencia);
+  solutionForm.append('resolucion', solucionForm.resolucion);
+  if (solucionForm.imagen != null) {
+    solutionForm.append('imagen', solucionForm.imagen);
+  }
+  await solucionStore.solucionAddAction(solutionForm);
+  alert(solucionStore.message);
+}
+const image = ref();
+async function onFleSelected(event: File) {
+  image.value = URL.createObjectURL(event.target.files[0]); //url imagen
+  var file = event.target.files[0];
+  solucionForm.imagen = file;
+  console.log(solucionForm.imagen);
 }
 </script>
 <template>
   <form
+    enctype="multipart/form-data"
     class="container mb-4 flex select-none flex-col gap-2 overflow-auto"
     @submit.stop.prevent="handleSolucionClick"
   >
@@ -44,6 +59,22 @@ async function handleSolucionClick() {
         required
       ></textarea>
     </div>
+    <div class="flex justify-center">
+      <div class="w-100 mb-3">
+        <label for="formFile" class="form-label mb-2 inline-block dark:text-white">
+          <strong>Agregar una imagen</strong>
+        </label>
+        <input
+          id="formFile"
+          class="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none dark:text-secondary"
+          type="file"
+          placeholder="sin"
+          accept=".gif,jpg,jpeg,.png"
+          @change="onFleSelected"
+        />
+      </div>
+    </div>
+    <img :src="image" />
     <button type="submit" class="button button--secondary--outline">Guardar</button>
   </form>
 </template>
