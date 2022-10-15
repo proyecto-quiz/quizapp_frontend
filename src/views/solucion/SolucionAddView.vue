@@ -25,11 +25,15 @@ async function handleSolucionClick() {
   alert(solucionStore.message);
 }
 const image = ref();
-async function onFleSelected(event: File) {
+async function onFleSelected(event: any) {
   image.value = URL.createObjectURL(event.target.files[0]); //url imagen
   var file = event.target.files[0];
   solucionForm.imagen = file;
   console.log(solucionForm.imagen);
+}
+async function imageDelete() {
+  solucionForm.imagen = null;
+  image.value = null;
 }
 </script>
 <template>
@@ -59,8 +63,8 @@ async function onFleSelected(event: File) {
         required
       ></textarea>
     </div>
-    <div class="flex justify-center">
-      <div class="w-100 mb-3">
+    <div class="flex flex-wrap justify-center">
+      <div class="mb-3 w-max">
         <label for="formFile" class="form-label mb-2 inline-block dark:text-white">
           <strong>Agregar una imagen</strong>
         </label>
@@ -68,13 +72,24 @@ async function onFleSelected(event: File) {
           id="formFile"
           class="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none dark:text-secondary"
           type="file"
-          placeholder="sin"
           accept=".gif,jpg,jpeg,.png"
           @change="onFleSelected"
         />
       </div>
+      <div v-if="image">
+        <button
+          type="button"
+          class="button m-2 bg-red-500"
+          onclick="document.getElementById('formFile').value = ''"
+          @click="imageDelete"
+        >
+          Eliminar
+        </button>
+      </div>
     </div>
-    <img :src="image" />
+    <div class="h-50 w-46 m-4 flex justify-center p-4 shadow-lg">
+      <img :src="image" />
+    </div>
     <button type="submit" class="button button--secondary--outline">Guardar</button>
   </form>
 </template>
