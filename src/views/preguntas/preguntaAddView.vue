@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, computed, reactive, ref } from 'vue';
 import { usePreguntaStore } from '@/stores';
-//import PreguntaImage from '@/assets/images/Geometria.jpg';
 import { PreguntaForm } from '@@/types-forms';
 import { useCursoStore } from '@/stores';
 const preguntaStore = usePreguntaStore();
@@ -10,18 +9,23 @@ const cursosStoreComp = computed(() => cursoStore);
 onMounted(async () => {
   await cursoStore.cursoAction();
 });
-const selecTema = ref({
-  id: '',
-  nombre: '',
-});
+const selecTema = ref();
 const stateForm = reactive<PreguntaForm>({
   texto: '',
   tema: '',
+  imagen: null,
   alternativas: [],
 });
 async function handleFormClick() {
-  await preguntaStore.preguntaAddAction(stateForm);
-  alert('Guardado correctamente');
+  let preguntaForm = new FormData();
+  preguntaForm.append('texto', stateForm.texto);
+  preguntaForm.append('tema', stateForm.tema);
+  preguntaForm.append('alternativas', JSON.stringify(stateForm.alternativas));
+  if (stateForm.imagen != null) {
+    preguntaForm.append('imagen', stateForm.imagen);
+  }
+  await preguntaStore.preguntaAddAction(preguntaForm);
+  alert(preguntaStore.messaje);
 }
 const newAlterText = ref('');
 const is_answer = ref(false);
@@ -34,7 +38,17 @@ async function addNewAlternativa(newAlterText: string, is_answer: boolean) {
 async function removeAlter(index: number) {
   stateForm.alternativas.splice(index, 1);
 }
+const image = ref();
 const answerColor = 'red';
+async function onFleSelected(event: any) {
+  let file = event.target.files[0];
+  image.value = URL.createObjectURL(file); //url imagen
+  stateForm.imagen = file;
+}
+async function imageDelete() {
+  stateForm.imagen = null;
+  image.value = null;
+}
 </script>
 
 <template>
@@ -45,8 +59,10 @@ const answerColor = 'red';
         <div class="rounded-t-lg bg-white py-2 px-4 dark:bg-secondary">
           <strong>Curso</strong>
           <select
+            id="list-curso"
             v-model="selecTema"
             class="z-1 mr-6 mt-0 block w-full appearance-none border-0 border-b-2 border-gray-200 bg-transparent p-2.5 px-0 pt-3 pb-2 text-secondary-normal focus:border-secondary-normal/20 focus:outline-none focus:ring-0"
+            required
           >
             <option disabled value="">Seleccione un curso</option>
             <option v-for="curso in cursosStoreComp.getCursos" :key="curso.id" :value="curso.temas">
@@ -54,17 +70,18 @@ const answerColor = 'red';
             </option>
           </select>
         </div>
+
         <div class="rounded-t-lg bg-white py-2 px-4 dark:bg-secondary">
           <strong>Tema</strong>
           <select
-            id="floating_filled"
+            id="list-tema"
             v-model="stateForm.tema"
             class="z-1 mt-0 block w-full appearance-none border-0 border-b-2 border-gray-200 bg-transparent px-0 pt-3 pb-2 text-secondary-normal focus:border-secondary focus:outline-none focus:ring-0"
-            placeholder=" "
+            required
           >
             <option disabled value="">Seleccione un tema</option>
-            <option v-for="(tema, index) in selecTema" :key="index" :value="tema.id">
-              {{ tema.nombre }}
+            <option v-for="(tema, index) in selecTema" :key="index" :value="tema?.id">
+              {{ tema?.nombre }}
             </option>
           </select>
         </div>
@@ -77,7 +94,33 @@ const answerColor = 'red';
             required
           ></textarea>
         </div>
-
+        <div class="flex flex-wrap justify-center">
+          <div class="mb-3 w-max">
+            <label for="formFile" class="form-label mb-2 inline-block dark:text-white">
+              <strong>Agregar una imagen</strong>
+            </label>
+            <input
+              id="formFile"
+              class="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none dark:text-secondary"
+              type="file"
+              accept=".gif,jpg,jpeg,.png"
+              @change="onFleSelected"
+            />
+            <div v-if="image">
+              <button
+                type="button"
+                class="button m-2 bg-red-500"
+                onclick="document.getElementById('formFile').value = ''"
+                @click="imageDelete"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+          <div v-if="image" class="h-50 w-46 m-4 flex justify-center p-4 shadow-lg">
+            <img :src="image" />
+          </div>
+        </div>
         <div
           class="mb-4 w-full rounded-lg border border-gray-200 bg-gray-200 dark:border-secondary dark:bg-secondary-normal/20"
         >

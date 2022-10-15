@@ -1,5 +1,4 @@
 import { client } from './config';
-import { PreguntaForm } from '@@/types-forms';
 /**
  * Preguntas
  */
@@ -26,9 +25,12 @@ export async function preguntaCurso(id: string | undefined) {
     return error.response;
   }
 }
-export async function preguntaAdd(data: PreguntaForm) {
+
+export async function preguntaAdd(data: FormData) {
   try {
-    return await client.post('/pregunta/', data);
+    return await client.post('/pregunta/', data, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   } catch (error: any) {
     return error.response;
   }

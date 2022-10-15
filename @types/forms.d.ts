@@ -28,6 +28,7 @@ declare module '@@/types-forms' {
   type PreguntaForm = {
     texto: string;
     tema: string;
+    imagen: null | undefined | Blob;
     alternativas: alternativas[];
   };
   type SolucionAddForm = {

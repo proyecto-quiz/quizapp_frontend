@@ -1,12 +1,12 @@
 import { defineStore, StoreState } from 'pinia';
 import { preguntaGeneral, preguntaTema, preguntaCurso, preguntaAdd } from '@/api';
 import { UsePreguntaResponse } from '@@/types-response-pregunta';
-import { PreguntaForm } from '@@/types-forms';
-import { GetStatusStore, TypeStatusStore } from '@@/type-config-api';
+import { ErrorResponse, GetStatusStore, TypeStatusStore } from '@@/type-config-api';
 type StateType = {
   preguntas: null | UsePreguntaResponse['pregunta'];
   tipo: string | null;
   status: TypeStatusStore;
+  messaje?: ErrorResponse['detail'];
 };
 type GettersType = {
   getPregunta(state: StoreState<StateType>): StateType['preguntas'];
@@ -15,7 +15,7 @@ type ActionsType = {
   preguntaGeneralAction(): Promise<void> | void;
   preguntaTemaAction(id: string | undefined): Promise<void> | void;
   preguntaCursoAction(id: string | undefined): Promise<void> | void;
-  preguntaAddAction(data: PreguntaForm): Promise<void> | void;
+  preguntaAddAction(data: FormData): Promise<void> | void;
 };
 export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, ActionsType>(
   'pregunta',
@@ -24,6 +24,7 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
       status: 'idle',
       preguntas: null,
       tipo: null,
+      messaje: '',
     }),
     getters: {
       getPregunta(state) {
@@ -85,12 +86,16 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
         }
       },
       async preguntaAddAction(data) {
+        this.status = 'loading';
         const res = await preguntaAdd(data);
         console.log(res.status);
         if (res.status === 201) {
-          console.log('guardado');
+          this.status = 'idle';
+          this.tipo = res.data.tipo;
+          this.messaje = res.data.message;
         } else {
-          console.log('error');
+          this.status = 'error';
+          this.messaje = 'Uno de los campos no es válido o obligatorio';
         }
       },
     },
