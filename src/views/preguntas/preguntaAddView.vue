@@ -117,8 +117,11 @@ async function imageDelete() {
               </button>
             </div>
           </div>
-          <div v-if="image" class="h-50 w-46 m-4 flex justify-center p-4 shadow-lg">
-            <img :src="image" />
+          <div v-if="image" class="m-4 flex justify-center">
+            <img
+              :src="image"
+              class="h-auto w-96 rounded-lg outline outline-offset-2 outline-cyan-500"
+            />
           </div>
         </div>
         <div

@@ -9,7 +9,7 @@ declare module '@@/types-response-pregunta' {
     preguntaId: string;
     texto: string;
     alternativas: alternativas[];
-    imagen: string;
+    image: string;
     temaId: string;
     tema: string;
     cursoId: string;

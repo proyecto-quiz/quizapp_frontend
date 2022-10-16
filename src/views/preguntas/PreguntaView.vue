@@ -87,33 +87,37 @@ async function agregarSolucion() {
           {{ preguntas?.curso }}
         </h1>
         <h2 class="text-lg font-light uppercase md:text-2xl">{{ preguntas?.tema }}</h2>
-        <div class="flex flex-col gap-2">
+        <div class="grid-cols-1-col grid gap-2 sm:grid-cols-2">
           <div class="pregunta__text">
             <h1 class="py-2 text-lg font-semibold uppercase md:text-2xl">pregunta</h1>
             <p>
               {{ preguntas?.texto }}
             </p>
-            <div v-if="preguntas?.imagen != null">
-              <img class="imagen" :src="preguntas?.imagen" alt="imagen_pregunta" />
+            <div v-if="preguntas?.image != null">
+              <img class="imagen" :src="preguntas?.image" alt="imagen_pregunta" />
             </div>
           </div>
-          <h1 class="py-1 text-lg font-semibold uppercase md:text-2xl">Alternativas</h1>
-          <div v-for="alternativa in preguntas?.alternativas" :key="alternativa.altId">
-            <div class="px-2 py-1">
-              <input
-                :id="alternativa.altId"
-                v-model="stateForm.alternativaId"
-                class="peer hidden"
-                type="radio"
-                name="alternativaId"
-                :value="alternativa.altId"
-              />
-              <label
-                class="label show flex gap-1 rounded-xl bg-secondary-normal bg-opacity-90 p-2 shadow-xl backdrop-blur-2xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
-                :for="alternativa.altId"
-              >
-                {{ alternativa.contenido }}
-              </label>
+          <div class="text-center">
+            <h1 class="py-1 text-lg font-semibold uppercase md:text-2xl">Alternativas</h1>
+            <div v-for="alternativa in preguntas?.alternativas" :key="alternativa.altId">
+              <div class="w-full px-2 py-1">
+                <input
+                  :id="alternativa.altId"
+                  v-model="stateForm.alternativaId"
+                  class="peer hidden"
+                  type="radio"
+                  name="alternativaId"
+                  :value="alternativa.altId"
+                />
+                <label
+                  class="label show flex justify-center gap-1 rounded-xl bg-secondary-normal bg-opacity-90 p-2 shadow-xl backdrop-blur-2xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
+                  :for="alternativa.altId"
+                >
+                  <strong>
+                    {{ alternativa.contenido }}
+                  </strong>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -189,17 +193,16 @@ async function agregarSolucion() {
     </form>
   </Transition>
 </template>
-
 <style scoped>
 .spinner__loading {
   @apply flex flex-col items-center justify-center gap-y-3;
 }
 .pregunta__text {
-  @apply basis-1/2;
+  @apply basis-1/2 text-red-700 sm:text-slate-900 md:text-orange-600;
 }
 
 .imagen {
-  @apply m-5 w-3/12 rounded-lg outline outline-offset-2 outline-cyan-500;
+  @apply m-5 h-auto w-52 rounded-lg outline outline-offset-2 outline-cyan-500 sm:h-auto sm:min-w-[80%];
 }
 
 .pregunta {
