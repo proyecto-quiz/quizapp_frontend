@@ -1,25 +1,56 @@
 <script setup lang="ts">
-import { onMounted, computed, reactive, ref } from 'vue';
-import { usePreguntaStore } from '@/stores';
-import { PreguntaForm } from '@@/types-forms';
+import { onMounted, computed, ref, reactive } from 'vue';
 import { useCursoStore } from '@/stores';
-const preguntaStore = usePreguntaStore();
+import { useRoute, useRouter } from 'vue-router';
+import { PreguntaForm } from '@@/types-forms';
+import { useSolicitudStore } from '@/stores';
+const solicitudStore = useSolicitudStore();
+const route = useRoute();
+const router = useRouter();
+const paramPregunta = route.params.pregunta;
+const pregunta = JSON.parse(paramPregunta);
+console.log(pregunta);
 const cursoStore = useCursoStore();
 const cursosStoreComp = computed(() => cursoStore);
 onMounted(async () => {
   await cursoStore.cursoAction();
-  var select = document.querySelector<HTMLSelectElement>('#list-curso');
-  if (select != null) {
-    select.options[0].selected = true;
-  }
+  getcurso.value.find(filtCurso);
+  stateForm.texto = pregunta.texto;
+  stateForm.tema = pregunta.tema;
+  stateForm.alternativas = pregunta.alternativas;
+  image.value = pregunta.image;
+  is_revisied.value = pregunta.isRevisied;
 });
+const getcurso = computed(() => cursoStore.getCursos);
 const selecTema = ref();
+function filtCurso(item: any, index: any) {
+  for (const tem of item.temas) {
+    if (tem.id === pregunta.tema) {
+      var select = document.querySelector<HTMLSelectElement>('#listcurso');
+      if (select != null) {
+        select.options[index + 1].selected = true;
+      }
+      selecTema.value = item.temas;
+    }
+  }
+}
+
+//const paramCurso = cursosStoreComp.prototype.filter();
 const stateForm = reactive<PreguntaForm>({
   texto: '',
   tema: '',
   imagen: null,
   alternativas: [],
 });
+const newAlterText = ref('');
+const isAnswer = ref(false);
+const is_revisied = ref();
+async function addNewAlternativa(newAlterText: string, isAnswer: boolean) {
+  stateForm.alternativas.push({
+    contenido: newAlterText,
+    is_answer: isAnswer,
+  });
+}
 async function handleFormClick() {
   let preguntaForm = new FormData();
   preguntaForm.append('texto', stateForm.texto);
@@ -28,22 +59,15 @@ async function handleFormClick() {
   if (stateForm.imagen != null) {
     preguntaForm.append('imagen', stateForm.imagen);
   }
-  await preguntaStore.preguntaAddAction(preguntaForm);
-  alert(preguntaStore.messaje);
-}
-const newAlterText = ref('');
-const isAnswer = ref(false);
-async function addNewAlternativa(newAlterText: string, isAnswer: boolean) {
-  stateForm.alternativas.push({
-    contenido: newAlterText,
-    is_answer: isAnswer,
-  });
+  preguntaForm.append('is_revisied', is_revisied.value);
+  await solicitudStore.UpdateSolicitudAction(pregunta.id, preguntaForm);
+  alert(solicitudStore.message);
+  await router.push({ name: 'Solicitud' });
 }
 async function removeAlter(index: number) {
   stateForm.alternativas.splice(index, 1);
 }
 const image = ref();
-const answerColor = 'red';
 async function onFleSelected(event: any) {
   let file = event.target.files[0];
   image.value = URL.createObjectURL(file); //url imagen
@@ -54,7 +78,6 @@ async function imageDelete() {
   image.value = null;
 }
 </script>
-
 <template>
   <div class="container">
     <form class="p-4" @submit.prevent="handleFormClick">
@@ -63,13 +86,18 @@ async function imageDelete() {
         <div class="rounded-t-lg bg-white py-2 px-4 dark:bg-secondary">
           <strong>Curso</strong>
           <select
-            id="list-curso"
+            id="listcurso"
             v-model="selecTema"
             class="z-1 mr-6 mt-0 block w-full appearance-none border-0 border-b-2 border-gray-200 bg-transparent p-2.5 px-0 pt-3 pb-2 text-secondary-normal focus:border-secondary-normal/20 focus:outline-none focus:ring-0"
             required
           >
             <option disabled value="">Seleccione un curso</option>
-            <option v-for="curso in cursosStoreComp.getCursos" :key="curso.id" :value="curso.temas">
+            <option
+              v-for="curso in cursosStoreComp.getCursos"
+              :key="curso.id"
+              :name="curso.id"
+              :value="curso.temas"
+            >
               {{ curso.nombre }}
             </option>
           </select>
@@ -167,7 +195,10 @@ async function imageDelete() {
           >
             {{ index + 1 }})
             {{ alterList.contenido }}
-            <strong v-if="alterList.is_answer == true" :style="{ color: answerColor }">
+            <strong
+              v-if="alterList.isAnswer || alterList.is_answer == true"
+              :style="{ color: 'red' }"
+            >
               respuesta
             </strong>
             <button
@@ -180,6 +211,16 @@ async function imageDelete() {
         </ul>
       </div>
       <div v-if="stateForm.alternativas.length > 1" class="flex justify-between">
+        <a class="button button--contrast-01" href="solicitud">Atras</a>
+        <div>
+          <label for="validate" class="text-green-600">Revisado</label>
+          <input
+            v-model="is_revisied"
+            name="validate"
+            type="checkbox"
+            class="m-2 appearance-none p-2 checked:bg-blue-500"
+          />
+        </div>
         <button type="submit" class="button button--secondary">Guardar</button>
       </div>
     </form>

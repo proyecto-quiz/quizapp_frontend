@@ -3,3 +3,4 @@ export * from './curso';
 export * from './pregunta';
 export * from './solucion';
 export * from './nota';
+export * from './solicitud';

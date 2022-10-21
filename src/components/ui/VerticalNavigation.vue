@@ -29,6 +29,10 @@ const links = [
     value: 'Ranking',
     name: 'NotaRanking',
   },
+  {
+    value: 'Solicitud de preguntas',
+    name: 'Solicitud',
+  },
 ];
 
 async function handleSignOutClick() {

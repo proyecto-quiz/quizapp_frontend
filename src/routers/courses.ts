@@ -48,6 +48,16 @@ export const coursesRoutes: RouteRecordRaw[] = [
         path: '/solucionAdd',
         component: () => import('@/views/solucion/SolucionAddView.vue'),
       },
+      {
+        name: 'Solicitud',
+        path: '/solicitud',
+        component: () => import('@/views/solicitudes/ListSolicitudView.vue'),
+      },
+      {
+        name: 'EditSolicitud',
+        path: '/editSolicitud',
+        component: () => import('@/views/solicitudes/EditSolicitudView.vue'),
+      },
     ],
   },
 ];
