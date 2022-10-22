@@ -51,7 +51,9 @@ async function handleFormSubmit() {
     });
   } else if (authStore.isError) stateForm.password = '';
 }
-
+const messageSuccess = computed(() => {
+  return authStore.message;
+});
 // Ref
 const signInFormRef = ref<HTMLElement>();
 
@@ -77,7 +79,7 @@ const { isError, message, isSuccess, isLoading } = useAuthRef();
       </span>
     </Alert>
     <Alert v-if="isSuccess" outline type="success" @on-close="authStore.resetAction">
-      Inicio de sesión correctamente.
+      {{ messageSuccess }}
     </Alert>
     <form
       class="flex h-auto flex-col items-center justify-between gap-y-5"
@@ -135,9 +137,17 @@ const { isError, message, isSuccess, isLoading } = useAuthRef();
       </button>
     </form>
     <div class="separator my-2 text-center">O</div>
+    <!--
     <button type="button" class="button button--primary flex items-center justify-center gap-x-4">
       <Google />
       <span class="text-sm">Iniciar sesión con Google</span>
     </button>
+    -->
+    <router-link
+      :to="{ name: 'Sign', query: { type: 'sign-up' } }"
+      class="button button--primary flex items-center justify-center gap-x-4"
+    >
+      Registrate
+    </router-link>
   </section>
 </template>

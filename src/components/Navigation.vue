@@ -15,12 +15,12 @@ const LINKS = [
     nameLink: 'Sobre Nosotros',
   },
   {
-    nameRoute: 'Help',
-    nameLink: 'Ayuda',
-  },
-  {
     nameRoute: 'CursosTemas',
     nameLink: 'Nuestros Cursos',
+  },
+  {
+    nameRoute: 'Help',
+    nameLink: 'Ayuda',
   },
 ];
 </script>
