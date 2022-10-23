@@ -70,8 +70,10 @@ const { isError, message, isLoading } = useAuthRef();
         :key="'err' + idx"
         class="first-letter:uppercase"
       >
-        {{ err.value }}
-        <br />
+        <p v-if="err.value != '400'">
+          {{ err.value }}
+          <br />
+        </p>
       </span>
     </Alert>
 

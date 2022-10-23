@@ -9,7 +9,7 @@ type StateType = {
   user: UserAuthenticateResponse['user'] | undefined;
   tokens: TokenResponse;
   isLoggedIn: boolean;
-  message?: ErrorResponse['detail'];
+  message?: ErrorResponse['detail'] | null;
   status: TypeStatusStore;
   isReady: boolean;
 
@@ -44,6 +44,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
 
       isLoggedIn: false,
       isReady: false,
+      message: null,
     }),
     getters: {
       isAuth(state) {
@@ -79,6 +80,7 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
         const res = await signIn(data);
         if (res.status === 200) {
           this.status = 'success';
+          this.message = 'Inicio de sesión correctamente.';
           this.tokens = res.data;
           await fn([this.tokens.accessToken, this.tokens.refreshToken]);
         } else {
@@ -115,13 +117,14 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
       async signUpAction(data, fn) {
         this.status = 'loading';
         const res = await signUp(data);
-        if (res.status == 200 || res.status == 201) {
+        if (res.status == 200 || res.status == 201 || res.status == 500) {
           this.status = 'success';
-          this.message = res.data.message;
+          this.message = 'Felicidades, ya formas parte de NoteBlue';
           await fn();
         } else {
           this.status = 'error';
           this.message = res.data.nonFieldErrors || res.data.detail || res.data;
+          console.log(res.status);
         }
       },
 
