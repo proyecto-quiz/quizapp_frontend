@@ -14,7 +14,7 @@ onMounted(() => {
     <h1 class="text-center text-lg font-medium uppercase text-contrast-01 md:text-3xl">
       RANKING DE NOTAS
     </h1>
-    <span class="m-4 py-4 text-sm opacity-60">
+    <span class="m-4 py-4 text-sm">
       Para este ranking solo se consideran los puntos obtenidos en el modo de examen general
     </span>
     <table class="m-2 mt-4 w-full table-fixed border-separate p-4 text-center">

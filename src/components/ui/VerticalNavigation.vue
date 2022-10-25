@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { inject, computed } from 'vue';
 import { useAuthStore } from '@/stores';
 import { useRouter } from 'vue-router';
 import Spinner from '@/components/ui/Spinner.vue';
+import { UserResponse } from '@@/types-response-users';
 
 const authStore = useAuthStore();
 const authUserComp = computed(() => authStore);
 const router = useRouter();
-
+const user = inject<UserResponse>('user');
 const links = [
   {
     value: 'Mi Perfil',
@@ -29,11 +30,10 @@ const links = [
     value: 'Ranking',
     name: 'NotaRanking',
   },
-  {
-    value: 'Solicitud de preguntas',
-    name: 'Solicitud',
-  },
 ];
+if (user?.role == 'ADMIN') {
+  links.push({ value: 'Solicitud de preguntas', name: 'Solicitud' });
+}
 
 async function handleSignOutClick() {
   await authStore.signOutAction(async () => {
@@ -105,7 +105,7 @@ function handleVerifyClick() {
 
 <style scoped>
 .navigate {
-  @apply container fixed flex h-full w-[22%] flex-col justify-start border-r-2 border-r-secondary-normal/20;
+  @apply container fixed flex h-full w-[70%] flex-col justify-start border-r-2 border-r-secondary-normal/20 bg-secondary-light opacity-100 dark:bg-secondary md:w-[22%] md:bg-transparent md:dark:bg-transparent;
   @apply gap-y-2 overflow-y-auto pb-5 pt-2;
 }
 
@@ -135,7 +135,7 @@ function handleVerifyClick() {
 }
 
 .navigate__img {
-  @apply h-1/3 w-[10%] self-center rounded-md object-cover opacity-90 shadow-md md:w-auto;
+  @apply h-1/3 w-[50%] self-center rounded-md object-cover opacity-90 shadow-md md:w-auto;
 }
 
 .navigate__user-name {

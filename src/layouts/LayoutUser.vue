@@ -23,7 +23,10 @@ onMounted(() => {
     <button
       :class="[
         'button--sm btn--change button--light',
-        { 'left-[19%] md:left-[21%]': minimizeNavComp, 'left-[1%]': !minimizeNavComp },
+        {
+          'left-[60%] md:left-[21%]': minimizeNavComp,
+          'left-[2%] md:left-[1%]': !minimizeNavComp,
+        },
       ]"
       title="Navigation"
       aria-label="button-navigation"
@@ -63,11 +66,10 @@ onMounted(() => {
 main {
   @apply pt-5;
 }
-
 .btn--change {
   transition: left 230ms ease-out;
   z-index: 1;
-  @apply fixed top-[20%];
+  @apply fixed top-[7%] md:top-[20%];
   @apply bg-secondary-light font-semibold hover:bg-secondary-light dark:bg-primary-dark;
 }
 
