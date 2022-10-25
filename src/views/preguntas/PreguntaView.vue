@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { onMounted, computed, reactive } from 'vue';
+import { inject, onMounted, computed, reactive } from 'vue';
 import { usePreguntaStore } from '@/stores';
 //import PreguntaImage from '@/assets/images/Geometria.jpg';
 import { useRoute, useRouter } from 'vue-router';
 import { SolucionForm } from '@@/types-forms';
 import { useSolucionStore } from '@/stores';
+import { UserResponse } from '@@/types-response-users';
+
 import Spinner from '@/components/ui/Spinner.vue';
+const user = inject<UserResponse>('user');
 const route = useRoute();
 const router = useRouter();
 const preguntaStore = usePreguntaStore();
@@ -90,7 +93,7 @@ async function agregarSolucion() {
         <div class="grid-cols-1-col grid gap-2 sm:grid-cols-2">
           <div class="pregunta__text">
             <h1 class="py-2 text-lg font-semibold uppercase md:text-2xl">pregunta</h1>
-            <p>
+            <p class="rounded-lg border border-green-600 p-2">
               {{ preguntas?.texto }}
             </p>
             <div v-if="preguntas?.image != null">
@@ -110,7 +113,7 @@ async function agregarSolucion() {
                   :value="alternativa.altId"
                 />
                 <label
-                  class="label show flex justify-center gap-1 rounded-xl bg-secondary-normal bg-opacity-90 p-2 shadow-xl backdrop-blur-2xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
+                  class="label show flex justify-center gap-1 rounded-xl bg-secondary-normal bg-opacity-90 p-2 shadow-xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
                   :for="alternativa.altId"
                 >
                   <strong>
@@ -134,7 +137,9 @@ async function agregarSolucion() {
           <strong>{{ solucionStore.respuestaCorrecta }}</strong>
         </label>
 
-        <a href="#solucion" class="button button--contrast-01">Ver Solución</a>
+        <a v-if="user?.role == 'ADMIN'" href="#solucion" class="button button--contrast-01">
+          Ver Solución
+        </a>
       </div>
       <div class="flex flex-row justify-between gap-4 p-4">
         <button
@@ -198,7 +203,7 @@ async function agregarSolucion() {
   @apply flex flex-col items-center justify-center gap-y-3;
 }
 .pregunta__text {
-  @apply basis-1/2 text-red-700 sm:text-slate-900 md:text-orange-600;
+  @apply basis-1/2;
 }
 
 .imagen {
