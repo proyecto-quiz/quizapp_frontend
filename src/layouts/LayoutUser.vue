@@ -40,7 +40,7 @@ onMounted(() => {
   </section>
 
   <Transition name="nav_fade">
-    <VerticalNavigation v-if="minimizeNavComp" />
+    <VerticalNavigation v-if="minimizeNavComp" @mini-nav="setMinimizeNav" />
     <aside
       v-else
       class="navigate__logo group fixed top-5 left-3 inline-flex cursor-pointer items-center gap-x-2"
