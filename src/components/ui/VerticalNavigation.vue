@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router';
 import Spinner from '@/components/ui/Spinner.vue';
 import { UserResponse } from '@@/types-response-users';
 
+const emit = defineEmits(['miniNav']);
 const authStore = useAuthStore();
 const authUserComp = computed(() => authStore);
 const router = useRouter();
@@ -42,7 +43,12 @@ async function handleSignOutClick() {
     await router.push({ name: 'Home' });
   });
 }
-
+async function miniNavFuction() {
+  console.log(window.innerWidth);
+  if (window.innerWidth < 768) {
+    emit('miniNav', false);
+  }
+}
 function handleVerifyClick() {
   alert('Por favor estamos haciendo lo posible para verificar su cuenta ☺️');
 }
@@ -84,6 +90,7 @@ function handleVerifyClick() {
         :to="{ name: link.name }"
         :class="['navigate__links']"
         active-class="navigate__links--active"
+        @click="miniNavFuction"
       >
         {{ link.value }}
       </router-link>
@@ -101,6 +108,10 @@ function handleVerifyClick() {
       {{ authUserComp.isLoading ? 'Cerrando sesión' : 'Cerrar sesión' }}
     </button>
   </nav>
+  <div
+    class="fixed top-0 right-0 bottom-5 flex h-full w-[30%] bg-black bg-opacity-75 md:invisible"
+    @click="emit('miniNav', false)"
+  />
 </template>
 
 <style scoped>
