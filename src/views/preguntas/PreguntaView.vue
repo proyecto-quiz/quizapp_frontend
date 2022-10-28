@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, computed, reactive } from 'vue';
+import { inject, onMounted, computed, reactive, ref } from 'vue';
 import { usePreguntaStore } from '@/stores';
 //import PreguntaImage from '@/assets/images/Geometria.jpg';
 import { useRoute, useRouter } from 'vue-router';
@@ -72,10 +72,25 @@ async function handleSelectClick() {
     stateForm.nombre = preguntas.value?.tema;
   }
   await solucionStore.solucionAction(stateForm);
+  await respuestaPregunta();
 }
 async function agregarSolucion() {
   let preguntaId = preguntas.value?.preguntaId;
   router.push({ name: 'SolucionAdd', params: { idPregunta: preguntaId } });
+}
+const respuestaP = ref();
+const respuestaMessage = ref();
+const respuestaColor = ref();
+async function respuestaPregunta() {
+  if (solucionStore.respuesta === 'correcta') {
+    respuestaP.value = 'Bien';
+    respuestaMessage.value = 'Felicidades...!!!';
+    respuestaColor.value = 'green';
+  } else {
+    respuestaP.value = 'Mal';
+    respuestaMessage.value = 'La respuesta es: ' + solucionStore.respuestaCorrecta;
+    respuestaColor.value = 'red';
+  }
 }
 </script>
 
@@ -125,21 +140,39 @@ async function agregarSolucion() {
           </div>
         </div>
       </div>
-      <div v-if="solucionStore.respuesta != null" class="flex flex-row justify-between gap-4">
-        <label
-          v-if="solucionStore.respuesta === 'correcta'"
-          class="label border-lg border border-green-900 text-green-700"
+      <div v-if="solucionStore.respuesta != null">
+        <div
+          class="flex-row justify-between rounded-lg bg-indigo-700 py-4 text-center md:flex lg:px-4"
         >
-          Muy Bien ...!!!
-        </label>
-        <label v-else class="label border-lg border border-red-900 text-red-700">
-          Fallaste la respuesta es:
-          <strong>{{ solucionStore.respuestaCorrecta }}</strong>
-        </label>
-
-        <a v-if="user?.role == 'ADMIN'" href="#solucion" class="button button--contrast-01">
-          Ver Solución
-        </a>
+          <div
+            class="m-2 flex items-center bg-indigo-800 p-2 leading-none text-indigo-100 lg:inline-flex lg:rounded-full"
+            role="alert"
+          >
+            <span
+              class="mr-3 flex rounded-full px-2 py-1 text-xs font-bold uppercase"
+              :style="{ background: respuestaColor }"
+            >
+              {{ respuestaP }}
+            </span>
+            <span class="mr-2 flex-auto text-left font-semibold">
+              {{ respuestaMessage }}
+            </span>
+            <svg
+              class="h-4 w-4 fill-current opacity-75"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"
+              />
+            </svg>
+          </div>
+          <div class="flex justify-center p-2 text-center">
+            <a v-if="user?.role == 'ADMIN'" href="#solucion" class="button button--contrast-01">
+              Ver Solución
+            </a>
+          </div>
+        </div>
       </div>
       <div class="flex flex-row justify-between gap-4 p-4">
         <button
