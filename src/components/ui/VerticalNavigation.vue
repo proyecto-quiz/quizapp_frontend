@@ -44,7 +44,6 @@ async function handleSignOutClick() {
   });
 }
 async function miniNavFuction() {
-  console.log(window.innerWidth);
   if (window.innerWidth < 768) {
     emit('miniNav', false);
   }
