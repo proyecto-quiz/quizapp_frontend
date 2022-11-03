@@ -112,12 +112,19 @@ const links: Link[] = [
         <h4 class="ml-4 inline-block text-xs hover:underline md:text-sm">
           <a href="#privacidad-y-politica" class="p-1">Privacidad y Política</a>
         </h4>
+        <h4 class="ml-4 inline-block text-xs hover:underline md:text-sm">
+          <label id="Master_CopyrightFooter">
+            © Copyright 2022 - Todos los Derechos Reservados
+          </label>
+        </h4>
       </div>
       <div>
         <!-- Socials -->
         <ul class="flex list-none">
           <li>
-            <Facebook />
+            <a href="https://www.facebook.com/Note-Blue-106433045536731" target="_blank">
+              <Facebook />
+            </a>
           </li>
         </ul>
       </div>
