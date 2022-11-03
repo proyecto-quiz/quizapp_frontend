@@ -6,6 +6,10 @@ import { useCursoStore } from '@/stores';
 const preguntaStore = usePreguntaStore();
 const cursoStore = useCursoStore();
 const cursosStoreComp = computed(() => cursoStore);
+const newAlterText = ref('');
+const isAnswer = ref(false);
+const contador = ref(0);
+
 onMounted(async () => {
   await cursoStore.cursoAction();
   var select = document.querySelector<HTMLSelectElement>('#list-curso');
@@ -28,19 +32,44 @@ async function handleFormClick() {
   if (stateForm.imagen != null) {
     preguntaForm.append('imagen', stateForm.imagen);
   }
-  await preguntaStore.preguntaAddAction(preguntaForm);
-  alert(preguntaStore.messaje);
+  if (contador.value == 1) {
+    await preguntaStore.preguntaAddAction(preguntaForm);
+    alert(preguntaStore.messaje);
+  } else {
+    alert('agregar una respuesta');
+  }
 }
-const newAlterText = ref('');
-const isAnswer = ref(false);
-async function addNewAlternativa(newAlterText: string, isAnswer: boolean) {
-  stateForm.alternativas.push({
-    contenido: newAlterText,
-    is_answer: isAnswer,
-  });
+
+async function addNewAlternativa(alternativaText: string, answer: boolean) {
+  if (answer == true) {
+    if (contador.value < 1) {
+      stateForm.alternativas.push({
+        contenido: alternativaText,
+        is_answer: answer,
+      });
+      contador.value = contador.value + 1;
+    } else {
+      alert('no puedes agregar mas de 2 respuestas');
+    }
+  } else {
+    stateForm.alternativas.push({
+      contenido: alternativaText,
+      is_answer: answer,
+    });
+  }
+  newAlterText.value = '';
+  isAnswer.value = false;
 }
-async function removeAlter(index: number) {
+async function removeAlternativa(index: number) {
   stateForm.alternativas.splice(index, 1);
+  if (contador.value == 1) contador.value = 0;
+}
+async function editAlternativa(index: number) {
+  var alter = stateForm.alternativas[index];
+  newAlterText.value = alter.contenido;
+  isAnswer.value = alter.is_answer;
+  stateForm.alternativas.splice(index, 1);
+  if (contador.value == 1) contador.value = 0;
 }
 const image = ref();
 const answerColor = 'red';
@@ -137,6 +166,7 @@ async function imageDelete() {
               v-model="newAlterText"
               class="w-full border-0 bg-white px-0 text-sm text-gray-900 focus:ring-0 dark:bg-secondary dark:text-white dark:placeholder-gray-400"
               placeholder="Escribe la alternativa ..."
+              @keyup.enter="addNewAlternativa(newAlterText, isAnswer)"
             ></textarea>
           </div>
           <div
@@ -163,19 +193,29 @@ async function imageDelete() {
           <li
             v-for="(alterList, index) in stateForm.alternativas"
             :key="index"
-            class="mx-4 my-2 flex w-full flex-row"
+            class="mx-4 my-2 flex w-full flex-col justify-between gap-2 text-left md:flex-row"
           >
-            {{ index + 1 }})
-            {{ alterList.contenido }}
-            <strong v-if="alterList.is_answer == true" :style="{ color: answerColor }">
+            <p class="text-left">
+              {{ index + 1 }})
+              {{ alterList.contenido }}
+            </p>
+            <label v-if="alterList.is_answer == true" :style="{ color: answerColor }" class="m-1">
               respuesta
-            </strong>
-            <button
-              class="button button--primary--outline mx-4 max-w-sm"
-              @click.prevent="removeAlter(index)"
-            >
-              Eliminar
-            </button>
+            </label>
+            <div class="flex gap-2">
+              <button
+                class="button button--primary--outline mx-4 max-w-sm"
+                @click.prevent="removeAlternativa(index)"
+              >
+                Eliminar
+              </button>
+              <button
+                class="button button--secondary mx-4 max-w-sm"
+                @click.prevent="editAlternativa(index)"
+              >
+                Editar
+              </button>
+            </div>
           </li>
         </ul>
       </div>
