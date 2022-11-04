@@ -5,16 +5,18 @@ import { GetStatusStore, TypeStatusStore } from '@@/type-config-api';
 interface temas {
   id: string;
   nombre: string;
+  countPreguntaTema: number;
 }
 interface ICurso {
   id: string;
   nombre: string;
+  countPreguntaCurso: number;
   temas: [temas];
 }
 
 type StateType = {
   cursos: ICurso[];
-  count: number;
+  countCursos: number;
   status: TypeStatusStore;
 };
 
@@ -30,7 +32,7 @@ export const useCursoStore = defineStore<'curso', StateType, GettersType, Action
   state: () => ({
     status: 'idle',
     cursos: [],
-    count: 0,
+    countCursos: 0,
   }),
   getters: {
     getCursos(state) {
@@ -58,11 +60,11 @@ export const useCursoStore = defineStore<'curso', StateType, GettersType, Action
       if (res.status === 200) {
         this.status = 'idle';
         this.cursos = res.data.cursos;
-        this.count = res.data.count;
+        this.countCursos = res.data.count;
       } else {
         this.status = 'error';
         this.cursos = [];
-        this.count = 0;
+        this.countCursos = 0;
       }
     },
   },

@@ -14,7 +14,7 @@ console.log(temas);
       <div v-for="tema in temas" :key="tema.id" class="tema">
         <router-link :to="{ name: 'Pregunta', params: { id: tema.id, tipo: 'tema' } }">
           <!-- <img class="image" :src="CursoImage" alt="imagen tema" />-->
-          <p>{{ tema.nombre }}</p>
+          <p>{{ tema.nombre }} ({{ tema.countPreguntaTema }})</p>
         </router-link>
       </div>
     </div>

@@ -20,7 +20,7 @@ onMounted(async () => {
         </section>
         <div v-else>
           <small class="font-medium tracking-tighter">
-            Total cursos: {{ cursosStoreComp.count }}
+            Total cursos: {{ cursosStoreComp.countCursos }}
           </small>
           <section class="lista">
             <div v-for="curso in cursosStoreComp.getCursos" :key="curso.id" class="curso">
@@ -35,7 +35,7 @@ onMounted(async () => {
                     <div
                       class="mr-2 mb-2 rounded-full bg-green-400 px-3 py-1 text-xs text-green-900"
                     >
-                      {{ tema.nombre }}
+                      {{ tema.nombre }} ({{ tema.countPreguntaTema }})
                     </div>
                   </div>
                 </div>
