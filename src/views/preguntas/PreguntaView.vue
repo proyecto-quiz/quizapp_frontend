@@ -99,11 +99,26 @@ async function respuestaPregunta() {
     <section v-if="preguntaStoreComp.isLoading" class="spinner__loading">
       <Spinner type="green" class="h-8 w-8" />
     </section>
+    <section v-else-if="preguntaStoreComp.getPregunta == null">
+      <div class="flex items-center justify-between py-5">
+        <h1 class="text-lg font-medium uppercase text-contrast-01 md:text-3xl">
+          No tenemos preguntas
+        </h1>
+        <router-link :to="{ name: 'Cursos' }" class="button button--contrast-01 mt-4">
+          Atras
+        </router-link>
+      </div>
+    </section>
     <form v-else class="container" @submit.stop.prevent="handlePreguntaClick">
       <div class="pregunta">
-        <h1 class="text-lg font-medium uppercase text-contrast-01 md:text-3xl">
-          {{ preguntas?.curso }}
-        </h1>
+        <div class="flex items-center justify-between">
+          <h1 class="text-lg font-medium uppercase text-contrast-01 md:text-3xl">
+            {{ preguntas?.curso }}
+          </h1>
+          <router-link :to="{ name: 'PreguntaTipo' }" class="button button--contrast-01 mt-4">
+            Elegir otro Nivel
+          </router-link>
+        </div>
         <h2 class="text-lg font-light uppercase md:text-2xl">{{ preguntas?.tema }}</h2>
         <div class="grid-cols-1-col grid gap-2 sm:grid-cols-2">
           <div class="pregunta__text">

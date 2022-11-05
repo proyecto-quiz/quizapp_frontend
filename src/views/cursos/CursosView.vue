@@ -25,15 +25,22 @@ const tipo = route.params.tipo;
         <h5 class="text-center text-xl">Cargando cursos</h5>
       </section>
       <div v-else>
-        <small class="font-medium tracking-tighter">
-          Total cursos: {{ cursosStoreComp.count }}
-        </small>
+        <div class="flex items-center justify-between">
+          <small class="font-medium tracking-tighter">
+            Total cursos: {{ cursosStoreComp.countCursos }}
+          </small>
+          <router-link :to="{ name: 'PreguntaTipo' }" class="button button--contrast-01 mt-4">
+            Elegir otro Nivel
+          </router-link>
+        </div>
         <section class="lista">
           <div v-for="curso in cursosStoreComp.getCursos" :key="curso.id" class="curso">
             <template v-if="tipo === 'tema'">
               <router-link :to="{ name: 'Temas', params: { temas: JSON.stringify(curso.temas) } }">
                 <!--<img class="curso__image" :src="CursoImage" alt="image-curso" /> -->
-                <p class="p-2 font-semibold tracking-wide">{{ curso.nombre }}</p>
+                <p class="p-2 font-semibold tracking-wide">
+                  {{ curso.nombre }} ({{ curso.countPreguntaCurso }})
+                </p>
               </router-link>
             </template>
             <template v-else>
@@ -42,7 +49,9 @@ const tipo = route.params.tipo;
                 :title="curso.nombre"
               >
                 <!--<img class="curso__image" :src="CursoImage" :alt="`Curso - ${curso.nombre}`" /> -->
-                <p class="p-2 font-semibold tracking-wide">{{ curso.nombre }}</p>
+                <p class="p-2 font-semibold tracking-wide">
+                  {{ curso.nombre }} ({{ curso.countPreguntaCurso }})
+                </p>
               </router-link>
             </template>
           </div>
