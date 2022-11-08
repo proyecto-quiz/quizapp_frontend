@@ -12,12 +12,18 @@ const pregunta = JSON.parse(paramPregunta);
 console.log(pregunta);
 const cursoStore = useCursoStore();
 const cursosStoreComp = computed(() => cursoStore);
+
 onMounted(async () => {
+  for (var al in pregunta.alternativas) {
+    addNewAlternativa(
+      pregunta.alternativas[al]['contenido'],
+      pregunta.alternativas[al]['isAnswer']
+    );
+  }
   await cursoStore.cursoAction();
   getcurso.value.find(filtCurso);
   stateForm.texto = pregunta.texto;
   stateForm.tema = pregunta.tema;
-  stateForm.alternativas = pregunta.alternativas;
   image.value = pregunta.image;
   is_revisied.value = pregunta.isRevisied;
 });
@@ -195,10 +201,7 @@ async function imageDelete() {
           >
             {{ index + 1 }})
             {{ alterList.contenido }}
-            <strong
-              v-if="alterList.isAnswer || alterList.is_answer == true"
-              :style="{ color: 'red' }"
-            >
+            <strong v-if="alterList.is_answer == true" :style="{ color: 'red' }" class="m-1">
               respuesta
             </strong>
             <button

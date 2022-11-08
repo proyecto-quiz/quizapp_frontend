@@ -5,7 +5,7 @@ import AvanzadoIcon from '../../components/draws/icons/AvanzadoIcon.vue';
 </script>
 <template>
   <div class="container">
-    <section class="section h-full w-full p-4 pt-0 text-gray-400 antialiased">
+    <section class="section-level h-full w-full p-4 pt-0 text-gray-400 antialiased">
       <div class="mx-auto px-4">
         <div id="title" class="mb-5 text-center">
           <h1 class="text-4xl font-bold text-secondary dark:text-white">Elige un Nivel</h1>
