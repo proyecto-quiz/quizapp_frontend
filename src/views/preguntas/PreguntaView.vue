@@ -112,18 +112,22 @@ async function respuestaPregunta() {
     <form v-else class="container" @submit.stop.prevent="handlePreguntaClick">
       <div class="pregunta">
         <div class="flex items-center justify-between">
-          <h1 class="text-lg font-medium uppercase text-contrast-01 md:text-3xl">
+          <h1 class="text-lg font-medium uppercase text-blue-600 dark:text-contrast-01 md:text-3xl">
             {{ preguntas?.curso }}
           </h1>
           <router-link :to="{ name: 'PreguntaTipo' }" class="button button--contrast-01 mt-4">
             Elegir otro Nivel
           </router-link>
         </div>
-        <h2 class="text-lg font-light uppercase md:text-2xl">{{ preguntas?.tema }}</h2>
+        <h2 class="text-lg font-light uppercase text-blue-500 dark:text-contrast-02 md:text-2xl">
+          {{ preguntas?.tema }}
+        </h2>
         <div class="grid-cols-1-col grid gap-2 sm:grid-cols-2">
           <div class="pregunta__text">
             <h1 class="py-2 text-lg font-semibold uppercase md:text-2xl">pregunta</h1>
-            <p class="rounded-lg border border-green-600 p-2">
+            <p
+              class="rounded-lg border border-green-600 p-2 text-xl text-cyan-600 dark:text-cyan-300"
+            >
               {{ preguntas?.texto }}
             </p>
             <div v-if="preguntas?.image != null">
@@ -143,7 +147,7 @@ async function respuestaPregunta() {
                   :value="alternativa.altId"
                 />
                 <label
-                  class="label show flex justify-center gap-1 rounded-xl bg-secondary-normal bg-opacity-90 p-2 shadow-xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
+                  class="label show flex justify-center gap-1 rounded-xl bg-secondary bg-opacity-90 p-2 text-sky-300 shadow-xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
                   :for="alternativa.altId"
                 >
                   <strong>
