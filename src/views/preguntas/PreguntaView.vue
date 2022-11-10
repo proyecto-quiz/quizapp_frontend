@@ -126,7 +126,7 @@ async function respuestaPregunta() {
           <div class="pregunta__text">
             <h1 class="py-2 text-lg font-semibold uppercase md:text-2xl">pregunta</h1>
             <p
-              class="rounded-lg border border-green-600 p-2 text-xl text-cyan-600 dark:text-cyan-300"
+              class="rounded-lg border border-green-600 p-2 text-2xl text-cyan-600 dark:text-cyan-300"
             >
               {{ preguntas?.texto }}
             </p>
