@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { inject, onMounted, computed, reactive, ref } from 'vue';
 import { usePreguntaStore } from '@/stores';
-//import PreguntaImage from '@/assets/images/Geometria.jpg';
 import { useRoute, useRouter } from 'vue-router';
 import { SolucionForm } from '@@/types-forms';
 import { useSolucionStore } from '@/stores';
 import { UserResponse } from '@@/types-response-users';
+
+//sound
+import clicSound from '@/assets/sound/clic.mp3';
+import goodSound from '@/assets/sound/good.mp3';
+import wrongSound from '@/assets/sound/wrong.mp3';
 
 import Spinner from '@/components/ui/Spinner.vue';
 const user = inject<UserResponse>('user');
@@ -35,7 +39,10 @@ onMounted(() => {
     router.push({ name: 'PreguntaTipo' });
   }
 });
-
+function clicLabel() {
+  const click = new Audio(clicSound);
+  click.play();
+}
 async function handlePreguntaClick() {
   const tipo = preguntaStore.tipo;
   if (tipo == 'general') {
@@ -86,10 +93,12 @@ async function respuestaPregunta() {
     respuestaP.value = 'Bien';
     respuestaMessage.value = 'Felicidades...!!!';
     respuestaColor.value = 'green';
+    new Audio(goodSound).play();
   } else {
     respuestaP.value = 'Mal';
     respuestaMessage.value = 'La respuesta es: ' + solucionStore.respuestaCorrecta;
     respuestaColor.value = 'red';
+    new Audio(wrongSound).play();
   }
 }
 </script>
@@ -145,6 +154,7 @@ async function respuestaPregunta() {
                   type="radio"
                   name="alternativaId"
                   :value="alternativa.altId"
+                  @click="clicLabel()"
                 />
                 <label
                   class="label show flex justify-center gap-1 rounded-xl bg-secondary bg-opacity-90 p-2 text-sky-300 shadow-xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
@@ -161,10 +171,12 @@ async function respuestaPregunta() {
       </div>
       <div v-if="solucionStore.respuesta != null">
         <div
-          class="flex-row justify-between rounded-lg bg-indigo-700 py-4 text-center md:flex lg:px-4"
+          class="flex-row justify-between rounded-lg py-4 text-center md:flex lg:px-4"
+          :class="respuestaColor + '-response-content-1'"
         >
           <div
-            class="m-2 flex items-center bg-indigo-800 p-2 leading-none text-indigo-100 lg:inline-flex lg:rounded-full"
+            class="m-2 flex items-center p-2 leading-none text-indigo-100 lg:inline-flex lg:rounded-full"
+            :class="respuestaColor + '-response-content-2'"
             role="alert"
           >
             <span
@@ -197,7 +209,7 @@ async function respuestaPregunta() {
         <button
           v-if="solucionStore.respuesta === null"
           type="button"
-          class="button button--secondary"
+          class="btn-select button button--secondary"
           @click.prevent="handleSelectClick"
         >
           Seleccionar
@@ -256,6 +268,31 @@ async function respuestaPregunta() {
 }
 .pregunta__text {
   @apply basis-1/2;
+}
+
+.red-response-content-1 {
+  @apply bg-red-400;
+}
+.red-response-content-1:hover {
+  filter: drop-shadow(0 0 1em #f38e8eaa);
+}
+.red-response-content-2 {
+  @apply bg-red-500;
+}
+.btn-select {
+  filter: drop-shadow(0 0 1em #646cffaa);
+}
+.label:hover {
+  filter: drop-shadow(0 0 1em #646cffaa);
+}
+.green-response-content-1 {
+  @apply bg-green-400;
+}
+.green-response-content-1:hover {
+  filter: drop-shadow(0 0 1em #62fa6faa);
+}
+.green-response-content-2 {
+  @apply bg-green-600;
 }
 
 .imagen {
