@@ -15,12 +15,16 @@ type Link = {
 
 const links: Link[] = [
   {
-    title: 'Servicios',
-    nameUrl: 'Service',
+    title: 'Inicio',
+    nameUrl: 'Home',
     links: [
       {
-        nameUrl: '#campañas',
-        nameLink: 'Campañas',
+        nameUrl: '/sign',
+        nameLink: 'Iniciar Sesión',
+      },
+      {
+        nameUrl: '/sign?type=sign-up',
+        nameLink: 'Registrarse',
       },
     ],
   },
@@ -34,7 +38,11 @@ const links: Link[] = [
       },
       {
         nameUrl: '#team',
-        nameLink: 'Equipo',
+        nameLink: 'Equipo de desarrollo',
+      },
+      {
+        nameUrl: '#collaborators',
+        nameLink: 'Colaboradores',
       },
     ],
   },
@@ -49,16 +57,16 @@ const links: Link[] = [
     ],
   },
   {
-    title: 'Ayuda',
-    nameUrl: 'Help',
+    title: 'Contáctanos',
+    nameUrl: 'ContactMe',
     links: [
       {
-        nameUrl: '#FAQ',
-        nameLink: 'FAQs',
+        nameUrl: '#contact-us',
+        nameLink: 'Información de Contácto',
       },
       {
-        nameUrl: '#contact-us',
-        nameLink: 'Contáctanos',
+        nameUrl: '#Apoyanos',
+        nameLink: 'Apoyanos',
       },
     ],
   },

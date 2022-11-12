@@ -30,9 +30,9 @@ export const guestRoutes: RouteRecordRaw[] = [
   },
 
   {
-    name: 'Help',
-    path: '/help',
-    component: () => import('@/views/help/HelpView.vue'),
+    name: 'ContactMe',
+    path: '/contact-me',
+    component: () => import('@/views/help/ContactMeView.vue'),
     children: [
       {
         name: 'FAQ',

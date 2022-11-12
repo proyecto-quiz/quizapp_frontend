@@ -12,28 +12,31 @@ onMounted(async () => {
 <template>
   <LayoutDefault title="Nuestros Cursos">
     <div class="container flex flex-col gap-2">
-      <h1 class="text-lg font-medium uppercase md:text-3xl">Nuestros Cursos</h1>
+      <h1 class="title-nb title-nb-cursos">
+        <span class="mx-2">Nuestros</span>
+        <span class="mx-2 text-contrast-01">Cursos</span>
+      </h1>
       <Transition name="view-courses">
         <section v-if="cursosStoreComp.isLoading" class="spinner__loading">
           <Spinner type="green" class="h-8 w-8" />
           <h5 class="text-center text-xl">Cargando cursos</h5>
         </section>
         <div v-else>
-          <small class="font-medium tracking-tighter">
+          <small class="text-lg font-medium tracking-tighter">
             Total cursos: {{ cursosStoreComp.countCursos }}
           </small>
           <section class="lista">
             <div v-for="curso in cursosStoreComp.getCursos" :key="curso.id" class="curso">
-              <div class="divide-y divide-secondary dark:divide-gray-100">
+              <div class="divide-y divide-secondary-normal dark:divide-gray-100">
                 <div class="title bg-blue-900">
-                  <h1 class="t-stroke-shadow p-2 font-semibold tracking-wide">
+                  <h1 class="p-2 font-semibold uppercase tracking-wide">
                     {{ curso.nombre }}
                   </h1>
                 </div>
                 <div class="mt-2 flex flex-wrap p-2 pt-2 text-center">
                   <div v-for="tema in curso.temas" :key="tema.id">
                     <div
-                      class="mr-2 mb-2 rounded-full bg-green-400 px-3 py-1 text-xs text-green-900"
+                      class="mr-2 mb-2 rounded-full bg-secondary-normal px-3 py-1 text-xs text-blue-900"
                     >
                       {{ tema.nombre }} ({{ tema.countPreguntaTema }})
                     </div>
@@ -52,7 +55,7 @@ onMounted(async () => {
 .curso {
   @apply h-full w-full justify-center rounded-md text-center shadow-lg;
   @apply text-primary-dark dark:text-primary-light;
-  @apply hover:-translate-y-1 hover:bg-blue-500 hover:transition-transform hover:duration-200 hover:ease-in-out;
+  @apply hover:-translate-y-1 hover:bg-secondary hover:transition-transform hover:duration-200 hover:ease-in-out;
 }
 
 .spinner__loading {
@@ -86,20 +89,9 @@ onMounted(async () => {
   transition-delay: 50ms;
 }
 .title {
-  @apply rounded-t-md;
-  background-image: radial-gradient(
-    circle at 50% -20.71%,
-    #ade5ff 0,
-    #7dcefb 25%,
-    #3cb5f2 50%,
-    #009ce9 75%,
-    #0085e0 100%
-  );
+  @apply rounded-t-md bg-secondary text-secondary-light;
 }
-.t-stroke-shadow {
-  color: #e8858e;
-
-  text-shadow: -3px 3px #ffffff, -2px 2px #ffffff, -1px -1px #ffffff, 3px -3px #ffffff,
-    3px 3px #f3f3f2, 6px 6px #6ac7c2;
+.title-nb {
+  @apply my-4 text-center text-2xl leading-8 tracking-wider md:my-10 md:text-5xl;
 }
 </style>

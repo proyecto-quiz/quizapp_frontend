@@ -37,15 +37,47 @@ const teamNB = [
 </script>
 <template>
   <LayoutDefault title="Sobre Nosotros">
-    <h1 class="text-4xl">Sobre Nosotros</h1>
-    <section class="section section-team-nb">
+    <section class="section section-history item-center my-0 self-center text-justify">
+      <h1 class="title-nb team-nb">
+        <span class="mx-2">Sobre</span>
+        <span class="mx-2 text-contrast-01">Nosotros</span>
+      </h1>
+      <div class="item-center container mx-auto grid gap-20 self-center p-1 md:grid-cols-2">
+        <div class="mt-4 flex flex-wrap justify-center gap-10 hover:text-secondary-light">
+          <div
+            class="group flex transform flex-col items-center rounded-xl p-8 transition-colors duration-200 hover:bg-blue-600"
+          >
+            <strong class="text-xl">Misión</strong>
+            <p class="text-lg">
+              Note Blue es una aplicación web desarrollada con el fin de apoyar en la formación de
+              los estudiantes en los diferentes cursos y afrontar un examen de manera satisfactoria,
+              enfocada en la enseñanza por medio de preguntas y respuestas.
+            </p>
+          </div>
+        </div>
+        <div class="mt-4 flex flex-wrap justify-center gap-6 hover:text-secondary-light">
+          <div
+            class="group flex transform flex-col items-center rounded-xl p-8 transition-colors duration-200 hover:bg-blue-600"
+          >
+            <strong class="text-xl">Visión</strong>
+            <p class="text-lg">
+              Lograr ser una plataforma educativa con la mayor cantidad de banco de preguntas y
+              respuestas de calidad mientras buscamos posicionarnos en el mercado, haciendo uso de
+              las tecnologías para superar las barreras.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
       <aside class="item-center self-center">
         <h1 class="title-nb team-nb">
           <span class="mx-2">Equipo de</span>
           <span class="mx-2 text-contrast-01">Desarrollo</span>
         </h1>
         <div class="container mx-auto p-1">
-          <div class="mt-4 flex flex-wrap justify-center gap-6">
+          <div class="mt-1 flex flex-wrap justify-center gap-10">
             <div
               v-for="team in teamNB"
               :key="team.id"
@@ -87,9 +119,9 @@ const teamNB = [
     </section>
   </LayoutDefault>
 </template>
-<style>
+<style scoped>
 .section {
-  @apply flex min-h-screen flex-col justify-start gap-2 py-3 md:gap-10;
+  @apply flex  flex-col justify-start;
   opacity: 0;
   transform: translateX(-100px);
 }
