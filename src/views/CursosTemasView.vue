@@ -20,10 +20,9 @@ onMounted(async () => {
         <section v-if="cursosStoreComp.isLoading" class="spinner__loading">
           <Spinner type="green" class="h-8 w-8" />
           <h5 class="text-center text-xl">Cargando cursos</h5>
-          <span class="mx-2 text-contrast-01">Aleatorias</span>
         </section>
         <div v-else>
-          <small class="font-medium tracking-tighter">
+          <small class="text-lg font-medium tracking-tighter">
             Total cursos: {{ cursosStoreComp.countCursos }}
           </small>
           <section class="lista">
