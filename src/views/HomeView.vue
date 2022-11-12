@@ -25,7 +25,7 @@ const observer = useInterObserver(
 <template>
   <LayoutDefault title="Inicio" class="overflow-x-hidden">
     <section class="section section-1">
-      <aside class="w-2/4 self-start">
+      <aside class="w-11/12 self-start md:w-2/4">
         <h1 class="title-nb title-nb-01">
           <span class="text-[#09FCED]">Note</span><span class="text-secondary-normal">Blue</span>
         </h1>
@@ -40,6 +40,14 @@ const observer = useInterObserver(
           si fuera poco podrás ver todo el avance y los puntajes obtenidos en cada curso y tema, y
           un modo experto donde podrás demostrar tus habilidades y ser el rey de las preguntas.
         </p>
+        <div
+          class="m-4 flex flex-col items-center justify-center rounded-md bg-green-400 p-4 text-center md:flex-row"
+        >
+          <p class="p-4 font-mono text-lg underline decoration-sky-500">
+            Puedes comenzar a practicar gratis
+          </p>
+          <a href="/sign?type=sign-up" class="button button--contrast-01 h-full"> Registrarse </a>
+        </div>
       </aside>
       <aside class="w-2/4 self-center">
         <Main01Draw />
@@ -47,7 +55,7 @@ const observer = useInterObserver(
     </section>
 
     <section class="section section-2">
-      <aside class="w-2/4 self-start">
+      <aside class="w-11/12 self-start md:w-2/4">
         <h1 class="title-nb title-nb-02">
           <span class="mx-2">Preguntas</span>
           <span class="mx-2 text-contrast-01">Online</span>
@@ -67,7 +75,7 @@ const observer = useInterObserver(
     </section>
 
     <section class="section section-3">
-      <aside class="w-2/4 self-start">
+      <aside class="w-11/12 self-start md:w-2/4">
         <h1 class="title-nb title-nb-03">
           <span class="mx-2">Preguntas</span>
           <span class="mx-2 text-contrast-01">Aleatorias</span>

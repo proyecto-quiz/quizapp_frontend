@@ -19,8 +19,8 @@ const LINKS = [
     nameLink: 'Nuestros Cursos',
   },
   {
-    nameRoute: 'Help',
-    nameLink: 'Ayuda',
+    nameRoute: 'ContactMe',
+    nameLink: 'Contáctanos',
   },
 ];
 </script>
