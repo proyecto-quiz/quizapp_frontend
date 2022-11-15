@@ -7,11 +7,14 @@ type StateType = {
   tipo: string | null;
   status: TypeStatusStore;
   messaje?: ErrorResponse['detail'];
+  preguntaStatus?: boolean;
 };
 type GettersType = {
   getPregunta(state: StoreState<StateType>): StateType['preguntas'];
 } & GetStatusStore<StoreState<StateType>>;
 type ActionsType = {
+  responderAction(): Promise<void>;
+  resetPreguntaStatusAction(): Promise<void>;
   preguntaGeneralAction(): Promise<void> | void;
   preguntaTemaAction(id: string | undefined): Promise<void> | void;
   preguntaCursoAction(id: string | undefined): Promise<void> | void;
@@ -25,10 +28,14 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
       preguntas: null,
       tipo: null,
       messaje: '',
+      preguntaStatus: false,
     }),
     getters: {
       getPregunta(state) {
         return state.preguntas;
+      },
+      getPreguntaStatus(state) {
+        return state.preguntaStatus;
       },
       // Statuses
       isSuccess(state) {
@@ -45,6 +52,12 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
       },
     },
     actions: {
+      async responderAction() {
+        this.preguntaStatus = true;
+      },
+      async resetPreguntaStatusAction() {
+        this.preguntaStatus = false;
+      },
       async preguntaGeneralAction() {
         this.status = 'loading';
         const res = await preguntaGeneral();
@@ -69,7 +82,6 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
           this.status = 'error';
           this.preguntas = null;
           this.tipo = 'tema';
-          console.log(res);
         }
       },
       async preguntaCursoAction(id) {
@@ -88,7 +100,6 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
       async preguntaAddAction(data) {
         this.status = 'loading';
         const res = await preguntaAdd(data);
-        console.log(res.status);
         if (res.status === 201) {
           this.status = 'idle';
           this.tipo = res.data.tipo;

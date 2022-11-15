@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { inject, onMounted, computed, reactive, ref } from 'vue';
 import { usePreguntaStore } from '@/stores';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { SolucionForm } from '@@/types-forms';
 import { useSolucionStore } from '@/stores';
 import { UserResponse } from '@@/types-response-users';
+import { useSolucionRef } from '@/composables/stores';
 
 //sound
 import clicSound from '@/assets/sound/clic.mp3';
@@ -13,7 +14,6 @@ import wrongSound from '@/assets/sound/wrong.mp3';
 
 import Spinner from '@/components/ui/Spinner.vue';
 const user = inject<UserResponse>('user');
-const route = useRoute();
 const router = useRouter();
 const preguntaStore = usePreguntaStore();
 const solucionStore = useSolucionStore();
@@ -25,18 +25,14 @@ const solucion = computed(() => {
   return solucionStore.getSolucion;
 });
 //refactor
-onMounted(() => {
-  const tipo = route.params.tipo;
-  const id = String(route.params.id);
-  solucionStore.$reset();
-  if (tipo == 'general') {
-    preguntaStore.preguntaGeneralAction();
-  } else if (tipo == 'curso') {
-    preguntaStore.preguntaCursoAction(id);
-  } else if (tipo == 'tema') {
-    preguntaStore.preguntaTemaAction(id);
-  } else {
-    router.push({ name: 'PreguntaTipo' });
+onMounted(async () => {
+  if (preguntaStoreComp.value.isLoading != true) {
+    if (preguntaStore.preguntaStatus == true) {
+      respuestaPregunta();
+    }
+    if (preguntaStore.getPregunta == null) {
+      router.push({ name: 'PreguntaTipo' });
+    }
   }
 });
 function clicLabel() {
@@ -44,6 +40,8 @@ function clicLabel() {
   click.play();
 }
 async function handlePreguntaClick() {
+  solucionStore.$reset();
+  preguntaStore.resetPreguntaStatusAction();
   const tipo = preguntaStore.tipo;
   if (tipo == 'general') {
     await preguntaStore.preguntaGeneralAction();
@@ -54,7 +52,6 @@ async function handlePreguntaClick() {
     const temaId = preguntas.value?.temaId;
     await preguntaStore.preguntaTemaAction(temaId);
   }
-  solucionStore.$reset();
   stateForm.alternativaId = '';
 }
 
@@ -79,7 +76,8 @@ async function handleSelectClick() {
     stateForm.nombre = preguntas.value?.tema;
   }
   await solucionStore.solucionAction(stateForm);
-  await respuestaPregunta();
+  respuestaPregunta();
+  await preguntaStore.responderAction();
 }
 async function agregarSolucion() {
   let preguntaId = preguntas.value?.preguntaId;
@@ -101,6 +99,7 @@ async function respuestaPregunta() {
     new Audio(wrongSound).play();
   }
 }
+const { isLoading } = useSolucionRef();
 </script>
 
 <template>
@@ -108,12 +107,12 @@ async function respuestaPregunta() {
     <section v-if="preguntaStoreComp.isLoading" class="spinner__loading">
       <Spinner type="green" class="h-8 w-8" />
     </section>
-    <section v-else-if="preguntaStoreComp.getPregunta == null">
+    <section v-else-if="preguntaStoreComp.isError">
       <div class="flex items-center justify-between py-5">
         <h1 class="text-lg font-medium uppercase text-contrast-01 md:text-3xl">
-          No tenemos preguntas
+          Lo sentimos ocurrió un error
         </h1>
-        <router-link :to="{ name: 'Cursos' }" class="button button--contrast-01 mt-4">
+        <router-link :to="{ name: 'PreguntaTipo' }" class="button button--contrast-01 mt-4">
           Atras
         </router-link>
       </div>
@@ -169,7 +168,10 @@ async function respuestaPregunta() {
           </div>
         </div>
       </div>
-      <div v-if="solucionStore.respuesta != null">
+      <div class="flex items-center justify-center">
+        <Spinner v-if="isLoading" type="contrast" class="flex h-7 w-7" />
+      </div>
+      <div v-if="preguntaStore.preguntaStatus != false">
         <div
           class="flex-row justify-between rounded-lg py-4 text-center md:flex lg:px-4"
           :class="respuestaColor + '-response-content-1'"
@@ -207,7 +209,7 @@ async function respuestaPregunta() {
       </div>
       <div class="flex flex-row justify-between gap-4 p-4">
         <button
-          v-if="solucionStore.respuesta === null"
+          v-if="preguntaStore.preguntaStatus === false"
           type="button"
           class="btn-select button button--secondary"
           @click.prevent="handleSelectClick"
