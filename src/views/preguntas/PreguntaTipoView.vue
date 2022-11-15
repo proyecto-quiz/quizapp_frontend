@@ -1,7 +1,27 @@
 <script setup lang="ts">
+import { usePreguntaStore, useSolucionStore } from '@/stores';
+import { useRouter } from 'vue-router';
+//icons
 import PrincipianteIconVue from '@/components/draws/icons/PrincipianteIcon.vue';
 import IntermedioIcon from '../../components/draws/icons/IntermedioIcon.vue';
 import AvanzadoIcon from '../../components/draws/icons/AvanzadoIcon.vue';
+import { onMounted } from 'vue';
+
+const preguntaStore = usePreguntaStore();
+const solucionStore = useSolucionStore();
+const router = useRouter();
+onMounted(() => {
+  preguntaStore.$reset();
+  solucionStore.$reset();
+});
+function ClickSelectTipo(tipo: string) {
+  if (tipo == 'general') {
+    preguntaStore.preguntaGeneralAction();
+    router.push({ name: 'Pregunta' });
+  } else {
+    router.push({ name: 'Cursos', params: { tipo: tipo } });
+  }
+}
 </script>
 <template>
   <div class="container">
@@ -19,7 +39,7 @@ import AvanzadoIcon from '../../components/draws/icons/AvanzadoIcon.vue';
               <h2 class="text-3xl font-bold text-secondary dark:text-white">Principiante</h2>
               <h3 class="mt-2 text-xl font-normal text-indigo-500">Preguntas por Temas</h3>
             </div>
-            <div id="content" class="">
+            <div id="content">
               <div id="icon" class="my-5">
                 <PrincipianteIconVue />
                 <p class="pt-2 text-sm text-gray-500">
@@ -29,12 +49,12 @@ import AvanzadoIcon from '../../components/draws/icons/AvanzadoIcon.vue';
               </div>
               <div id="contain" class="mb-10 text-lg font-light">
                 <div id="choose" class="mt-10 w-full px-6">
-                  <router-link
-                    :to="{ name: 'Cursos', params: { tipo: 'tema' } }"
+                  <button
                     class="block w-full rounded-xl bg-secondary py-4 text-xl font-medium hover:bg-secondary-normal hover:text-white hover:shadow-lg"
+                    @click="ClickSelectTipo('tema')"
                   >
                     Elegir
-                  </router-link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -54,12 +74,12 @@ import AvanzadoIcon from '../../components/draws/icons/AvanzadoIcon.vue';
               </div>
               <div id="contain" class="mb-10 text-lg font-light">
                 <div id="choose" class="mt-10 w-full px-6">
-                  <router-link
-                    :to="{ name: 'Cursos', params: { tipo: 'curso' } }"
+                  <button
                     class="block w-full rounded-xl bg-secondary py-4 text-xl font-medium hover:bg-secondary-normal hover:text-white hover:shadow-lg"
+                    @click="ClickSelectTipo('curso')"
                   >
                     Elegir
-                  </router-link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -79,12 +99,12 @@ import AvanzadoIcon from '../../components/draws/icons/AvanzadoIcon.vue';
               </div>
               <div id="contain" class="lead mb-10 text-lg font-light">
                 <div id="choose" class="mt-10 w-full px-6">
-                  <router-link
-                    :to="{ name: 'Pregunta', params: { tipo: 'general' } }"
+                  <button
                     class="block w-full rounded-xl bg-secondary py-4 text-xl font-medium hover:bg-secondary-normal hover:text-white hover:shadow-lg"
+                    @click="ClickSelectTipo('general')"
                   >
                     Elegir
-                  </router-link>
+                  </button>
                 </div>
               </div>
             </div>
