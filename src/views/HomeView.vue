@@ -41,12 +41,21 @@ const observer = useInterObserver(
           un modo experto donde podrás demostrar tus habilidades y ser el rey de las preguntas.
         </p>
         <div
-          class="m-4 flex flex-col items-center justify-center rounded-md bg-green-400 p-4 text-center md:flex-row"
+          class="my-4 flex flex-col items-center justify-center gap-4 rounded-md bg-green-400 p-4 text-center shadow-md md:flex-row"
         >
-          <p class="p-4 font-mono text-lg underline decoration-sky-500">
-            Puedes comenzar a practicar gratis
-          </p>
-          <a href="/sign?type=sign-up" class="button button--contrast-01 h-full"> Registrarse </a>
+          <i class="bx bxs-chevrons-right bx-fade-right" />
+          <p class="font-bold dark:text-primary-dark">Puedes comenzar a practicar gratis</p>
+          <router-link
+            :to="{
+              name: 'Sign',
+              query: {
+                type: 'sign-up',
+              },
+            }"
+            class="button button--contrast-01"
+          >
+            Registrarse
+          </router-link>
         </div>
       </aside>
       <aside class="w-2/4 self-center">
