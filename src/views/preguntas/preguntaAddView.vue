@@ -34,6 +34,10 @@ async function handleFormClick() {
   }
   if (contador.value == 1) {
     await preguntaStore.preguntaAddAction(preguntaForm);
+    stateForm.texto = '';
+    stateForm.alternativas = [];
+    stateForm.imagen = null;
+    contador.value = 0;
     alert(preguntaStore.messaje);
   } else {
     alert('agregar una respuesta');
@@ -49,7 +53,7 @@ async function addNewAlternativa(alternativaText: string, answer: boolean) {
       });
       contador.value = contador.value + 1;
     } else {
-      alert('no puedes agregar mas de 2 respuestas');
+      alert('no puedes agregar mas de 1 respuestas');
     }
   } else {
     stateForm.alternativas.push({
@@ -69,7 +73,7 @@ async function editAlternativa(index: number) {
   newAlterText.value = alter.contenido;
   isAnswer.value = alter.is_answer;
   stateForm.alternativas.splice(index, 1);
-  if (contador.value == 1) contador.value = 0;
+  if (alter.is_answer === true) contador.value = 0;
 }
 const image = ref();
 const answerColor = 'red';
