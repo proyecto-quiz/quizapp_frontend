@@ -17,7 +17,7 @@
     "composite": true,
     "jsx": "preserve",
     "skipLibCheck": true,
-    "types": ["@types/node", "vite/client", "node"],
+    "types": ["@types/node", "vite/client", "node", "vite-plugin-pwa/client"],
     "paths": {
       "@/*": ["./src/*"],
       "~/*": ["./src/*"],
