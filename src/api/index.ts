@@ -6,3 +6,4 @@ export * from './pregunta-api';
 export * from './solucion-api';
 export * from './nota-api';
 export * from './solicitud-api';
+export * from './search-api';
