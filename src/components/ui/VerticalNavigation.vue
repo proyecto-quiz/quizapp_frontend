@@ -16,6 +16,10 @@ const links = [
     name: 'Profile',
   },
   {
+    value: 'Buscar',
+    name: 'Search',
+  },
+  {
     value: 'Ver mis notas',
     name: 'Notas',
   },

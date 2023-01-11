@@ -32,13 +32,11 @@ const observer = useInterObserver(
         <p
           class="text-center text-sm leading-7 tracking-wide md:text-left md:text-base md:leading-9 md:tracking-wider"
         >
-          Note Blue es una plataforma educativa pensada para el aprendizaje mediante la solución de
-          preguntas, la constancia y la practica hacen al maestro por ello note blue tiene las
-          preguntas y respuestas de múltiples ejercicios de los diferentes cursos y temas, y no es
-          todo tenemos también las soluciones desarrolladas por nuestros colaboradores que son
-          docentes capacitados y con amplia trayectoria en diferentes instituciones educativas, por
-          si fuera poco podrás ver todo el avance y los puntajes obtenidos en cada curso y tema, y
-          un modo experto donde podrás demostrar tus habilidades y ser el rey de las preguntas.
+          <b>Note Blue</b> es una plataforma educativa con un sistema generador de preguntas pensada
+          para el aprendizaje mediante la solución de preguntas, Cuenta con un banco de preguntas
+          compartidas por nuestros usuarios y solucionado por nuestros colaboradores, por si fuera
+          poco podrás ver todo el avance y los puntajes obtenidos en cada curso, y un modo experto
+          donde podrás demostrar tus habilidades y ser el rey de las preguntas.
         </p>
         <div
           class="my-4 flex flex-col items-center justify-center gap-4 rounded-md bg-green-400 p-4 text-center shadow-md md:flex-row"
@@ -72,10 +70,10 @@ const observer = useInterObserver(
         <p
           class="text-center text-sm leading-7 tracking-wide md:text-right md:text-base md:leading-9 md:tracking-wider"
         >
-          Ahora con Note Blue podrás tener cerca de ti las preguntas y respuestas de los cursos y
-          temas que mas quieres practicar sea el lugar donde te encuentres, con un clic podrás
-          ingresar a nuestra plataforma desde cualquier dispositivo y seguir practicando para que
-          ninguna pregunta te detenga de tus sueños y convertirte en el rey de las preguntas.
+          Ahora con <b>Note Blue</b> podrás tener cerca de ti las preguntas y respuestas de los
+          cursos y temas que mas quieres practicar sea el lugar donde te encuentres, con un clic
+          podrás ingresar a nuestra plataforma desde cualquier dispositivo y seguir practicando para
+          que ninguna pregunta te detenga de tus sueños y convertirte en el rey de las preguntas.
         </p>
       </aside>
       <aside class="w-2/4 self-start">
@@ -92,11 +90,11 @@ const observer = useInterObserver(
         <p
           class="text-center text-sm leading-7 tracking-wide md:text-left md:text-base md:leading-9 md:tracking-wider"
         >
-          Note Blue tiene una característica que es generar las preguntas de manera aleatoria de
-          nuestro banco de preguntas y si repite una pregunta no te preocupes no es un error es una
-          de las características pensadas para el aprendizaje de nuestros estudiantes, enfocada en
-          la frase “la experiencia y la práctica hacen al maestro” por ello mientras mas veas la
-          misma pregunta podrás tener la respuesta más rápida y lograras aprender.
+          <b>Note Blue</b> tiene una característica que es generar las preguntas de manera aleatoria
+          de nuestro banco de preguntas y si repite una pregunta no te preocupes no es un error es
+          una de las características pensadas para el aprendizaje de nuestros estudiantes, enfocada
+          en la frase “la experiencia y la práctica hacen al maestro” por ello mientras mas veas la
+          misma pregunta podrás tener la respuesta más rápida en un examen.
         </p>
       </aside>
       <aside class="w-2/4 self-center">

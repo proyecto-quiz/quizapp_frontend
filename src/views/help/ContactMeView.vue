@@ -17,7 +17,7 @@ import imgYape from '@/assets/images/yape.png';
             <h3 class="pt-4 text-lg">Correo</h3>
             <strong>note.blue.app@gmail.com</strong>
             <h3 class="pt-4 text-lg">Messenger</h3>
-            <a href="m.me/106433045536731" target="_blank"> <strong> Note Blue</strong></a>
+            <a href="https://m.me/106433045536731" target="_blank"> <strong> Note Blue</strong></a>
           </div>
         </div>
       </section>

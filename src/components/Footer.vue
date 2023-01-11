@@ -122,7 +122,7 @@ const links: Link[] = [
         </h4>
         <h4 class="ml-4 inline-block text-xs hover:underline md:text-sm">
           <label id="Master_CopyrightFooter">
-            © Copyright 2022 - Todos los Derechos Reservados
+            © Copyright 2023 - Todos los Derechos Reservados
           </label>
         </h4>
       </div>

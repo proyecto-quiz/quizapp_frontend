@@ -36,7 +36,7 @@ onMounted(async () => {
                 <div class="mt-2 flex flex-wrap p-2 pt-2 text-center">
                   <div v-for="tema in curso.temas" :key="tema.id">
                     <div
-                      class="mr-2 mb-2 rounded-full bg-secondary-normal px-3 py-1 text-xs text-blue-900"
+                      class="mr-2 mb-2 rounded-full bg-secondary-normal px-3 py-1 text-sm text-blue-900"
                     >
                       {{ tema.nombre }} ({{ tema.countPreguntaTema }})
                     </div>
@@ -67,7 +67,7 @@ onMounted(async () => {
 }
 
 .lista {
-  @apply grid grid-cols-1 justify-center gap-5 py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5;
+  @apply grid grid-cols-1 justify-center gap-5 py-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2;
 }
 
 /* view-courses transition */

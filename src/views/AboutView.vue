@@ -49,9 +49,9 @@ const teamNB = [
           >
             <strong class="text-xl">Misión</strong>
             <p class="text-lg">
-              Note Blue es una aplicación web desarrollada con el fin de apoyar en la formación de
-              los estudiantes en los diferentes cursos y afrontar un examen de manera satisfactoria,
-              enfocada en la enseñanza por medio de preguntas y respuestas.
+              Note Blue es una plataforma educativa desarrollada con el fin de apoyar en la
+              formación de los estudiantes en los diferentes cursos y afrontar un examen de manera
+              satisfactoria, enfocada en la enseñanza por medio de preguntas y respuestas.
             </p>
           </div>
         </div>
