@@ -3,14 +3,14 @@ import { preguntaGeneral, preguntaTema, preguntaCurso, preguntaAdd } from '@/api
 import { UsePreguntaResponse } from '@@/types-response-pregunta';
 import { ErrorResponse, GetStatusStore, TypeStatusStore } from '@@/type-config-api';
 type StateType = {
-  preguntas: null | UsePreguntaResponse['pregunta'];
-  tipo: string | null;
+  pregunta: null | UsePreguntaResponse['pregunta'];
+  level: string | null;
   status: TypeStatusStore;
   messaje?: ErrorResponse['detail'];
   preguntaStatus?: boolean;
 };
 type GettersType = {
-  getPregunta(state: StoreState<StateType>): StateType['preguntas'];
+  getPregunta(state: StoreState<StateType>): StateType['pregunta'];
 } & GetStatusStore<StoreState<StateType>>;
 type ActionsType = {
   responderAction(): Promise<void>;
@@ -25,14 +25,14 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
   {
     state: () => ({
       status: 'idle',
-      preguntas: null,
-      tipo: null,
+      pregunta: null,
+      level: null,
       messaje: '',
       preguntaStatus: false,
     }),
     getters: {
       getPregunta(state) {
-        return state.preguntas;
+        return state.pregunta;
       },
       getPreguntaStatus(state) {
         return state.preguntaStatus;
@@ -63,12 +63,12 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
         const res = await preguntaGeneral();
         if (res.status === 200) {
           this.status = 'idle';
-          this.preguntas = res.data.pregunta;
-          this.tipo = res.data.tipo;
+          this.pregunta = res.data.question;
+          this.level = res.data.level;
         } else {
           this.status = 'error';
-          this.preguntas = null;
-          this.tipo = 'general';
+          this.pregunta = null;
+          this.level = 'advanced';
         }
       },
       async preguntaTemaAction(id) {
@@ -76,12 +76,12 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
         const res = await preguntaTema(id);
         if (res.status === 200) {
           this.status = 'idle';
-          this.preguntas = res.data.pregunta;
-          this.tipo = res.data.tipo;
+          this.pregunta = res.data.question;
+          this.level = res.data.level;
         } else {
           this.status = 'error';
-          this.preguntas = null;
-          this.tipo = 'tema';
+          this.pregunta = null;
+          this.level = 'basic';
         }
       },
       async preguntaCursoAction(id) {
@@ -89,12 +89,12 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
         const res = await preguntaCurso(id);
         if (res.status === 200) {
           this.status = 'idle';
-          this.preguntas = res.data.pregunta;
-          this.tipo = res.data.tipo;
+          this.pregunta = res.data.question;
+          this.level = res.data.level;
         } else {
           this.status = 'error';
-          this.preguntas = null;
-          this.tipo = 'curso';
+          this.pregunta = null;
+          this.level = 'medium';
         }
       },
       async preguntaAddAction(data) {
@@ -102,7 +102,7 @@ export const usePreguntaStore = defineStore<'pregunta', StateType, GettersType, 
         const res = await preguntaAdd(data);
         if (res.status === 201) {
           this.status = 'idle';
-          this.tipo = res.data.tipo;
+          this.level = res.data.level;
           this.messaje = res.data.message;
         } else {
           this.status = 'error';

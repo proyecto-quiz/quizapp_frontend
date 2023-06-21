@@ -29,7 +29,7 @@ function clickPregunta(id: string) {
           @click="clickPregunta(tema.id)"
         >
           <!-- <img class="image" :src="CursoImage" alt="imagen tema" />-->
-          <p>{{ tema.nombre }} ({{ tema.countPreguntaTema }})</p>
+          <p>{{ tema.name }}</p>
         </button>
       </div>
     </div>

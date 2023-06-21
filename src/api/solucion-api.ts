@@ -5,7 +5,7 @@ import { SolucionForm } from '@@/types-forms';
  */
 export async function solucion(data: SolucionForm) {
   try {
-    return await client.post('/pregunta_solucion/', data);
+    return await client.post('/answer/question/', data);
   } catch (error: any) {
     return error.response;
   }

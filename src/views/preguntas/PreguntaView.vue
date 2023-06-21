@@ -42,52 +42,42 @@ function clicLabel() {
 async function handlePreguntaClick() {
   solucionStore.$reset();
   preguntaStore.resetPreguntaStatusAction();
-  const tipo = preguntaStore.tipo;
-  if (tipo == 'general') {
+  const level = preguntaStore.level;
+  if (level == 'advanced') {
     await preguntaStore.preguntaGeneralAction();
-  } else if (tipo == 'curso') {
-    const cursoId = preguntas.value?.cursoId;
+  } else if (level == 'medium') {
+    const cursoId = preguntas.value?.course.id;
     await preguntaStore.preguntaCursoAction(cursoId);
-  } else if (tipo == 'tema') {
-    const temaId = preguntas.value?.temaId;
+  } else if (level == 'basic') {
+    const temaId = preguntas.value?.topic.id;
     await preguntaStore.preguntaTemaAction(temaId);
   }
-  stateForm.alternativaId = '';
+  stateForm.answer = 0;
 }
 
 const stateForm = reactive<SolucionForm>({
-  preguntaId: '',
-  alternativaId: '',
-  tipo: '',
-  //tema,curso
-  id: '',
-  nombre: '',
+  question: null,
+  level: '',
+  answer: null,
 });
 
 async function handleSelectClick() {
-  stateForm.tipo = preguntaStore.tipo;
-  stateForm.preguntaId = preguntas.value?.preguntaId;
-  const t = preguntaStore.tipo;
-  if (t == 'curso') {
-    stateForm.id = preguntas.value?.cursoId;
-    stateForm.nombre = preguntas.value?.curso;
-  } else {
-    stateForm.id = preguntas.value?.temaId;
-    stateForm.nombre = preguntas.value?.tema;
-  }
+  stateForm.level = preguntaStore.level;
+  stateForm.question = preguntas.value?.id;
   await solucionStore.solucionAction(stateForm);
   respuestaPregunta();
   await preguntaStore.responderAction();
 }
+
 async function agregarSolucion() {
-  let preguntaId = preguntas.value?.preguntaId;
+  let preguntaId = preguntas.value?.id;
   router.push({ name: 'SolucionAdd', params: { idPregunta: preguntaId } });
 }
 const respuestaP = ref();
 const respuestaMessage = ref();
 const respuestaColor = ref();
 async function respuestaPregunta() {
-  if (solucionStore.respuesta === 'correcta') {
+  if (solucionStore.respuesta === true) {
     respuestaP.value = 'Bien';
     respuestaMessage.value = 'Felicidades...!!!';
     respuestaColor.value = 'green';
@@ -121,14 +111,14 @@ const { isLoading } = useSolucionRef();
       <div class="pregunta">
         <div class="flex items-center justify-between">
           <h1 class="text-lg font-medium uppercase text-blue-600 dark:text-contrast-01 md:text-3xl">
-            {{ preguntas?.curso }}
+            {{ preguntas?.course.name }}
           </h1>
           <router-link :to="{ name: 'PreguntaTipo' }" class="button button--contrast-01 mt-4">
             Elegir otro Nivel
           </router-link>
         </div>
         <h2 class="text-lg font-light uppercase text-blue-500 dark:text-contrast-02 md:text-2xl">
-          {{ preguntas?.tema }}
+          {{ preguntas?.topic.name }}
         </h2>
         <div class="grid-cols-1-col grid gap-2 sm:grid-cols-2">
           <div class="pregunta__text">
@@ -136,7 +126,7 @@ const { isLoading } = useSolucionRef();
             <p
               class="rounded-lg border border-green-600 p-2 text-2xl text-cyan-600 dark:text-cyan-300"
             >
-              {{ preguntas?.texto }}
+              {{ preguntas?.text }}
             </p>
             <div v-if="preguntas?.image != null">
               <img class="imagen" :src="preguntas?.image" alt="imagen_pregunta" />
@@ -144,23 +134,23 @@ const { isLoading } = useSolucionRef();
           </div>
           <div class="text-center">
             <h1 class="py-1 text-lg font-semibold uppercase md:text-2xl">Alternativas</h1>
-            <div v-for="alternativa in preguntas?.alternativas" :key="alternativa.altId">
+            <div v-for="alternativa in preguntas?.alternatives" :key="alternativa.id">
               <div class="w-full px-2 py-1">
                 <input
-                  :id="alternativa.altId"
-                  v-model="stateForm.alternativaId"
+                  :id="alternativa.id"
+                  v-model="stateForm.answer"
                   class="peer hidden"
                   type="radio"
                   name="alternativaId"
-                  :value="alternativa.altId"
+                  :value="alternativa.id"
                   @click="clicLabel()"
                 />
                 <label
                   class="label show flex justify-center gap-1 rounded-xl bg-secondary bg-opacity-90 p-2 text-sky-300 shadow-xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
-                  :for="alternativa.altId"
+                  :for="alternativa.id"
                 >
                   <strong>
-                    {{ alternativa.contenido }}
+                    {{ alternativa.text }}
                   </strong>
                 </label>
               </div>

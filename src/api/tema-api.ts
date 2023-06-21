@@ -1,10 +1,10 @@
 import { client } from './config';
 /**
- * List course topic
+ * List topic
  */
-export async function curso() {
+export async function tema() {
   try {
-    return await client.get('/course-topic/');
+    return await client.get('/topic/');
   } catch (error: any) {
     return error.response;
   }

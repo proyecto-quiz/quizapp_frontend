@@ -7,3 +7,4 @@ export * from './solucion-api';
 export * from './nota-api';
 export * from './solicitud-api';
 export * from './search-api';
+export * from './tema-api';

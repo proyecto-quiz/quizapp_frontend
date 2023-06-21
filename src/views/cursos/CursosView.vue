@@ -50,23 +50,23 @@ function clickTemas(temas: any) {
             <template v-if="tipo === 'tema'">
               <button
                 class="m-1 h-full w-full rounded bg-secondary p-1 active:m-0"
-                @click="clickTemas(JSON.stringify(curso.temas))"
+                @click="clickTemas(JSON.stringify(curso.topics))"
               >
                 <!--<img class="curso__image" :src="CursoImage" alt="image-curso" /> -->
                 <p class="p-2 font-semibold tracking-wide">
-                  {{ curso.nombre }} ({{ curso.countPreguntaCurso }})
+                  {{ curso.name }}
                 </p>
               </button>
             </template>
             <template v-else>
               <button
                 class="m-1 h-full w-full rounded bg-secondary p-1 active:m-0"
-                :title="curso.nombre"
+                :title="curso.name"
                 @click="clickPregunta(curso.id)"
               >
                 <!--<img class="curso__image" :src="CursoImage" :alt="`Curso - ${curso.nombre}`" /> -->
                 <p class="p-2 font-semibold tracking-wide">
-                  {{ curso.nombre }} ({{ curso.countPreguntaCurso }})
+                  {{ curso.name }}
                 </p>
               </button>
             </template>

@@ -4,7 +4,7 @@ import { client } from './config';
  */
 export async function preguntaGeneral() {
   try {
-    return await client.get('/pregunta_general/');
+    return await client.get('/generate/question/advanced/');
   } catch (error: any) {
     return error.response;
   }
@@ -12,7 +12,7 @@ export async function preguntaGeneral() {
 //@param id
 export async function preguntaTema(id: string | undefined) {
   try {
-    return await client.get(`/pregunta_tema/${id}/`);
+    return await client.get(`/generate/question/basic/${id}/`);
   } catch (error: any) {
     return error.response;
   }
@@ -20,7 +20,7 @@ export async function preguntaTema(id: string | undefined) {
 //@param id
 export async function preguntaCurso(id: string | undefined) {
   try {
-    return await client.get(`/pregunta_curso/${id}/`);
+    return await client.get(`/generate/question/medium/${id}/`);
   } catch (error: any) {
     return error.response;
   }
@@ -28,7 +28,7 @@ export async function preguntaCurso(id: string | undefined) {
 
 export async function preguntaAdd(data: FormData) {
   try {
-    return await client.post('/pregunta/', data, {
+    return await client.post('/question/', data, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   } catch (error: any) {

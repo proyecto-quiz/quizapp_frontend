@@ -22,23 +22,20 @@ onMounted(async () => {
           <h5 class="text-center text-xl">Cargando cursos</h5>
         </section>
         <div v-else>
-          <small class="text-lg font-medium tracking-tighter">
-            Total cursos: {{ cursosStoreComp.countCursos }}
-          </small>
           <section class="lista">
             <div v-for="curso in cursosStoreComp.getCursos" :key="curso.id" class="curso">
               <div class="divide-y divide-secondary-normal dark:divide-gray-100">
                 <div class="title bg-blue-900">
                   <h1 class="p-2 font-semibold uppercase tracking-wide">
-                    {{ curso.nombre }}
+                    {{ curso.name }}
                   </h1>
                 </div>
                 <div class="mt-2 flex flex-wrap p-2 pt-2 text-center">
-                  <div v-for="tema in curso.temas" :key="tema.id">
+                  <div v-for="tema in curso.topics" :key="tema.id">
                     <div
                       class="mr-2 mb-2 rounded-full bg-secondary-normal px-3 py-1 text-sm text-blue-900"
                     >
-                      {{ tema.nombre }} ({{ tema.countPreguntaTema }})
+                      {{ tema.name }}
                     </div>
                   </div>
                 </div>

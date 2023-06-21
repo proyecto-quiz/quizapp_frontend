@@ -1,42 +1,35 @@
 import { defineStore, StoreState } from 'pinia';
-import { curso } from '@/api';
+import { tema } from '@/api';
 import { GetStatusStore, TypeStatusStore } from '@@/type-config-api';
 
-interface temas {
+interface Itema {
   id: string;
   name: string;
-}
-
-interface ICurso {
-  id: string;
-  name: string;
-  description: number;
-  topics: temas[];
+  description: string;
+  course: number;
 }
 
 type StateType = {
-  cursos: ICurso[];
-  countCursos: number;
+  temas: Itema[];
   status: TypeStatusStore;
 };
 
 type GettersType = {
-  getCursos(state: StoreState<StateType>): StateType['cursos'];
+  getTemas(state: StoreState<StateType>): StateType['temas'];
 } & GetStatusStore<StoreState<StateType>>;
 
 type ActionsType = {
   cursoAction(): Promise<void>;
 };
 
-export const useCursoStore = defineStore<'curso', StateType, GettersType, ActionsType>('curso', {
+export const useCursoStore = defineStore<'tema', StateType, GettersType, ActionsType>('tema', {
   state: () => ({
     status: 'idle',
-    cursos: [],
-    countCursos: 0,
+    temas: [],
   }),
   getters: {
-    getCursos(state) {
-      return state.cursos;
+    getTemas(state) {
+      return state.temas;
     },
 
     // Statuses
@@ -56,15 +49,13 @@ export const useCursoStore = defineStore<'curso', StateType, GettersType, Action
   actions: {
     async cursoAction() {
       this.status = 'loading';
-      const res = await curso();
+      const res = await tema();
       if (res.status === 200) {
         this.status = 'idle';
-        this.cursos = res.data;
-        this.countCursos = res.data.count;
+        this.temas = res.data;
       } else {
         this.status = 'error';
-        this.cursos = [];
-        this.countCursos = 0;
+        this.temas = [];
       }
     },
   },

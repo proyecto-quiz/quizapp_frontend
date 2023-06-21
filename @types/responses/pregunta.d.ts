@@ -1,19 +1,24 @@
 declare module '@@/types-response-pregunta' {
   // Alternativa Response
-  type alternativas = {
-    altId: string;
-    contenido: string;
+  type alternatives = {
+    id: string;
+    text: string;
+  };
+  type topic = {
+    id: string;
+    name: string;
+  };
+  type course = {
+    id: string;
+    name: string;
   };
   // Pregunta Response
   type PreguntaResponse = {
-    preguntaId: string;
-    texto: string;
-    alternativas: alternativas[];
-    image: string;
-    temaId: string;
-    tema: string;
-    cursoId: string;
-    curso: string;
+    id: string;
+    text: string;
+    alternatives: alternatives[];
+    topic: topic;
+    course: course;
   };
   export type UsePreguntaResponse = {
     pregunta: PreguntaResponse;

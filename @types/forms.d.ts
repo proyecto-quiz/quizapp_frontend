@@ -13,13 +13,9 @@ declare module '@@/types-forms' {
   };
 
   type SolucionForm = {
-    //pregunta
-    preguntaId: string | undefined;
-    alternativaId: string | undefined;
-    tipo: string | null;
-    //tema,curso
-    id: string | undefined;
-    nombre: string | undefined;
+    question: number | null;
+    level: string | null;
+    answer: number | null;
   };
   type alternativas = {
     contenido: string;

@@ -6,7 +6,7 @@ import { ErrorResponse, GetStatusStore, TypeStatusStore } from '@@/type-config-a
 type StateType = {
   status: TypeStatusStore;
   soluciones: [] | UseSolucionResponse;
-  respuesta: string | null;
+  respuesta: string | boolean;
   respuestaCorrecta: string | null;
   message: ErrorResponse['detail'];
 };
@@ -23,7 +23,7 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
     state: () => ({
       status: 'idle',
       soluciones: [],
-      respuesta: null,
+      respuesta: false,
       respuestaCorrecta: null,
       message: '',
     }),
@@ -49,11 +49,13 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
       async solucionAction(data) {
         this.status = 'loading';
         const res = await solucion(data);
+        console.log(res);
         if (res.status === 200) {
           this.status = 'idle';
+
           this.soluciones = res.data.solucion;
-          this.respuesta = res.data.respuesta;
-          this.respuestaCorrecta = res.data.respuestaCorrecta;
+          this.respuesta = res.data.answer.is_answer;
+          this.respuestaCorrecta = res.data.answer.correct_alternative;
         } else {
           this.status = 'error';
           this.message = res.data.message;
