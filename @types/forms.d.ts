@@ -17,15 +17,15 @@ declare module '@@/types-forms' {
     level: string | null;
     answer: number | null;
   };
-  type alternativas = {
-    contenido: string;
+  type alternatives = {
+    text: string;
     is_answer: boolean;
   };
   type PreguntaForm = {
-    texto: string;
-    tema: string;
+    text: string;
+    topic: number | null;
     imagen: null | undefined | Blob;
-    alternativas: alternativas[];
+    alternatives: alternatives[];
   };
   type SolucionAddForm = {
     imagen: null | undefined | Blob;

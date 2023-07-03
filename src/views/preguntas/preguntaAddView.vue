@@ -17,25 +17,25 @@ onMounted(async () => {
     select.options[0].selected = true;
   }
 });
-const selecTema = ref();
+const selecTopic = ref();
 const stateForm = reactive<PreguntaForm>({
-  texto: '',
-  tema: '',
+  text: '',
+  topic: null,
   imagen: null,
-  alternativas: [],
+  alternatives: [],
 });
 async function handleFormClick() {
   let preguntaForm = new FormData();
-  preguntaForm.append('texto', stateForm.texto);
-  preguntaForm.append('tema', stateForm.tema);
-  preguntaForm.append('alternativas', JSON.stringify(stateForm.alternativas));
+  preguntaForm.append('topic', stateForm.topic);
+  preguntaForm.append('text', stateForm.text);
+  preguntaForm.append('alternatives', JSON.stringify(stateForm.alternatives));
   if (stateForm.imagen != null) {
     preguntaForm.append('imagen', stateForm.imagen);
   }
   if (contador.value == 1) {
     await preguntaStore.preguntaAddAction(preguntaForm);
-    stateForm.texto = '';
-    stateForm.alternativas = [];
+    stateForm.text = '';
+    stateForm.alternatives = [];
     stateForm.imagen = null;
     contador.value = 0;
     alert(preguntaStore.messaje);
@@ -47,8 +47,8 @@ async function handleFormClick() {
 async function addNewAlternativa(alternativaText: string, answer: boolean) {
   if (answer == true) {
     if (contador.value < 1) {
-      stateForm.alternativas.push({
-        contenido: alternativaText,
+      stateForm.alternatives.push({
+        text: alternativaText,
         is_answer: answer,
       });
       contador.value = contador.value + 1;
@@ -56,8 +56,8 @@ async function addNewAlternativa(alternativaText: string, answer: boolean) {
       alert('no puedes agregar mas de 1 respuestas');
     }
   } else {
-    stateForm.alternativas.push({
-      contenido: alternativaText,
+    stateForm.alternatives.push({
+      text: alternativaText,
       is_answer: answer,
     });
   }
@@ -65,14 +65,14 @@ async function addNewAlternativa(alternativaText: string, answer: boolean) {
   isAnswer.value = false;
 }
 async function removeAlternativa(index: number) {
-  stateForm.alternativas.splice(index, 1);
+  stateForm.alternatives.splice(index, 1);
   if (contador.value == 1) contador.value = 0;
 }
 async function editAlternativa(index: number) {
-  var alter = stateForm.alternativas[index];
-  newAlterText.value = alter.contenido;
+  var alter = stateForm.alternatives[index];
+  newAlterText.value = alter.text;
   isAnswer.value = alter.is_answer;
-  stateForm.alternativas.splice(index, 1);
+  stateForm.alternatives.splice(index, 1);
   if (alter.is_answer === true) contador.value = 0;
 }
 const image = ref();
@@ -97,13 +97,17 @@ async function imageDelete() {
           <strong>Curso</strong>
           <select
             id="list-curso"
-            v-model="selecTema"
+            v-model="selecTopic"
             class="z-1 mr-6 mt-0 block w-full appearance-none border-0 border-b-2 border-gray-200 bg-transparent p-2.5 px-0 pt-3 pb-2 text-secondary-normal focus:border-secondary-normal/20 focus:outline-none focus:ring-0"
             required
           >
             <option disabled value="">Seleccione un curso</option>
-            <option v-for="curso in cursosStoreComp.getCursos" :key="curso.id" :value="curso.temas">
-              {{ curso.nombre }}
+            <option
+              v-for="curso in cursosStoreComp.getCursos"
+              :key="curso.id"
+              :value="curso.topics"
+            >
+              {{ curso.name }}
             </option>
           </select>
         </div>
@@ -112,20 +116,20 @@ async function imageDelete() {
           <strong>Tema</strong>
           <select
             id="list-tema"
-            v-model="stateForm.tema"
+            v-model="stateForm.topic"
             class="z-1 mt-0 block w-full appearance-none border-0 border-b-2 border-gray-200 bg-transparent px-0 pt-3 pb-2 text-secondary-normal focus:border-secondary focus:outline-none focus:ring-0"
             required
           >
             <option disabled value="">Seleccione un tema</option>
-            <option v-for="(tema, index) in selecTema" :key="index" :value="tema?.id">
-              {{ tema?.nombre }}
+            <option v-for="(topic, index) in selecTopic" :key="index" :value="topic.id">
+              {{ topic.name }}
             </option>
           </select>
         </div>
         <div class="rounded-t-lg bg-white py-2 px-4 dark:bg-secondary">
           <strong>Pregunta</strong>
           <textarea
-            v-model="stateForm.texto"
+            v-model="stateForm.text"
             class="w-full border-0 bg-white px-0 text-sm text-gray-900 focus:ring-0 dark:bg-secondary dark:text-white dark:placeholder-gray-400"
             placeholder="Escribe la pregunta..."
             required
@@ -180,7 +184,7 @@ async function imageDelete() {
               <label for="answer">¿Es la respuesta?</label>
               <input id="answer" v-model="isAnswer" type="checkbox" />
             </div>
-            <div v-if="stateForm.alternativas.length < 5">
+            <div v-if="stateForm.alternatives.length < 5">
               <button
                 class="button button--secondary"
                 @click.prevent="addNewAlternativa(newAlterText, isAnswer)"
@@ -195,13 +199,13 @@ async function imageDelete() {
       <div>
         <ul class="flex flex-col">
           <li
-            v-for="(alterList, index) in stateForm.alternativas"
+            v-for="(alterList, index) in stateForm.alternatives"
             :key="index"
             class="mx-4 my-2 flex w-full flex-col justify-between gap-2 text-left md:flex-row"
           >
             <p class="text-left">
               {{ index + 1 }})
-              {{ alterList.contenido }}
+              {{ alterList.text }}
             </p>
             <label v-if="alterList.is_answer == true" :style="{ color: answerColor }" class="m-1">
               respuesta
@@ -223,7 +227,7 @@ async function imageDelete() {
           </li>
         </ul>
       </div>
-      <div v-if="stateForm.alternativas.length > 1" class="flex justify-between">
+      <div v-if="stateForm.alternatives.length > 1" class="flex justify-between">
         <button type="submit" class="button button--secondary">Guardar</button>
       </div>
     </form>
