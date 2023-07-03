@@ -1,16 +1,17 @@
 import { defineStore, StoreState } from 'pinia';
 import { notaMe, notaRanking } from '@/api';
-import { UseNotaResponse } from '@@/types-response-nota';
+import { UseNotaResponse, useNotaRankingResponse } from '@@/types-response-nota';
 type StateType = {
   notas: null | UseNotaResponse[];
-  notasRanking: null | [];
+  notasRanking: null | useNotaRankingResponse;
 };
 type GettersType = {
   getNotas(state: StoreState<StateType>): StateType['notas'];
+  getNotasRanking(state: StoreState<StateType>): StateType['notasRanking'];
 };
 type ActionsType = {
   notaMeAction(tipo: string | undefined): Promise<void> | void;
-  notaRankingAction(tipo: string, idTemaCurso: string | undefined): Promise<void> | void;
+  notaRankingAction(): Promise<void> | void;
 };
 export const useNotaStore = defineStore<'nota', StateType, GettersType, ActionsType>('nota', {
   state: () => ({
@@ -21,14 +22,17 @@ export const useNotaStore = defineStore<'nota', StateType, GettersType, ActionsT
     getNotas(state) {
       return state.notas;
     },
+    getNotasRanking(state) {
+      return state.notasRanking;
+    },
   },
   actions: {
     async notaMeAction(tipo) {
       const res = await notaMe(tipo);
       this.notas = res.data;
     },
-    async notaRankingAction(tipo, idTemaCurso) {
-      const res = await notaRanking(tipo, idTemaCurso);
+    async notaRankingAction() {
+      const res = await notaRanking();
       this.notasRanking = res.data;
     },
   },

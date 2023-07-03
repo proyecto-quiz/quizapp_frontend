@@ -11,9 +11,9 @@ export async function notaMe(tipo: string | undefined) {
   }
 }
 
-export async function notaRanking(tipo: string, idTemaCurso: string | undefined) {
+export async function notaRanking() {
   try {
-    return await client.get(`/nota_ranking/${tipo}/${idTemaCurso}/`);
+    return await client.get('/note/ranking/');
   } catch (error: any) {
     return error.response;
   }

@@ -7,4 +7,11 @@ declare module '@@/types-response-nota' {
   export type UseNotaResponse = {
     nota: notaResponse;
   };
+  type notaRankingResponse = {
+    user: string | null;
+    score: number | null;
+  };
+  export type useNotaRankingResponse = {
+    notaRanking: notaRankingResponse;
+  };
 }

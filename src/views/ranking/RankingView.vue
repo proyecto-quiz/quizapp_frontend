@@ -3,10 +3,10 @@ import { onMounted, computed } from 'vue';
 import { useNotaStore } from '@/stores';
 const notaStore = useNotaStore();
 const notaRanking = computed(() => {
-  return notaStore.notasRanking;
+  return notaStore.getNotasRanking;
 });
 onMounted(() => {
-  notaStore.notaRankingAction('general', 'general');
+  notaStore.notaRankingAction();
 });
 </script>
 <template>
@@ -38,8 +38,8 @@ onMounted(() => {
               {{ index + 1 }}
             </div>
           </td>
-          <td>{{ rankingList.usuario }}</td>
-          <td class="rounded-r-lg">{{ rankingList.puntaje }}</td>
+          <td>{{ rankingList.user }}</td>
+          <td class="rounded-r-lg">{{ rankingList.score }}</td>
         </tr>
       </tbody>
     </table>
