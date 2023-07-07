@@ -1,8 +1,9 @@
 declare module '@@/types-response-nota' {
   type notaResponse = {
-    puntaje: string | null;
-    tipo: string | null;
-    especificacion: string | null;
+    id: number;
+    score: string | null;
+    level: string | null;
+    detail: string | null;
   };
   export type UseNotaResponse = {
     nota: notaResponse;

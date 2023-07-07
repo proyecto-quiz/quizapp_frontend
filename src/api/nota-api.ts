@@ -3,9 +3,9 @@ import { client } from './config';
  * Nota
  */
 //@param tipo
-export async function notaMe(tipo: string | undefined) {
+export async function notaMe() {
   try {
-    return await client.get(`/nota_user/${tipo}/`);
+    return await client.get('/note/me');
   } catch (error: any) {
     return error.response;
   }
