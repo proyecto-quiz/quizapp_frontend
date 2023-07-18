@@ -27,7 +27,7 @@ async function handleVerifyClick(token: string) {
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <Logo class="mx-auto h-auto w-20" alt="logo note blue" />
         <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
-          Valida tu email
+          Valida tu correo electrónico
         </h2>
       </div>
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
