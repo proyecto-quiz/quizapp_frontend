@@ -2,7 +2,7 @@ import { defineStore, StoreState } from 'pinia';
 import { SignInForm, SignUpForm } from '@@/types-forms';
 import { ErrorResponse, GetStatusStore, TypeStatusStore } from '@@/type-config-api';
 import { TokenResponse, UserAuthenticateResponse } from '@@/types-response-users';
-import { me, signIn, signOut, signUp } from '@/api';
+import { me, signIn, signOut, signUp, verify } from '@/api';
 import { useGetStorage } from '@/composables';
 
 type StateType = {
@@ -23,6 +23,7 @@ type ActionsType = {
   signInAction(data: SignInForm, fn: (tokens: string[]) => Promise<void>): Promise<void>;
   signOutAction(fn: () => Promise<void>): Promise<void>;
   signUpAction(data: SignUpForm, fn: () => Promise<void>): Promise<void>;
+  verifyAction(token:string):Promise<void> | void;
 };
 
 type GettersType = {
@@ -125,6 +126,20 @@ export const useAuthStore = defineStore<'auth-store', StateType, GettersType, Ac
           this.status = 'error';
           this.message = res.data.nonFieldErrors || res.data.detail || res.data;
           console.log(res.status);
+        }
+      },
+
+      async verifyAction(token){
+        this.status = 'loading';
+        const res = await verify(token);
+        if(res.status=='200'){
+
+          this.status = 'success';
+          this.message = 'Verificación exitosa'
+        }
+        else{
+          this.status = 'error';
+          this.message = 'token invalido'
         }
       },
 

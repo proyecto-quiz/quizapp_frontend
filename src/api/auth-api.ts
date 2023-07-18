@@ -40,3 +40,11 @@ export async function signUp(data: SignUpForm): APIResponse<OkResponse> {
     return error.response;
   }
 }
+
+export async function verify(token :string){
+  try {
+    return await client.get(`/auth/verify/?token=${token}`);
+  } catch (error: any) {
+    return error.response;
+  }
+}
