@@ -74,7 +74,9 @@ const match = useMediaQuery('(min-width: 768px)');
           <h1 class="title-nb title-nb-01">
             <span class="text-[#09FCED]">Note</span><span class="text-secondary-normal">Blue</span>
           </h1>
-          <h3 class="text-center text-lg md:text-left md:text-xl">Registrate con una cuenta!</h3>
+          <h3 class="text-center text-lg md:text-left md:text-xl">
+            Registrate con un correo electrónico!
+          </h3>
           <p class="text-center text-sm text-secondary-normal md:text-left">
             <router-link
               :to="{ name: 'Sign', query: { type: 'sign-in' } }"
