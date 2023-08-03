@@ -2,7 +2,7 @@
 import { Directive, InputHTMLAttributes, useAttrs } from 'vue';
 import { ErrorResponse } from '@@/type-config-api';
 
-interface Props extends InputHTMLAttributes {
+interface Props extends /* @vue-ignore */ InputHTMLAttributes {
   name?: string;
   id?: string;
   modelValue: any;

@@ -7,6 +7,8 @@ import { useSolucionStore } from '@/stores';
 import { UserResponse } from '@@/types-response-users';
 import { useSolucionRef } from '@/composables/stores';
 
+//icons
+import Cross from '@/components/draws/icons/Cross.vue';
 //sound
 import clicSound from '@/assets/sound/clic.mp3';
 import goodSound from '@/assets/sound/good.mp3';
@@ -103,7 +105,7 @@ const { isLoading } = useSolucionRef();
           Lo sentimos ocurrió un error
         </h1>
         <router-link :to="{ name: 'PreguntaTipo' }" class="button button--contrast-01 mt-4">
-          Atras
+          <Cross class="h-5 w-5"></Cross>
         </router-link>
       </div>
     </section>
@@ -114,7 +116,7 @@ const { isLoading } = useSolucionRef();
             {{ preguntas?.course.name }}
           </h1>
           <router-link :to="{ name: 'PreguntaTipo' }" class="button button--contrast-01 mt-4">
-            Elegir otro Nivel
+            <Cross class="h-5 w-5"></Cross>
           </router-link>
         </div>
         <h2 class="text-lg font-light uppercase text-blue-500 dark:text-contrast-02 md:text-2xl">
