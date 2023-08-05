@@ -37,6 +37,8 @@ onMounted(async () => {
     }
   }
 });
+//disabled
+const selectDisabled = ref(false);
 function clicLabel() {
   const click = new Audio(clicSound);
   click.play();
@@ -55,6 +57,7 @@ async function handlePreguntaClick() {
     await preguntaStore.preguntaTemaAction(temaId);
   }
   stateForm.answer = 0;
+  selectDisabled.value = false;
 }
 
 const stateForm = reactive<SolucionForm>({
@@ -63,12 +66,14 @@ const stateForm = reactive<SolucionForm>({
   answer: null,
 });
 
-async function handleSelectClick() {
+async function handleSelectClick(answerId: any | 0) {
+  stateForm.answer = answerId;
   stateForm.level = preguntaStore.level;
   stateForm.question = preguntas.value?.id;
   await solucionStore.solucionAction(stateForm);
   respuestaPregunta();
   await preguntaStore.responderAction();
+  selectDisabled.value = true;
 }
 
 async function agregarSolucion() {
@@ -109,10 +114,12 @@ const { isLoading } = useSolucionRef();
         </router-link>
       </div>
     </section>
-    <form v-else class="container" @submit.stop.prevent="handlePreguntaClick">
+    <form v-else class="container mx-auto" @submit.stop.prevent="handlePreguntaClick">
       <div class="pregunta">
         <div class="flex items-center justify-between">
-          <h1 class="text-lg font-medium uppercase text-blue-600 dark:text-contrast-01 md:text-3xl">
+          <h1
+            class="flex text-lg font-medium uppercase text-blue-600 dark:text-contrast-01 md:text-3xl"
+          >
             {{ preguntas?.course.name }}
           </h1>
           <router-link :to="{ name: 'PreguntaTipo' }" class="button button--contrast-01 mt-4">
@@ -122,30 +129,31 @@ const { isLoading } = useSolucionRef();
         <h2 class="text-lg font-light uppercase text-blue-500 dark:text-contrast-02 md:text-2xl">
           {{ preguntas?.topic.name }}
         </h2>
-        <div class="grid-cols-1-col grid gap-2 sm:grid-cols-2">
-          <div class="pregunta__text">
-            <h1 class="py-2 text-lg font-semibold uppercase md:text-2xl">pregunta</h1>
-            <p
-              class="rounded-lg border border-green-600 p-2 text-2xl text-cyan-600 dark:text-cyan-300"
-            >
+        <div class="grid-cols-1-col grid gap-2 sm:grid-cols-1">
+          <div class="pregunta__text flex items-center justify-center">
+            <p class="p-2 text-lg font-light md:w-1/2 md:text-2xl">
               {{ preguntas?.text }}
             </p>
             <div v-if="preguntas?.image != null">
               <img class="imagen" :src="preguntas?.image" alt="imagen_pregunta" />
             </div>
           </div>
-          <div class="text-center">
-            <h1 class="py-1 text-lg font-semibold uppercase md:text-2xl">Alternativas</h1>
-            <div v-for="alternativa in preguntas?.alternatives" :key="alternativa.id">
-              <div class="w-full px-2 py-1">
+          <div class="container mx-auto">
+            <div
+              v-for="alternativa in preguntas?.alternatives"
+              :key="alternativa.id"
+              class="flex items-center justify-center"
+            >
+              <div class="w-full items-center px-2 py-1 md:w-1/2">
                 <input
                   :id="alternativa.id"
-                  v-model="stateForm.answer"
                   class="peer hidden"
                   type="radio"
                   name="alternativaId"
                   :value="alternativa.id"
+                  :disabled="selectDisabled"
                   @click="clicLabel()"
+                  @click.once="handleSelectClick(alternativa.id)"
                 />
                 <label
                   class="label show flex justify-center gap-1 rounded-xl bg-secondary bg-opacity-90 p-2 text-sky-300 shadow-xl hover:bg-opacity-75 peer-checked:bg-secondary peer-checked:text-white"
@@ -165,7 +173,7 @@ const { isLoading } = useSolucionRef();
       </div>
       <div v-if="preguntaStore.preguntaStatus != false">
         <div
-          class="flex-row justify-between rounded-lg py-4 text-center md:flex lg:px-4"
+          class="container mx-auto flex-row items-center justify-between rounded-lg py-4 text-center md:flex md:w-2/3 lg:px-4"
           :class="respuestaColor + '-response-content-1'"
         >
           <div
@@ -199,15 +207,7 @@ const { isLoading } = useSolucionRef();
           </div>
         </div>
       </div>
-      <div class="flex flex-row justify-between gap-4 p-4">
-        <button
-          v-if="preguntaStore.preguntaStatus === false"
-          type="button"
-          class="btn-select button button--secondary"
-          @click.prevent="handleSelectClick"
-        >
-          Seleccionar
-        </button>
+      <div class="flex flex-row justify-end gap-4 p-4">
         <button type="submit" class="button button--secondary--outline">Siguiente</button>
       </div>
       <Teleport to="#noteblue-app">
@@ -261,7 +261,7 @@ const { isLoading } = useSolucionRef();
   @apply flex flex-col items-center justify-center gap-y-3;
 }
 .pregunta__text {
-  @apply basis-1/2;
+  @apply basis-1/2 text-center;
 }
 
 .red-response-content-1 {
