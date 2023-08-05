@@ -20,11 +20,11 @@ const links = [
     name: 'Search',
   },
   {
-    value: 'Ver mis notas',
+    value: 'Notas',
     name: 'Notas',
   },
   {
-    value: 'Hacer el examen',
+    value: 'Generador de Preguntas',
     name: 'PreguntaTipo',
   },
   {
@@ -32,7 +32,7 @@ const links = [
     name: 'PreguntaAdd',
   },
   {
-    value: 'Ranking',
+    value: 'Ranking General',
     name: 'NotaRanking',
   },
 ];
