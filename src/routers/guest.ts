@@ -57,4 +57,9 @@ export const guestRoutes: RouteRecordRaw[] = [
     path: '/email/verify',
     component: () => import('@/views/VerifyEmailView.vue'),
   },
+  {
+    name: 'Demo',
+    path: '/demo',
+    component:()=> import('@/views/DemoView.vue')
+  }
 ];

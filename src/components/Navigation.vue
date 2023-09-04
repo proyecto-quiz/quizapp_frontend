@@ -20,6 +20,10 @@ const LINKS = [
     nameLink: 'Nuestros Cursos',
   },
   {
+    nameRoute: 'Demo',
+    nameLink: 'Demo',
+  },
+  {
     nameRoute: 'ContactMe',
     nameLink: 'Contáctanos',
   },

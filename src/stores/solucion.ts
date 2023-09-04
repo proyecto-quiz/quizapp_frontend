@@ -49,7 +49,6 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
       async solucionAction(data) {
         this.status = 'loading';
         const res = await solucion(data);
-        console.log(res);
         if (res.status === 200) {
           this.status = 'idle';
 
@@ -65,7 +64,6 @@ export const useSolucionStore = defineStore<'solucion', StateType, GettersType, 
         const res = await solucionAdd(data);
         if (res.status === 201) {
           this.message = 'Guardado Correctamente';
-          console.log('guardado');
         } else {
           this.message = 'Uno de los campos no es valido';
         }

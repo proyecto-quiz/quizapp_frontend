@@ -13,9 +13,9 @@ declare module '@@/types-forms' {
   };
 
   type SolucionForm = {
-    question: number | null;
+    question: string | null;
     level: string | null;
-    answer: number | null;
+    answer: string | undefined;
   };
   type alternatives = {
     text: string;
