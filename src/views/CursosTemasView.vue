@@ -12,7 +12,7 @@ onMounted(async () => {
 <template>
   <LayoutDefault title="Nuestros Cursos">
     <div class="container flex flex-col gap-2">
-      <h1 class="title-nb title-nb-cursos">
+      <h1 class="title-nb-cursos">
         <span class="mx-2">Nuestros</span>
         <span class="mx-2 text-contrast-01">Cursos</span>
       </h1>
@@ -22,22 +22,12 @@ onMounted(async () => {
           <h5 class="text-center text-xl">Cargando cursos</h5>
         </section>
         <div v-else>
-          <section class="lista">
+          <section class="list__card">
             <div v-for="curso in cursosStoreComp.getCursos" :key="curso.id" class="curso">
-              <div class="divide-y divide-secondary-normal dark:divide-gray-100">
-                <div class="title bg-blue-900">
-                  <h1 class="p-2 font-semibold uppercase tracking-wide">
-                    {{ curso.name }}
-                  </h1>
-                </div>
-                <div class="mt-2 flex flex-wrap p-2 pt-2 text-center">
-                  <div v-for="tema in curso.topics" :key="tema.id">
-                    <div
-                      class="mr-2 mb-2 rounded-full bg-secondary-normal px-3 py-1 text-sm text-blue-900"
-                    >
-                      {{ tema.name }}
-                    </div>
-                  </div>
+              <div class="book text-xs">
+                <p>{{ curso.description }}</p>
+                <div class="cover uppercase">
+                  <p>{{ curso.name }}</p>
                 </div>
               </div>
             </div>
@@ -50,45 +40,93 @@ onMounted(async () => {
 
 <style scoped>
 .curso {
-  @apply h-full w-full justify-center rounded-md text-center shadow-lg;
-  @apply text-primary-dark dark:text-primary-light;
-  @apply hover:-translate-y-1 hover:bg-secondary hover:transition-transform hover:duration-200 hover:ease-in-out;
+  @apply justify-center text-center;
+  @apply text-secondary-light;
+  @apply hover:-translate-y-1  hover:transition-transform hover:duration-200 hover:ease-in-out;
 }
 
 .spinner__loading {
   @apply flex flex-col items-center justify-center gap-y-3;
 }
 
-.curso__image {
-  @apply h-auto w-full object-cover;
+.list__card {
+  @apply mb-4 grid grid-cols-1 justify-center gap-5  sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4;
 }
 
-.lista {
-  @apply grid grid-cols-1 justify-center gap-5 py-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2;
-}
-
-/* view-courses transition */
-.view-courses-enter-from,
-.view-courses-leave-to {
-  opacity: 0;
-}
-
-.view-courses-enter-to,
-.view-courses-leave-leave {
-  opacity: 1;
-}
-
-.view-courses-enter-active,
-.view-courses-leave-active {
-  transition-property: opacity;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.115, 0.74, 0.855, 1);
-  transition-delay: 50ms;
-}
-.title {
-  @apply rounded-t-md bg-secondary text-secondary-light;
-}
-.title-nb {
+.title-nb-cursos {
   @apply my-4 text-center text-2xl leading-8 tracking-wider md:my-10 md:text-5xl;
+}
+
+.book {
+  @apply bg-secondary-normal;
+  position: relative;
+  border-radius: 10px;
+  width: 220px;
+  height: 300px;
+
+  -webkit-box-shadow: 1px 1px 12px #000;
+  box-shadow: 1px 1px 12px #000;
+  -webkit-transform: preserve-3d;
+  -ms-transform: preserve-3d;
+  transform: preserve-3d;
+  -webkit-perspective: 2000px;
+  perspective: 2000px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.cover {
+  @apply bg-secondary;
+  top: 0;
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform-origin: 0;
+  -ms-transform-origin: 0;
+  transform-origin: 0;
+  -webkit-box-shadow: 1px 1px 12px #000;
+  box-shadow: 1px 1px 12px #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.book:hover .cover {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform: rotatey(-80deg);
+  -ms-transform: rotatey(-80deg);
+  transform: rotatey(-80deg);
+}
+
+p {
+  padding: 0;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.book p {
+  padding-left: 20%;
+  padding-right: 2%;
+}
+.cover p {
+  padding-left: 0;
 }
 </style>
