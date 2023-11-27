@@ -1,23 +1,27 @@
 <script setup lang="ts">
 import { onMounted, computed, reactive, ref } from 'vue';
-import { usePreguntaStore } from '@/stores';
 import { PreguntaForm } from '@@/types-forms';
-import { useCursoStore } from '@/stores';
+import { useCursoStore, useQuestionSourceStore, usePreguntaStore } from '@/stores';
+import { json } from 'stream/consumers';
 const preguntaStore = usePreguntaStore();
 const cursoStore = useCursoStore();
+const QuestionSourceStore = useQuestionSourceStore();
 const cursosStoreComp = computed(() => cursoStore);
+const questionSourceStoreComp = computed(() => QuestionSourceStore.getQuestionSource);
 const newAlterText = ref('');
 const isAnswer = ref(false);
 const contador = ref(0);
 
 onMounted(async () => {
   await cursoStore.cursoAction();
+  await QuestionSourceStore.questionSourceAction();
   var select = document.querySelector<HTMLSelectElement>('#list-curso');
   if (select != null) {
     select.options[0].selected = true;
   }
 });
 const selecTopic = ref();
+const selecSource = ref();
 const stateForm = reactive<PreguntaForm>({
   text: '',
   topic: null,
@@ -29,6 +33,7 @@ async function handleFormClick() {
   preguntaForm.append('topic', stateForm.topic);
   preguntaForm.append('text', stateForm.text);
   preguntaForm.append('alternatives', JSON.stringify(stateForm.alternatives));
+  preguntaForm.append('question_sources', JSON.stringify(selecSource.value));
   if (stateForm.imagen != null) {
     preguntaForm.append('imagen', stateForm.imagen);
   }
@@ -86,6 +91,8 @@ async function imageDelete() {
   stateForm.imagen = null;
   image.value = null;
 }
+
+const showForm = ref(false);
 </script>
 
 <template>
@@ -227,8 +234,46 @@ async function imageDelete() {
           </li>
         </ul>
       </div>
-      <div v-if="stateForm.alternatives.length > 1" class="flex justify-between">
-        <button type="submit" class="button button--secondary">Guardar</button>
+      <div class="rounded-t-lg bg-white py-2 px-4 dark:bg-secondary">
+        <div class="flex items-end justify-between">
+          <label for="esExamen"><strong>¿Es pregunta de Examen?</strong></label>
+          <button id="esExamen" @click.prevent="showForm = !showForm">
+            <svg
+              class="ms-2.5 h-2.5 w-2.5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 4 4 4-4"
+              />
+            </svg>
+          </button>
+        </div>
+        <select
+          v-show="showForm"
+          id="list-source"
+          v-model="selecSource"
+          class="z-1 mr-6 mt-0 block w-full appearance-none border-0 border-b-2 border-gray-200 bg-transparent p-2.5 px-0 pt-3 pb-2 text-secondary-normal focus:border-secondary-normal/20 focus:outline-none focus:ring-0"
+          multiple
+          size="3"
+        >
+          <option
+            v-for="questionSource in questionSourceStoreComp"
+            :key="questionSource?.id"
+            :value="questionSource?.id"
+          >
+            {{ questionSource?.content.title }}
+          </option>
+        </select>
+      </div>
+      <div v-if="stateForm.alternatives.length > 1" class="mt-4 flex justify-between">
+        <button type="submit" class="button button--contrast-01">Guardar</button>
       </div>
     </form>
   </div>

@@ -85,11 +85,20 @@ const { isLoading } = useSolucionRef();
       </section>
       <section v-else>
         <div class="flex items-center justify-between py-5">
-          <h1
-            class="flex text-lg font-medium uppercase text-blue-600 dark:text-contrast-01 md:text-3xl"
-          >
-            {{ preguntas?.course.name }}
-          </h1>
+          <div class="flex items-center justify-center text-center">
+            <h1
+              class="flex text-lg font-medium uppercase text-blue-600 dark:text-contrast-01 md:text-3xl"
+            >
+              {{ preguntas?.course.name }}
+            </h1>
+            <div
+              v-for="(source, index) in preguntas?.question_sources"
+              :key="index"
+              class="m-2 flex rounded-full bg-secondary-normal p-1 text-sm text-blue-900"
+            >
+              {{ source.exam_type }}|{{ source.period }}|{{ source.institution }}
+            </div>
+          </div>
           <router-link :to="{ name: 'Home' }" class="btn-close button">
             <Cross class="h-5 w-5"></Cross>
           </router-link>
@@ -97,7 +106,7 @@ const { isLoading } = useSolucionRef();
         <QuestionText :text="preguntas?.text"></QuestionText>
         <QuestionAlternatives
           :alternativas="preguntas?.alternatives"
-          :selectDisabled="selectDisabled"
+          :select-disabled="selectDisabled"
           @select-item="handleSelectClick"
         ></QuestionAlternatives>
         <div v-if="isLoading" class="flex items-center justify-center">

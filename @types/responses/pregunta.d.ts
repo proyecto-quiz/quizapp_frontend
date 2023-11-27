@@ -12,6 +12,11 @@ declare module '@@/types-response-pregunta' {
     id: string;
     name: string;
   };
+  type source={
+    institution: string;
+    period: string;
+    exam_type: string;
+  }
   // Pregunta Response
   type PreguntaResponse = {
     id: string;
@@ -19,6 +24,7 @@ declare module '@@/types-response-pregunta' {
     alternatives: alternatives[];
     topic: topic;
     course: course;
+    question_sources:[source]
   };
   export type UsePreguntaResponse = {
     pregunta: PreguntaResponse;
